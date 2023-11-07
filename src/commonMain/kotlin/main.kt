@@ -9,20 +9,34 @@ import korlibs.io.file.std.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 
-suspend fun main() = Korge(windowSize = Size(512, 512), backgroundColor = Colors["#2b2b2b"]) {
+suspend fun main() = Korge(windowSize = Size(800, 400), backgroundColor = Colors["#0063FF"], title = "Click Cat") {
 	val sceneContainer = sceneContainer()
 
-	sceneContainer.changeTo({ MyScene() })
+	sceneContainer.changeTo{ MyScene() }
 }
 
 class MyScene : Scene() {
 	override suspend fun SContainer.sceneMain() {
+        // moving clouds image code
+		val minDegrees = (-0.25).degrees
+		val maxDegrees = (+0.25).degrees
 
-		val image = image(resourcesVfs["korge.png"].readBitmap()) {
-
+		val cloudBackground = image(resourcesVfs["korge.webp"].readBitmap()) {
+			rotation = maxDegrees
 			anchor(.5, .5)
 			scale(1)
-			position(256, 256)
+			position(400, 200)
 		}
+
+
+        // cat image code
+
+        val cat = image(resourcesVfs["cat.webp"].readBitmap()) {
+            scale(0.125)
+            position(400,0)
+
+        }
+
+
 	}
 }
