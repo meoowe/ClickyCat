@@ -1,9 +1,3 @@
-# Korge Hello World and Template
+# ClickyCat
 
-This is a Hello World and Template for the KorGe game engine. Using gradle with kotlin-dsl.
-You can open this project in IntelliJ IDEA by opening the folder or the build.gradle.kts file.
-
-You can find this template at GitHub: <https://github.com/korlibs/korge-hello-world>
-
-
-You can find the KorGE documentation here: <https://docs.korge.org/korge/>
+This is a game about SCALEing obstacles such as mountains by clicking. Made using the Korge(https://korge.org/) game engine and made for Game Off 2023(https://itch.io/jam/game-off-2023)
