@@ -1,13 +1,15 @@
-import korlibs.time.*
-import korlibs.korge.*
-import korlibs.korge.scene.*
-import korlibs.korge.tween.*
-import korlibs.korge.view.*
 import korlibs.image.color.*
+import korlibs.image.color.Colors.ALICEBLUE
+import korlibs.image.color.Colors.RED
+import korlibs.image.font.*
 import korlibs.image.format.*
 import korlibs.io.file.std.*
+import korlibs.korge.*
+import korlibs.korge.scene.*
+import korlibs.korge.view.*
 import korlibs.math.geom.*
-import korlibs.math.interpolation.*
+
+// title screen
 
 suspend fun main() = Korge(windowSize = Size(800, 400), backgroundColor = Colors["#0063FF"], title = "Click Cat") {
 	val sceneContainer = sceneContainer()
@@ -33,10 +35,16 @@ class MyScene : Scene() {
 
         val cat = image(resourcesVfs["cat.webp"].readBitmap()) {
             scale(0.125)
-            position(400,0)
+            position(350,0)
 
         }
 
-
-	}
+        // text for title screen TODO:add PublicPixel font
+        val title = text("Clicky Cat") {
+            position(400,200)
+            color = RED
+            fontSize = 40.0
+            font = resourcesVfs["PublicPixel.ttf"].readTtfFont()
+        }
+        	}
 }
