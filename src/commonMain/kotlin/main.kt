@@ -1,5 +1,6 @@
+import korlibs.audio.sound.*
 import korlibs.image.color.*
-import korlibs.image.color.Colors.ALICEBLUE
+import korlibs.image.color.Colors.BLACK
 import korlibs.image.color.Colors.RED
 import korlibs.image.font.*
 import korlibs.image.format.*
@@ -23,7 +24,7 @@ class MyScene : Scene() {
 		val minDegrees = (-0.25).degrees
 		val maxDegrees = (+0.25).degrees
 
-		val cloudBackground = image(resourcesVfs["korge.webp"].readBitmap()) {
+		val cloudBackground = image(resourcesVfs["korge.png"].readBitmap()) {
 			rotation = maxDegrees
 			anchor(.5, .5)
 			scale(1)
@@ -39,12 +40,15 @@ class MyScene : Scene() {
 
         }
 
-        // text for title screen TODO:add PublicPixel font
+        /* text for title screen TODO:add PublicPixel font */
         val title = text("Clicky Cat") {
-            position(400,200)
-            color = RED
-            fontSize = 40.0
+            position(100,100)
+            color = BLACK
+            fontSize = 30.0
             font = resourcesVfs["PublicPixel.ttf"].readTtfFont()
         }
-        	}
+        val sound = resourcesVfs["Track.mp3"].readMusic() {}
+        sound.play(PlaybackTimes(5))
+
+    }
 }
