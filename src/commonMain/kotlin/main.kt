@@ -1,9 +1,6 @@
 import korlibs.audio.sound.*
 import korlibs.image.color.*
-import korlibs.image.color.Colors.ALICEBLUE
-import korlibs.image.color.Colors.BLACK
 import korlibs.image.color.Colors.LAWNGREEN
-import korlibs.image.color.Colors.RED
 import korlibs.image.font.*
 import korlibs.image.format.*
 import korlibs.io.file.std.*
@@ -12,7 +9,6 @@ import korlibs.korge.scene.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
-import GameScene
 import korlibs.korge.input.*
 
 // title screen
@@ -26,7 +22,7 @@ suspend fun main() = Korge(windowSize = Size(800, 400), backgroundColor = Colors
 class MyScene : Scene() {
 	override suspend fun SContainer.sceneMain() {
 
-		val cloudBackground = image(resourcesVfs["korge.png"].readBitmap()) {
+		val cloudBackground = image(resourcesVfs["img/korge.png"].readBitmap()) {
 			anchor(.5, .5)
 			scale(1)
 			position(400, 200)
@@ -35,7 +31,7 @@ class MyScene : Scene() {
 
         // cat image code
 
-       val cat = sprite(resourcesVfs["cat.png"].readBitmap()) {
+       val cat = sprite(resourcesVfs["img/cat.png"].readBitmap()) {
             scale(0.125)
             position(350,0)
 
@@ -55,8 +51,12 @@ class MyScene : Scene() {
             position(350,200)
 
         }
+        playButton.onClick{
+            sceneContainer.changeTo({MyScene()})
+            sceneDestroy()
+            println("called")
 
-        playButton.onClick{cat.position(350,10)}
+        }
         // play AI generated music
         val sound = resourcesVfs["Track.mp3"].readMusic()
         sound.play(infinitePlaybackTimes)
