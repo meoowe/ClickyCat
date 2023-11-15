@@ -52,7 +52,7 @@ class MyScene : Scene() {
 
         }
         playButton.onClick{
-            sceneContainer.changeTo({MyScene()})
+            sceneContainer.changeTo({GameScene()})
             sceneDestroy()
             println("called")
 
