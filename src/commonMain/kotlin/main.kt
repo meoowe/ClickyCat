@@ -13,25 +13,19 @@ import korlibs.korge.input.*
 
 // title screen
 
-suspend fun main() = Korge(windowSize = Size(800, 400), backgroundColor = Colors["#0063FF"], title = "Click Cat") {
-	val sceneContainer = sceneContainer()
-
-	sceneContainer.changeTo{ MyScene() }
-}
-
 class MyScene : Scene() {
-	override suspend fun SContainer.sceneMain() {
+    override suspend fun SContainer.sceneMain() {
 
-		val cloudBackground = image(resourcesVfs["img/korge.png"].readBitmap()) {
-			anchor(.5, .5)
-			scale(1)
-			position(400, 200)
-		}
+        val cloudBackground = image(resourcesVfs["img/korge.png"].readBitmap()) {
+            anchor(.5, .5)
+            scale(1)
+            position(400, 200)
+        }
 
 
         // cat image code
 
-       val cat = sprite(resourcesVfs["img/cat.png"].readBitmap()) {
+        val cat = sprite(resourcesVfs["img/cat.png"].readBitmap()) {
             scale(0.125)
             position(350,0)
 
@@ -54,7 +48,6 @@ class MyScene : Scene() {
         playButton.onClick{
             sceneContainer.changeTo({GameScene()})
             sceneDestroy()
-            println("called")
 
         }
         // play AI generated music
@@ -63,4 +56,10 @@ class MyScene : Scene() {
 
     }
 }
+suspend fun main() = Korge(windowSize = Size(800, 400), backgroundColor = Colors["#0063FF"], title = "Click Cat") {
+	val sceneContainer = sceneContainer()
+
+	sceneContainer.changeTo{ MyScene() }
+}
+
 
