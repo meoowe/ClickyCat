@@ -12,7 +12,11 @@ import korlibs.korge.view.*
 import korlibs.math.geom.*
 
 // title screen
+suspend fun main() = Korge(windowSize = Size(800, 400), backgroundColor = Colors["#0063FF"], title = "Click Cat") {
+    val sceneContainer = sceneContainer()
 
+    sceneContainer.changeTo { MyScene() }
+}
 class MyScene : Scene() {
     override suspend fun SContainer.sceneMain() {
 
@@ -45,22 +49,14 @@ class MyScene : Scene() {
             position(350, 200)
 
         }
+        val sound = resourcesVfs["Track.mp3"].readMusic()
+        sound.play(infinitePlaybackTimes)
+
         playButton.onClick {
             sceneContainer.changeTo({ GameScene() })
             sceneDestroy()
 
         }
-        // play AI generated music
-        val sound = resourcesVfs["Track.mp3"].readMusic()
-        sound.play(infinitePlaybackTimes)
 
     }
 }
-
-suspend fun main() = Korge(windowSize = Size(800, 400), backgroundColor = Colors["#0063FF"], title = "Click Cat") {
-    val sceneContainer = sceneContainer()
-
-    sceneContainer.changeTo { MyScene() }
-}
-
-
