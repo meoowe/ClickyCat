@@ -14,13 +14,14 @@ import korlibs.math.geom.*
 suspend fun window() = Korge(windowSize = Size(100, 400), backgroundColor = Colors["#FFFFFF"], title = "Click Cat") {
     val sceneContainer = sceneContainer()
 
-    sceneContainer.changeTo{ GameScene() }
+    sceneContainer.changeTo { GameScene() }
 }
 
 class GameScene : Scene() {
     override suspend fun SContainer.sceneInit() {
 
     }
+
     override suspend fun SContainer.sceneMain() {
         // @TODO: Main scene code here (after sceneInit)
         val quitButton = uiButton {
