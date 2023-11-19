@@ -12,16 +12,14 @@ import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 
-suspend fun window() = Korge(windowSize = Size(100, 400), backgroundColor = Colors["#00feff"], title = "Click Cat") {
+suspend fun window() = Korge(windowSize = Size(100, 400), backgroundColor = Colors["#2b2b2b"], title = "Click Cat") {
     val sceneContainer = sceneContainer()
 
     sceneContainer.changeTo { GameScene() }
 }
 
 class GameScene : Scene() {
-    override suspend fun SContainer.sceneInit() {
 
-    }
 
     override suspend fun SContainer.sceneMain() {
         // @TODO: Main scene code here (after sceneInit)
@@ -33,7 +31,7 @@ class GameScene : Scene() {
                         "\nwell if you can even call this stupid piece of code a game. \n oh it did quit. nevermind!" +
                         "Oh its just gone back to the title screen"
                 )*/
-                sceneContainer.changeTo {MyScene()}
+                sceneContainer.changeTo { TitleScreen() }
             }
             text = "quit"
         }
@@ -41,15 +39,15 @@ class GameScene : Scene() {
         if (input.keys.pressing(Key.SPACE)) {
             println("you pressed the space key! Well done")
         }
-        */
 
-        val sound = resourcesVfs["Track.mp3"].readMusic()
+         */
+
+        val sound = resourcesVfs["Track.mp3"].readSound()
         sound.play(infinitePlaybackTimes)
 
         val house = image(resourcesVfs["img/house.png"].readBitmap()) {
-           position(50, 70)
-           scale(0.125)
+            position(50, 70)
+            scale(0.125)
         }
     }
-
 }

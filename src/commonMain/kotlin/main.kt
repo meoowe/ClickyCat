@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_VARIABLE")
+
 import korlibs.audio.sound.*
 import korlibs.image.color.*
 import korlibs.image.color.Colors.LAWNGREEN
@@ -9,18 +11,19 @@ import korlibs.korge.input.*
 import korlibs.korge.scene.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
+import korlibs.korge.view.align.*
 import korlibs.math.geom.*
 
 // title screen
 suspend fun main() = Korge(windowSize = Size(800, 400), backgroundColor = Colors["#0063FF"], title = "Click Cat") {
     val sceneContainer = sceneContainer()
 
-    sceneContainer.changeTo { MyScene() }
+    sceneContainer.changeTo { TitleScreen() }
 }
-class MyScene : Scene() {
+class TitleScreen : Scene() {
     override suspend fun SContainer.sceneMain() {
 
-        val cloudBackground = image(resourcesVfs["img/korge.png"].readBitmap()) {
+        val cloudBackground = image(resourcesVfs["img/clouds.png"].readBitmap()) {
             anchor(.5, .5)
             scale(1)
             position(400, 200)
@@ -35,28 +38,23 @@ class MyScene : Scene() {
 
         }
 
-        /* text for title screen */
+
+        // text for title screen
         val title = text("Clicky Cat") {
-            position(50, 50)
+            centerXOnStage()
             color = LAWNGREEN
             fontSize = 30.0
             font = resourcesVfs["PublicPixel.ttf"].readTtfFont()
+
         }
 
         // play button TODO:implement scene change
 
-        val playButton = uiButton("Play") {
-            position(350, 200)
-
-        }
-        val sound = resourcesVfs["Track.mp3"].readMusic()
+        val playButton = uiButton("Play") { position(350, 200) }
+        val sound = resourcesVfs["Track.mp3"].readSound()
         sound.play(infinitePlaybackTimes)
 
-        playButton.onClick {
-            sceneContainer.changeTo({ GameScene() })
-            sceneDestroy()
-
-        }
+        playButton.onClick { sceneContainer.changeTo { GameScene() } }
 
     }
 }
