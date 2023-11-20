@@ -46,8 +46,13 @@ class GameScene : Scene() {
         sound.play(infinitePlaybackTimes)
 
         val house = image(resourcesVfs["img/house.png"].readBitmap()) {
-            position(50, 70)
+            position(50, 150)
             scale(0.125)
         }
+        val cat = sprite(resourcesVfs["img/cat.png"].readBitmap()) {
+            position(80,150)
+            scale(0.125)
+        }
+        val grass = "" //TODO:implement grass
     }
 }

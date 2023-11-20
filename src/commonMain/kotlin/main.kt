@@ -48,13 +48,15 @@ class TitleScreen : Scene() {
 
         }
 
-        // play button TODO:implement scene change
+        // play button
 
         val playButton = uiButton("Play") { position(350, 200) }
-        val sound = resourcesVfs["Track.mp3"].readSound()
-        sound.play(infinitePlaybackTimes)
-
         playButton.onClick { sceneContainer.changeTo { GameScene() } }
 
+        val quitButton = uiButton("Quit") { position(350, 250) }
+        quitButton.onClick { gameWindow.close() /*test if works*/ }
+
+        val sound = resourcesVfs["Track.mp3"].readSound()
+        sound.play(infinitePlaybackTimes)
     }
 }
