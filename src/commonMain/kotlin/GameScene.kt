@@ -11,8 +11,9 @@ import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 
-suspend fun window(): Unit = Korge(windowSize = Size(100, 600), backgroundColor = Colors["#2b2b2b"], title = "Click Cat") {
+suspend fun window(): Unit = Korge(windowSize = Size(100, 600), backgroundColor = Colors["#55a7ff"], title = "Click Cat") {
     val sceneContainer = sceneContainer()
+
 
     sceneContainer.changeTo { GameScene() }
 }
@@ -40,18 +41,22 @@ class GameScene : Scene() {
         sound.play(infinitePlaybackTimes)
 
         val house = image(resourcesVfs["img/house.png"].readBitmap()) {
-            position(50, 150)
+            position(50, 180)
             scale(0.125)
         }
-        val cat = sprite(resourcesVfs["img/cat.png"].readBitmap()) {
+        val cat = image(resourcesVfs["img/cat.png"].readBitmap()) {
             position(80,150)
             scale(0.125)
         }
-        val grass = sprite(resourcesVfs["img/grass1.png"].readBitmap()) {
+        val grass = image(resourcesVfs["img/grass1.png"].readBitmap()) {
             scale(1)
-            position(50,100)
+            position(50,10)
         }
 
-        cat.onClick {cat.x += 10.0}
+        cat.onClick {cat.x += 10.0; cat.y -= 1.0; house.x -= 0.5}
+        // TODO: fix edge detect/reset
+        if (cat.x.toInt() == gameWindow.width) {
+            println("edge touched")
+        }
     }
 }
