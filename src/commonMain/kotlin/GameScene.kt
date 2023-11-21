@@ -1,7 +1,6 @@
 @file:Suppress("unused", "UNUSED_VARIABLE")
 
 import korlibs.audio.sound.*
-import korlibs.event.*
 import korlibs.image.color.*
 import korlibs.image.format.*
 import korlibs.io.file.std.*
@@ -12,7 +11,7 @@ import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 
-suspend fun window() = Korge(windowSize = Size(100, 400), backgroundColor = Colors["#2b2b2b"], title = "Click Cat") {
+suspend fun window(): Unit = Korge(windowSize = Size(100, 600), backgroundColor = Colors["#2b2b2b"], title = "Click Cat") {
     val sceneContainer = sceneContainer()
 
     sceneContainer.changeTo { GameScene() }
@@ -28,19 +27,14 @@ class GameScene : Scene() {
             onClick {
                 /*println(
                     message = "the game didn't quit LOL" +
-                        "\nwell if you can even call this stupid piece of code a game. \n oh it did quit. nevermind!" +
+                        "\n well if you can even call this stupid piece of code a game. \n oh it did quit. nevermind!" +
                         "Oh its just gone back to the title screen"
                 )*/
                 sceneContainer.changeTo { TitleScreen() }
             }
-            text = "quit"
-        }
-        /* TODO: fix this
-        if (input.keys.pressing(Key.SPACE)) {
-            println("you pressed the space key! Well done")
+            text = "Quit To Title"
         }
 
-         */
 
         val sound = resourcesVfs["Track.mp3"].readSound()
         sound.play(infinitePlaybackTimes)
@@ -53,6 +47,11 @@ class GameScene : Scene() {
             position(80,150)
             scale(0.125)
         }
-        val grass = "" //TODO:implement grass
+        val grass = sprite(resourcesVfs["img/grass1.png"].readBitmap()) {
+            scale(1)
+            position(50,100)
+        }
+
+        cat.onClick {cat.x += 10.0}
     }
 }
