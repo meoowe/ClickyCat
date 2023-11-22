@@ -15,7 +15,7 @@ import korlibs.korge.view.align.*
 import korlibs.math.geom.*
 
 // title screen
-suspend fun main() = Korge(windowSize = Size(800, 400), backgroundColor = Colors["#0063FF"], title = "Click Cat") {
+suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors["#0063FF"], title = "Click Cat") {
     val sceneContainer = sceneContainer()
 
     sceneContainer.changeTo { TitleScreen() }

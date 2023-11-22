@@ -1,6 +1,7 @@
 @file:Suppress("unused", "UNUSED_VARIABLE")
 
 import korlibs.audio.sound.*
+import korlibs.event.*
 import korlibs.image.color.*
 import korlibs.image.format.*
 import korlibs.io.file.std.*
@@ -51,12 +52,14 @@ class GameScene : Scene() {
         val grass = image(resourcesVfs["img/grass1.png"].readBitmap()) {
             scale(1)
             position(50,10)
+
+        }
+        cat.onClick {cat.x += 10.0; cat.y -= 1.0; println(gameWindow.width);println(cat.x.toInt()) }
+            if (cat.x.toDouble() >= gameWindow.width.toDouble()) {
+               println(gameWindow.width.toString() + "hello")
+               println("you have reached end")
+            }
+        if (input.keys.pressing(Key.SPACE)) println("space")
         }
 
-        cat.onClick {cat.x += 10.0; cat.y -= 1.0; house.x -= 0.5}
-        // TODO: fix edge detect/reset
-        if (cat.x.toInt() == gameWindow.width) {
-            println("edge touched")
-        }
-    }
 }
