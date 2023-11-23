@@ -41,15 +41,15 @@ class GameScene : Scene() {
         val sound = resourcesVfs["Track.mp3"].readSound()
         sound.play(infinitePlaybackTimes)
 
-        val house = image(resourcesVfs["img/house.png"].readBitmap()) {
+        val house = sprite(resourcesVfs["img/house.png"].readBitmap()) {
             position(50, 180)
             scale(0.125)
         }
-        val cat = image(resourcesVfs["img/cat.png"].readBitmap()) {
+        val cat = sprite(resourcesVfs["img/cat.png"].readBitmap()) {
             position(80,150)
             scale(0.125)
         }
-        val grass = image(resourcesVfs["img/grass1.png"].readBitmap()) {
+        val grass = sprite(resourcesVfs["img/grass1.png"].readBitmap()) {
             scale(1)
             position(50,10)
 
@@ -59,7 +59,8 @@ class GameScene : Scene() {
                println(gameWindow.width.toString() + "hello")
                println("you have reached end")
             }
-        if (input.keys.pressing(Key.SPACE)) println("space")
+
+        if (input.keys.justReleased(Key.SPACE)) println("space")
         }
 
 }

@@ -1,6 +1,7 @@
 @file:Suppress("UNUSED_VARIABLE")
 
 import korlibs.audio.sound.*
+import korlibs.event.*
 import korlibs.image.color.*
 import korlibs.image.color.Colors.LAWNGREEN
 import korlibs.image.font.*
@@ -54,9 +55,13 @@ class TitleScreen : Scene() {
         playButton.onClick { sceneContainer.changeTo { GameScene() } }
 
         val quitButton = uiButton("Quit") { position(350, 250) }
-        quitButton.onClick { gameWindow.close() /*test if works*/ }
+        quitButton.onClick { gameWindow.close(0) /*test if works*/ }
 
         val sound = resourcesVfs["Track.mp3"].readSound()
         sound.play(infinitePlaybackTimes)
+
+        if (input.keys.pressing(Key.ESCAPE)) gameWindow.close(0)
     }
 }
+
+
