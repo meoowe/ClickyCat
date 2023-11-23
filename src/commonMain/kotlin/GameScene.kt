@@ -10,6 +10,7 @@ import korlibs.korge.input.*
 import korlibs.korge.scene.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
+import korlibs.korge.view.collision.*
 import korlibs.math.geom.*
 
 suspend fun window(): Unit = Korge(windowSize = Size(100, 600), backgroundColor = Colors["#55a7ff"], title = "Click Cat") {
@@ -24,43 +25,58 @@ class GameScene : Scene() {
 
     override suspend fun SContainer.sceneMain() {
         // @TODO: Main scene code here (after sceneInit)
-        val quitButton = uiButton {
+        val cloudBackground = image(resourcesVfs["img/clouds.png"].readBitmap()) {
+            anchor(.5, .5)
+            scale(1)
+            position(400, 200)
+        }
+        val optionButton = uiButton {
 
             onClick {
-                /*println(
-                    message = "the game didn't quit LOL" +
-                        "\n well if you can even call this stupid piece of code a game. \n oh it did quit. nevermind!" +
-                        "Oh its just gone back to the title screen"
-                )*/
-                sceneContainer.changeTo { TitleScreen() }
+                sceneContainer.changeTo { Options() }
             }
-            text = "Quit To Title"
+            text = "Options"
         }
 
 
         val sound = resourcesVfs["Track.mp3"].readSound()
         sound.play(infinitePlaybackTimes)
 
-        val house = sprite(resourcesVfs["img/house.png"].readBitmap()) {
-            position(50, 180)
+        val house = image(resourcesVfs["img/house.png"].readBitmap()) {
+            position(50, 200)
             scale(0.125)
         }
         val cat = sprite(resourcesVfs["img/cat.png"].readBitmap()) {
-            position(80,150)
+            position(100,200)
             scale(0.125)
         }
-        val grass = sprite(resourcesVfs["img/grass1.png"].readBitmap()) {
-            scale(1)
-            position(50,10)
-
+        val grass = image(resourcesVfs["img/grass2.png"].readBitmap()) {
+            scale(0.5)
+            positionY(4)
+            positionX(1)
         }
-        cat.onClick {cat.x += 10.0; cat.y -= 1.0; println(gameWindow.width);println(cat.x.toInt()) }
-            if (cat.x.toDouble() >= gameWindow.width.toDouble()) {
+        val othergrass = image(resourcesVfs["img/grass1.png"].readBitmap()) {
+            scale(0.5)
+            positionY(4)
+            positionX(280)
+        }
+        val dog = sprite(resourcesVfs["img/dog.png"].readBitmap()) {
+            position(80,200)
+            scale(0.125)
+            onCollision { println("Dog:collided") }
+        }
+        var height = 3.0
+        cat.onClick {cat.x += 10.0; cat.y -= height; println(gameWindow.width);println(cat.x.toInt());}
+            if (cat.x >= gameWindow.width.toDouble()) {
                println(gameWindow.width.toString() + "hello")
-               println("you have reached end")
+               println("you have reached the end")
             }
-
-        if (input.keys.justReleased(Key.SPACE)) println("space")
+        cat.onClick { println("cat:collided") }
+        val balloon = sprite(resourcesVfs["img/balloon"].readBitmap()) {
+            onClick { height *= 2 }
+        }
         }
 
-}
+
+
+        }
