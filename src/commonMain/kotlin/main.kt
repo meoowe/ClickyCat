@@ -1,6 +1,5 @@
 @file:Suppress("UNUSED_VARIABLE")
 
-import korlibs.audio.sound.*
 import korlibs.event.*
 import korlibs.image.color.*
 import korlibs.image.color.Colors.LAWNGREEN
@@ -23,7 +22,7 @@ suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors
 }
 class TitleScreen : Scene() {
     override suspend fun SContainer.sceneMain() {
-
+        var version = "24-11-2023_Unfinished"
         val cloudBackground = image(resourcesVfs["img/clouds.png"].readBitmap()) {
             anchor(.5, .5)
             scale(1)
@@ -56,10 +55,11 @@ class TitleScreen : Scene() {
 
         val quitButton = uiButton("Quit to Desktop") { position(350, 250) }
         quitButton.onClick { gameWindow.close(0) /*test if works*/ }
-
-        val sound = resourcesVfs["Track.mp3"].readSound()
-        sound.play(infinitePlaybackTimes)
-
+        //val sound = resourcesVfs["Track.mp3"].readSound()
+        //sound.play(infinitePlaybackTimes)
+        val verText = text("Version: $version") {stage?.let { alignBottomToBottomOf(it) }
+        fontSize = 10.0
+        }
         if (input.keys.pressing(Key.ESCAPE)) gameWindow.close(0)
     }
 }

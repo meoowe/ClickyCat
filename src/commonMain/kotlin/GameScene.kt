@@ -1,7 +1,6 @@
 @file:Suppress("unused", "UNUSED_VARIABLE")
 
 import korlibs.audio.sound.*
-import korlibs.event.*
 import korlibs.image.color.*
 import korlibs.image.format.*
 import korlibs.io.file.std.*
@@ -11,6 +10,7 @@ import korlibs.korge.scene.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.korge.view.collision.*
+import korlibs.logger.*
 import korlibs.math.geom.*
 
 suspend fun window(): Unit = Korge(windowSize = Size(100, 600), backgroundColor = Colors["#55a7ff"], title = "Click Cat") {
@@ -61,22 +61,31 @@ class GameScene : Scene() {
             positionX(280)
         }
         val dog = sprite(resourcesVfs["img/dog.png"].readBitmap()) {
-            position(80,200)
+            position(175,200)
             scale(0.125)
-            onCollision { println("Dog:collided") }
+            onCollision { Console.warn("Collided   ") }
         }
         var height = 3.0
+
+
         cat.onClick {cat.x += 10.0; cat.y -= height; println(gameWindow.width);println(cat.x.toInt());}
             if (cat.x >= gameWindow.width.toDouble()) {
                println(gameWindow.width.toString() + "hello")
                println("you have reached the end")
             }
         cat.onClick { println("cat:collided") }
-        val balloon = sprite(resourcesVfs["img/balloon"].readBitmap()) {
-            onClick { height *= 2 }
+        val balloon = sprite(resourcesVfs["img/balloon.png"].readBitmap()) {
+            onClick { height = 6.0 }
+            scale(0.125)
+            positionX(50)
         }
+        val mountain = image(resourcesVfs["img/mountain.png"].readBitmap()) {
+            scale(0.5)
+            position(300,10)
         }
 
+
+    }
 
 
         }
