@@ -8,7 +8,6 @@ import korlibs.image.color.Colors.LAWNGREEN
 import korlibs.image.color.Colors.ORANGE
 import korlibs.image.color.Colors.YELLOW
 import korlibs.image.font.*
-import korlibs.image.format.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
 import korlibs.korge.input.*
@@ -149,12 +148,12 @@ class GameScene : Scene() {
 class Options() : Scene() {
     override suspend fun SContainer.sceneMain() {
         // @TODO: Main scene code here (after sceneInit)
-        val cloudBackground = image(resourcesVfs["img/clouds.png"].readBitmap()) {
+        val cloudBackground = image(KR.img.clouds.read()) {
             anchor(.5, .5)
             scale(1)
             position(400, 200)
         }
-        val scroll = image(resourcesVfs["img/scroll.png"].readBitmap()) {
+        val scroll = image(KR.img.scroll.read()) {
 
             scale(0.5)
                 .centerOnStage()
