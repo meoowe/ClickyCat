@@ -27,7 +27,7 @@ suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors
 }
 class TitleScreen : Scene() {
     override suspend fun SContainer.sceneMain() {
-        var version = "25-11-2023_Unfinished"
+        val version = "25-11-2023_Unfinished@11PM"
         val cloudBackground = image(KR.img.clouds.read()) {
             anchor(.5, .5)
             scale(1)
@@ -110,20 +110,27 @@ class GameScene : Scene() {
             positionX(280)
         }
         val dog = sprite(KR.img.dog.read()) {
-            position(180,200)
+            position(90,200)
             scale(0.125)
-            collidesWith(clicky)
-            collidesWithShape(clicky)
-            onCollision() { Console.debug("collided") }
         }
+        if(dog.collidesWith(clicky)) {Console.debug("Dog: Collided")}
+
         var height = 3.0
-
-
-        clicky.onClick {clicky.x += 10.0; clicky.y -= height; println(gameWindow.width);println(clicky.x.toInt());}
-        if (clicky.x >= gameWindow.width.toDouble()) {
-            println(gameWindow.width.toString() + "hello")
-            println("you have reached the end")
+        var score = 0
+        val scoreDisplay = text("Score: $score") {position(675,0)
+            fontSize = 25.0
         }
+        fun moveCat() {
+            clicky.x += 10.0
+            clicky.y -= height
+            println(gameWindow.width)
+            println(clicky.x.toInt())
+            score += 1
+            scoreDisplay.text = "Score: $score"
+        }
+        clicky.onClick {moveCat()}
+        if (input.keys.pressing(Key.SPACE)) {moveCat()}
+
         val balloon = sprite(KR.img.balloon.read()) {
             onClick { height = 6.0 }
 
@@ -145,7 +152,7 @@ class GameScene : Scene() {
 
 
 
-class Options() : Scene() {
+class Options : Scene() {
     override suspend fun SContainer.sceneMain() {
         // @TODO: Main scene code here (after sceneInit)
         val cloudBackground = image(KR.img.clouds.read()) {
