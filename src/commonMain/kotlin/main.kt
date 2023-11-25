@@ -29,7 +29,7 @@ suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors
 class TitleScreen : Scene() {
     override suspend fun SContainer.sceneMain() {
         var version = "25-11-2023_Unfinished"
-        val cloudBackground = image(resourcesVfs["img/clouds.png"].readBitmap()) {
+        val cloudBackground = image(KR.img.clouds.read()) {
             anchor(.5, .5)
             scale(1)
             position(400, 200)
@@ -38,7 +38,7 @@ class TitleScreen : Scene() {
 
         // cat image code
 
-        val cat = sprite(resourcesVfs["img/cat.png"].readBitmap()) {
+        val cat = sprite(KR.img.cat.read()) {
             scale(0.125)
             position(350, 0)
 
@@ -92,25 +92,25 @@ class GameScene : Scene() {
 
 
 
-        val house = image(resourcesVfs["img/house.png"].readBitmap()) {
+        val house = image(KR.img.house.read()) {
             position(50, 200)
             scale(0.125)
         }
-        val clicky = sprite(resourcesVfs["img/cat.png"].readBitmap()) {
+        val clicky = sprite(KR.img.cat.read()) {
             position(100,200)
             scale(0.125)
         }
-        val grass = image(resourcesVfs["img/grass2.png"].readBitmap()) {
+        val grass = image(KR.img.grass1.read()) {
             scale(0.5)
             positionY(4)
             positionX(1)
         }
-        val othergrass = image(resourcesVfs["img/grass1.png"].readBitmap()) {
+        val othergrass = image(KR.img.grass2.read()) {
             scale(0.5)
             positionY(4)
             positionX(280)
         }
-        val dog = sprite(resourcesVfs["img/dog.png"].readBitmap()) {
+        val dog = sprite(KR.img.dog.read()) {
             position(180,200)
             scale(0.125)
             collidesWith(clicky)
@@ -125,16 +125,17 @@ class GameScene : Scene() {
             println(gameWindow.width.toString() + "hello")
             println("you have reached the end")
         }
-        val balloon = sprite(resourcesVfs["img/balloon.png"].readBitmap()) {
+        val balloon = sprite(KR.img.balloon.read()) {
             onClick { height = 6.0 }
 
             scale(0.125)
             positionX(50)
         }
-        val mountain = image(resourcesVfs["img/mountain.png"].readBitmap()) {
+        val mountain = image(KR.img.mountain.read()) {
             scale(0.5)
             position(250,20)
         }
+
         val music = resourcesVfs["music2.mp3"].readSound()
         music.play(infinitePlaybackTimes)
 
