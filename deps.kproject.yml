@@ -1,2 +1,3 @@
 dependencies:
 - https://github.com/korlibs/korge-ext/tree/v0.1.2/korge-collision##de29df486b4cf755a5ab32b35a64c06f9f7722d0
+- https://github.com/korlibs/korge-box2d/tree/v0.1.2/korge-box2d##b1737ab3985c0bd3e2f002346ff2ac43ca1ebf48

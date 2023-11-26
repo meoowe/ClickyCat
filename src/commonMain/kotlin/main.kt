@@ -29,23 +29,13 @@ suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors
 }
 class TitleScreen : Scene() {
     override suspend fun SContainer.sceneMain() {
-        val version = "26-11-2023_Unfinished@9AM"
-        val cloudBackground = image(KR.img.clouds.read()) {
+        val version = "26-11-2023_Unfinished@7PM"
+        val clickSound = resourcesVfs["click.mp3"].readSound()
+        val cover = image(KR.img.cover.read()) {
             anchor(.5, .5)
             scale(1)
             position(400, 200)
         }
-
-
-        // cat image code
-
-        val cat = sprite(KR.img.cat.read()) {
-            scale(0.125)
-            position(350, 0)
-
-        }
-
-
         // text for title screen
         val title = text("Clicky the Cat") {
             positionX(150)
@@ -54,14 +44,14 @@ class TitleScreen : Scene() {
             font = resourcesVfs["PublicPixel.ttf"].readTtfFont()
 
         }
-
         // play button
-
         val playButton = uiButton("Play") { position(350, 200) }
-        playButton.onClick { sceneContainer.changeTo { GameScene() } }
+        playButton.onClick { sceneContainer.changeTo { GameScene()} }
+        playButton.onClick { clickSound.play() }
 
         val quitButton = uiButton("Quit to Desktop") { position(350, 250) }
         quitButton.onClick { gameWindow.close(0)  }
+        onClick { clickSound.play() }
 
         val verText = text("Version: $version") {stage?.let { alignBottomToBottomOf(it) }
         fontSize = 10.0
@@ -69,33 +59,25 @@ class TitleScreen : Scene() {
         if (input.keys.justPressed(Key.ESCAPE)) gameWindow.close(0)
     }
 }
+
+
+
+
+
 class GameScene : Scene() {
-
-
     override suspend fun SContainer.sceneMain() {
-        // @TODO: Main scene code here (after sceneInit)
-        /*
-        val cloudBackground = image(resourcesVfs["img/clouds.png"].readBitmap()) {
-            anchor(.5, .5)
-            scale(1)
-            position(400, 200)
-
-        }
-         */
+        val clickSound = resourcesVfs["click.mp3"].readSound()
         val optionButton = uiButton {
-
             onClick {
                 sceneContainer.changeTo { Options() }
+                clickSound.play()
             }
             text = "Options"
         }
         val time = 30.seconds
 
-
-
-
         val house = image(KR.img.house.read()) {
-            position(-6,200)
+            position(-32,200)
             scale(0.125)
         }
         val clicky = sprite(KR.img.cat.read()) {
@@ -107,16 +89,17 @@ class GameScene : Scene() {
             positionY(4)
             positionX(1)
         }
-        val othergrass = image(KR.img.grass2.read()) {
+        val otherGrass = image(KR.img.grass2.read()) {
             scale(0.5)
             positionY(4)
             positionX(280)
         }
-        val dog = sprite(KR.img.dog.read()) {
-            position(90,200)
+        val bark = sprite(KR.img.dog.read()) {
+            position(90,195)
             scale(0.125)
+            rotation = 16.degrees
         }
-        if(dog.collidesWith(clicky)) {Console.debug("Dog: Collided")}
+        if(bark.collidesWith(clicky)) {Console.debug("Bark: Collided")}
 
         var height = 3.0
         var score = 0
@@ -131,6 +114,7 @@ class GameScene : Scene() {
             println(clicky.x.toInt())
             score += scoreAmount
             scoreDisplay.text = "Score: $score"
+            bark
         }
         clicky.onClick {moveCat()}
         if (input.keys.justReleased(Key.SPACE)) {moveCat()}
@@ -145,6 +129,7 @@ class GameScene : Scene() {
             balloon.visible = false
             scoreAmount = 1
             height = 3.0
+
         }
         balloon.interval(1.minutes) {
             balloon.visible = true
@@ -158,16 +143,36 @@ class GameScene : Scene() {
 
         val music = resourcesVfs["music2.mp3"].readSound()
         music.play(infinitePlaybackTimes)
+        val tutorialText = uiText("Hello there, welcome to ClickyCat") {
+            centerOnStage()
 
+        }
+        val continueText = uiText("Click to continue") {
+            centerXOnStage()
+            positionY(30)
+        }
+        tutorialText.onClick { continueText.visible = false ;tutorialText.text = "The Brown Bark (will be) chasing you"}
+        continueText.interval(20.seconds) {
+            continueText.visible = true
+            tutorialText.onClick { continueText.visible = false ;tutorialText.text = "The Brown Dog named Bark will be chasing you"}
+            continueText.onClick { continueText.visible = false ;tutorialText.text = "The Brown Dog named Bark will be chasing you"}
+        }
+        
     }
+
 
 
 }
 
 
 
+
+
+
+
 class Options : Scene() {
     override suspend fun SContainer.sceneMain() {
+        val clickSound = resourcesVfs["click.mp3"].readSound()
         // @TODO: Main scene code here (after sceneInit)
         val cloudBackground = image(KR.img.clouds.read()) {
             anchor(.5, .5)
@@ -184,6 +189,7 @@ class Options : Scene() {
 
             onClick {
                 sceneContainer.changeTo { TitleScreen() }
+                clickSound.play()
             }
             text = "Quit To Title"
             centerXOnStage()
@@ -194,13 +200,14 @@ class Options : Scene() {
 
         }
         val back = uiButton {
-            onClick { sceneContainer.changeTo{GameScene()}}
+            onClick { sceneContainer.changeTo{GameScene()}; clickSound.play()}
             text = "Back To Game"
             centerXOnStage()
             positionY(225)
             bgColorOut = ORANGE
             bgColorOver = YELLOW
             textColor = BLACK
+
         }
         val sound = resourcesVfs["music2.mp3"].readSound()
         sound.play(infinitePlaybackTimes)
