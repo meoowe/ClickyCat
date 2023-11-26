@@ -12,12 +12,14 @@ import korlibs.io.file.std.*
 import korlibs.korge.*
 import korlibs.korge.input.*
 import korlibs.korge.scene.*
+import korlibs.korge.time.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.korge.view.collision.*
 import korlibs.logger.*
 import korlibs.math.geom.*
+import korlibs.time.*
 
 // title screen
 suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors["#0063FF"], title = "Click Cat") {
@@ -27,7 +29,7 @@ suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors
 }
 class TitleScreen : Scene() {
     override suspend fun SContainer.sceneMain() {
-        val version = "25-11-2023_Unfinished@11PM"
+        val version = "26-11-2023_Unfinished@9AM"
         val cloudBackground = image(KR.img.clouds.read()) {
             anchor(.5, .5)
             scale(1)
@@ -59,7 +61,7 @@ class TitleScreen : Scene() {
         playButton.onClick { sceneContainer.changeTo { GameScene() } }
 
         val quitButton = uiButton("Quit to Desktop") { position(350, 250) }
-        quitButton.onClick { gameWindow.close(0) /*test if works*/ }
+        quitButton.onClick { gameWindow.close(0)  }
 
         val verText = text("Version: $version") {stage?.let { alignBottomToBottomOf(it) }
         fontSize = 10.0
@@ -87,16 +89,17 @@ class GameScene : Scene() {
             }
             text = "Options"
         }
+        val time = 30.seconds
 
 
 
 
         val house = image(KR.img.house.read()) {
-            position(50, 200)
+            position(-6,200)
             scale(0.125)
         }
         val clicky = sprite(KR.img.cat.read()) {
-            position(100,200)
+            position(220,200)
             scale(0.125)
         }
         val grass = image(KR.img.grass1.read()) {
@@ -120,26 +123,37 @@ class GameScene : Scene() {
         val scoreDisplay = text("Score: $score") {position(675,0)
             fontSize = 25.0
         }
+        var scoreAmount = 1
         fun moveCat() {
             clicky.x += 10.0
             clicky.y -= height
             println(gameWindow.width)
             println(clicky.x.toInt())
-            score += 1
+            score += scoreAmount
             scoreDisplay.text = "Score: $score"
         }
         clicky.onClick {moveCat()}
-        if (input.keys.pressing(Key.SPACE)) {moveCat()}
+        if (input.keys.justReleased(Key.SPACE)) {moveCat()}
 
         val balloon = sprite(KR.img.balloon.read()) {
-            onClick { height = 6.0 }
+            onClick { height = 6.0;scoreAmount = 2 }
 
             scale(0.125)
             positionX(50)
         }
+        balloon.interval(20.seconds) {
+            balloon.visible = false
+            scoreAmount = 1
+            height = 3.0
+        }
+        balloon.interval(1.minutes) {
+            balloon.visible = true
+            val randomPos = (50..700).random()
+            balloon.positionX(randomPos)
+        }
         val mountain = image(KR.img.mountain.read()) {
             scale(0.5)
-            position(250,20)
+            position(250,40)
         }
 
         val music = resourcesVfs["music2.mp3"].readSound()
