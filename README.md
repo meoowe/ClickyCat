@@ -9,4 +9,5 @@ This is a game about scaling obstacles such as mountains by clicking. Made using
 
 # Credits
 **Meoowe** - Programming, Music,
+
 **LeoNunk** - Art, Name
