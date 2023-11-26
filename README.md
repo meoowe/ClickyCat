@@ -5,4 +5,8 @@ This is a game about scaling obstacles such as mountains by clicking. Made using
 - IntelliJ Idea CE
 - Github
 - MuseScore (for music creation)
-  
+
+
+# Credits
+**Meoowe** - Programming, Music,
+**LeoNunk** - Art, Name
