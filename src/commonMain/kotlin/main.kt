@@ -8,6 +8,7 @@ import korlibs.image.color.Colors.LAWNGREEN
 import korlibs.image.color.Colors.ORANGE
 import korlibs.image.color.Colors.YELLOW
 import korlibs.image.font.*
+import korlibs.image.format.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
 import korlibs.korge.input.*
@@ -94,7 +95,7 @@ class GameScene : Scene() {
             positionY(4)
             positionX(280)
         }
-        val bark = sprite(KR.img.dog.read()) {
+        var bark = sprite(KR.img.dog.read()) {
             position(90,195)
             scale(0.125)
             rotation = 16.degrees
@@ -114,13 +115,19 @@ class GameScene : Scene() {
             println(clicky.x.toInt())
             score += scoreAmount
             scoreDisplay.text = "Score: $score"
-            bark
+
         }
-        clicky.onClick {moveCat()}
+        clicky.onClick {moveCat()
+            val bark = sprite(resourcesVfs["img/dog_barking.png"].readBitmap()) {
+                position(90,195)
+                scale(0.125)
+                rotation = 16.degrees
+            }
+        }
         if (input.keys.justReleased(Key.SPACE)) {moveCat()}
+        onClick { height = 6.0;scoreAmount = 2 }
 
         val balloon = sprite(KR.img.balloon.read()) {
-            onClick { height = 6.0;scoreAmount = 2 }
 
             scale(0.125)
             positionX(50)
@@ -151,11 +158,12 @@ class GameScene : Scene() {
             centerXOnStage()
             positionY(30)
         }
-        tutorialText.onClick { continueText.visible = false ;tutorialText.text = "The Brown Bark (will be) chasing you"}
+        tutorialText.onClick { continueText.visible = false ;tutorialText.text = "The Brown Dog named Bark will be chasing you"}
         continueText.interval(20.seconds) {
             continueText.visible = true
             tutorialText.onClick { continueText.visible = false ;tutorialText.text = "The Brown Dog named Bark will be chasing you"}
             continueText.onClick { continueText.visible = false ;tutorialText.text = "The Brown Dog named Bark will be chasing you"}
+
         }
         
     }
@@ -212,7 +220,6 @@ class Options : Scene() {
         val sound = resourcesVfs["music2.mp3"].readSound()
         sound.play(infinitePlaybackTimes)
     }
-
 
 
 }
