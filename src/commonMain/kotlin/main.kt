@@ -8,7 +8,6 @@ import korlibs.image.color.Colors.LAWNGREEN
 import korlibs.image.color.Colors.ORANGE
 import korlibs.image.color.Colors.YELLOW
 import korlibs.image.font.*
-import korlibs.image.format.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
 import korlibs.korge.input.*
@@ -30,7 +29,7 @@ suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors
 }
 class TitleScreen : Scene() {
     override suspend fun SContainer.sceneMain() {
-        val version = "26-11-2023_Unfinished@7PM"
+        val version = "30-11-2023_Unfinished@10PM-2DAYS"
         val clickSound = resourcesVfs["click.mp3"].readSound()
         val cover = image(KR.img.cover.read()) {
             anchor(.5, .5)
@@ -82,7 +81,7 @@ class GameScene : Scene() {
             scale(0.125)
         }
         val clicky = sprite(KR.img.cat.read()) {
-            position(220,200)
+            position(250,200)
             scale(0.125)
         }
         val grass = image(KR.img.grass1.read()) {
@@ -95,36 +94,17 @@ class GameScene : Scene() {
             positionY(4)
             positionX(280)
         }
-        var bark = sprite(KR.img.dog.read()) {
+        val bark = sprite(KR.img.dog.read()) {
             position(90,195)
             scale(0.125)
             rotation = 16.degrees
         }
-        if(bark.collidesWith(clicky)) {Console.debug("Bark: Collided")}
-
         var height = 3.0
         var score = 0
         val scoreDisplay = text("Score: $score") {position(675,0)
             fontSize = 25.0
         }
         var scoreAmount = 1
-        fun moveCat() {
-            clicky.x += 10.0
-            clicky.y -= height
-            println(gameWindow.width)
-            println(clicky.x.toInt())
-            score += scoreAmount
-            scoreDisplay.text = "Score: $score"
-
-        }
-        clicky.onClick {moveCat()
-            val bark = sprite(resourcesVfs["img/dog_barking.png"].readBitmap()) {
-                position(90,195)
-                scale(0.125)
-                rotation = 16.degrees
-            }
-        }
-        if (input.keys.justReleased(Key.SPACE)) {moveCat()}
         onClick { height = 6.0;scoreAmount = 2 }
 
         val balloon = sprite(KR.img.balloon.read()) {
@@ -165,12 +145,27 @@ class GameScene : Scene() {
             continueText.onClick { continueText.visible = false ;tutorialText.text = "The Brown Dog named Bark will be chasing you"}
 
         }
-        
+        bark.speed = 2.0
+        balloon.onClick { height = 6.0;scoreAmount = 2 }
+        fun moveCat() {
+            if (/*Implement*/clicky.x.toInt() != 780) {
+                clicky.x += 10.0
+                clicky.y -= height
+                println(gameWindow.width)
+                println(clicky.x.toInt())
+                score += scoreAmount
+                scoreDisplay.text = "Score: $score"
+            }
+            else {
+                Console.trace("Game won!!!! Score:$score")
+            }
+        }
+        clicky.onClick {moveCat() }
+        addUpdater {
+            if (input.keys.justPressed(Key.SPACE)) moveCat()
+        }
+        if(bark.collidesWith(clicky)) { Console.debug("Bark: Collided")}
     }
-
-
-
-}
 
 
 
@@ -222,7 +217,7 @@ class Options : Scene() {
     }
 
 
-}
+}}
 
 
 
