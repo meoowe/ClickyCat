@@ -1,5 +1,4 @@
 # ClickyCat
-# ⚠️⚠️Submit Today @ 9:28PM 🤞⚠️⚠️
 This is a game about scaling obstacles such as mountains by clicking. 
 
 # Story
