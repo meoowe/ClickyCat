@@ -67,7 +67,7 @@ class TitleScreen : Scene() {
             fontSize = 15.0
         }
         val creditsButton = uiButton {
-            onClick { sceneContainer.changeTo { Credits() }; clickSound.play() }
+            onClick { sceneContainer.changeTo { Winningscreen.Credits() }; clickSound.play() }
             text = "Credits"
             stage?.let { alignRightToRightOf(it) }
             stage?.let {alignBottomToBottomOf(it)}
@@ -235,7 +235,7 @@ class GameScene : Scene() {
                 fontSize = 20.0
             }
             val creditsButton = uiButton {
-                onClick { sceneContainer.changeTo { Credits() }; clickSound.play() }
+                onClick { sceneContainer.changeTo { Winningscreen.Credits() }; clickSound.play() }
                 text = "Credits"
                 stage?.let { alignRightToRightOf(it) }
                 centerXOnStage()
@@ -258,10 +258,14 @@ class Winningscreen : Scene() {
             centerYOnStage()
             font = KR.publicpixel.read()
         }
-        val continueText = text("Press ENTER to continue") {
+        val continueText = text("Press ENTER or button to continue") {
             centerXOnStage()
             positionY(200)
             font = KR.publicpixel.read()
+        }
+        val continueButton = uiButton() {
+            text = "Continue"
+            onClick { sceneContainer.changeTo { TitleScreen() }
         }
         continueText.interval(2.seconds) {
             continueText.visible = !continueText.visible
@@ -326,7 +330,7 @@ class Credits : Scene() {
     }
 
 
-}
+}}
 
 
 
