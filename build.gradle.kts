@@ -5,7 +5,7 @@ plugins {
 }
 
 korge {
-	id = "com.sample.demo"
+	id = "com.meoowe.clickycat"
 
 // To enable all targets at once
 
@@ -17,14 +17,13 @@ korge {
 // To selectively enable targets
     targetJvm()
     targetJs()
-    targetIos()
+    //targetIos()
     targetAndroid()
 	serializationJson()
 }
 
 
 dependencies {
-    //add("commonMainApi", project(":deps"))
-    //add("commonMainApi", project(":korge-dragonbones"))
+    add("commonMainApi", project(":deps"))
 }
 
