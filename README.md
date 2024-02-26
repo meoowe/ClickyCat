@@ -21,4 +21,4 @@ This is a terrible game please don't try it
 **LeoNunk** - Art, Name, Story
 
 # Itch.io page
-<a href="https://meoowe.itch.io/clicky-cat">here</a>
+<a href="https://meoowe.itch.io/clicky-cat">Clicky Cat by meoowe</a>
