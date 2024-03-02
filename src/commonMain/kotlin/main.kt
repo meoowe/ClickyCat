@@ -134,7 +134,7 @@ class GameScene : Scene() {
             moveDog()
         }
         addUpdater {
-            if (input.keys.justPressed(Key.SPACE))launch(coroutineContext) {moveCat();moveDog();catHasMoved = true;bark.playAnimationLooped()}
+            if (input.keys.justPressed(Key.SPACE))launch(coroutineContext) {moveCat();catHasMoved = true;bark.playAnimationLooped()}
         }
         addUpdater {
             if(catHasMoved)
@@ -154,6 +154,7 @@ class GameScene : Scene() {
             bark.tween(bark::rotation[(-2).degrees], time = 1.seconds, easing = Easing.EASE_IN_OUT)
 
         }
+
 
     }}
 
