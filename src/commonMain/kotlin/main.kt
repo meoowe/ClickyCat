@@ -134,7 +134,7 @@ class GameScene : Scene() {
             moveDog()
         }
         addUpdater {
-            if (input.keys.justPressed(Key.SPACE))launch(coroutineContext) {moveCat();moveDog();catHasMoved = true}
+            if (input.keys.justPressed(Key.SPACE))launch(coroutineContext) {moveCat();moveDog();catHasMoved = true;bark.playAnimationLooped()}
         }
         addUpdater {
             if(catHasMoved)
