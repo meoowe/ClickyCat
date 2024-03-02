@@ -6,6 +6,7 @@ import korlibs.image.color.*
 import korlibs.image.color.Colors.BLACK
 import korlibs.image.color.Colors.ORANGE
 import korlibs.image.color.Colors.YELLOW
+import korlibs.image.format.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
 import korlibs.korge.input.*
@@ -17,7 +18,7 @@ import korlibs.korge.view.align.*
 import korlibs.korge.view.collision.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
-import korlibs.time.seconds
+import korlibs.time.*
 import kotlinx.coroutines.*
 
 // title screen
@@ -39,7 +40,6 @@ const val volume = 100.0
 
 class GameScene : Scene() {
     override suspend fun SContainer.sceneMain() {
-
         val clickSound = resourcesVfs["click.mp3"].readSound()
         val optionButton = uiButton {
             onClick {
@@ -68,11 +68,21 @@ class GameScene : Scene() {
             positionY(4)
             positionX(280)
         }
-        val barkimage = KR.img.dogBarking
-        val bark = sprite(barkimage.read()) {
+        val dogSpriteMap = resourcesVfs["img/DogBark.png"].readBitmap()
+        val dogAnimation = SpriteAnimation(
+            spriteMap = dogSpriteMap,
+            spriteWidth = 1024,
+            spriteHeight = 895,
+            marginTop = 0,
+            marginLeft = 0,
+            columns = 2,
+            rows = 8,
+            offsetBetweenColumns = 0,
+            offsetBetweenRows = 0,
+        )
+        val bark = sprite(dogAnimation) {
             position(40, 215)
             scale(0.125)
-
         }
         var clickAmount = 0
         val scoreDisplay = text("Score: $score") {
@@ -86,6 +96,8 @@ class GameScene : Scene() {
             scale(0.5)
             position(290, -100)
         }
+        val barkSound = resourcesVfs["bark.mp3"].readSound()
+        barkSound.play(infinitePlaybackTimes)
         fun moveDog() {
             if (bark.x.toInt() != 640) {
                 bark.x += 2.0
@@ -113,11 +125,13 @@ class GameScene : Scene() {
             }
 
         }
+
         var catHasMoved = false
         clicky.onClick {
-                catHasMoved = true
-                moveCat()
-                moveDog()
+            bark.playAnimationLooped()
+            catHasMoved = true
+            moveCat()
+            moveDog()
         }
         addUpdater {
             if (input.keys.justPressed(Key.SPACE))launch(coroutineContext) {moveCat();moveDog();catHasMoved = true}
@@ -135,14 +149,10 @@ class GameScene : Scene() {
             scale = 0.125
             position(600,-35)
         }
-        clicky.onCollision( { it == luna }){
-            launch(coroutineContext) {
-                sceneContainer.changeTo{Winningscreen()}
-            }
-        }
         while(true) {
             bark.tween(bark::rotation[2.degrees], time = 1.seconds, easing = Easing.EASE_IN_OUT)
             bark.tween(bark::rotation[(-2).degrees], time = 1.seconds, easing = Easing.EASE_IN_OUT)
+
         }
 
     }}
@@ -199,9 +209,6 @@ class GameScene : Scene() {
                 bgColorOver = YELLOW
                 textColor = BLACK
 
-            }
-            val volumeSlider = uiSlider(value = 100, min = 0, max = 100) {
-                TODO("Not yet implemented")
             }
         }
 
