@@ -97,7 +97,6 @@ class GameScene : Scene() {
             position(290, -100)
         }
         val barkSound = resourcesVfs["bark.mp3"].readSound()
-        barkSound.play(infinitePlaybackTimes)
         fun moveDog() {
             if (bark.x.toInt() != 640) {
                 bark.x += 2.0
@@ -132,6 +131,7 @@ class GameScene : Scene() {
             catHasMoved = true
             moveCat()
             moveDog()
+            barkSound.play(infinitePlaybackTimes)
         }
         addUpdater {
             if (input.keys.justPressed(Key.SPACE))launch(coroutineContext) {moveCat();catHasMoved = true;bark.playAnimationLooped()}
