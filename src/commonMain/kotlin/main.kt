@@ -27,11 +27,12 @@ suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors
 //TODO: Make the volume adjustable
     sceneContainer.changeTo { TitleScreen() }
     val sound = resourcesVfs["music2.mp3"].readSound()
-    sound.play(infinitePlaybackTimes)
-    addUpdater { sound.volume = volume }
-}
+        if (playMusic) {
+            sound.play(infinitePlaybackTimes)
+        }
+    }
 var score = 0
-const val volume = 100.0
+var playMusic = true
 
 
 
@@ -122,6 +123,9 @@ class GameScene : Scene() {
                 }
 
             }
+            if(score == 10) {
+                clicky.y -= 10
+            }
 
         }
 
@@ -131,10 +135,15 @@ class GameScene : Scene() {
             catHasMoved = true
             moveCat()
             moveDog()
-            barkSound.play(infinitePlaybackTimes)
+            barkSound.play()
         }
         addUpdater {
-            if (input.keys.justPressed(Key.SPACE))launch(coroutineContext) {moveCat();catHasMoved = true;bark.playAnimationLooped()}
+            if (input.keys.justPressed(Key.SPACE))launch(coroutineContext) {
+                moveCat()
+                catHasMoved = true
+                bark.playAnimationLooped()
+                barkSound.play()
+            }
         }
         addUpdater {
             if(catHasMoved)
@@ -233,7 +242,7 @@ class Winningscreen : Scene() {
         }
         val trophy = sprite(KR.img.trophy.read()) {
             scale = 0.125
-            position(500,-35)
+            position(500,0)
         }
             addUpdater {
                 if (input.keys.justPressed(Key.ENTER))launch(coroutineContext) {  sceneContainer.changeTo { TitleScreen() }}
@@ -284,7 +293,11 @@ class Credits : Scene() {
 }
 class LoosingScreen : Scene() {
     override suspend fun SContainer.sceneMain() {
-
+        val loosingImage = image(KR.img.lost.read()){
+            anchor(.5, .5)
+            scale(1)
+            position(400, 200)
+        }
         val looseText = text("You have lost with a score of $score!") {
             centerYOnStage()
             font = KR.publicpixel.read()
