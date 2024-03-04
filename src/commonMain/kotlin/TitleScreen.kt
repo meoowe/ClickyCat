@@ -10,7 +10,7 @@ import korlibs.korge.view.align.*
 
 class TitleScreen() : Scene() {
     override suspend fun SContainer.sceneInit() {
-        val version = "1.1.0-RELEASE_24.2.2024"
+        val version = "1.1.9-DEV_4.3.2024"
         val verText = text("Version: $version") {stage?.let { alignBottomToBottomOf(it);fontSize = 15.0 }}
         val clickSound = resourcesVfs["click.mp3"].readSound()
         val background = image(KR.img.cover.read()) { anchor(.5, .5);scale(1);position(400, 200) }
