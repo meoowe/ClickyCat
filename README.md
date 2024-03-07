@@ -16,7 +16,6 @@ Made for Game Off 2023(https://itch.io/jam/game-off-2023)
 **Meoowe** - Programming, Music,
 **LeoNunk** - Art, Name
  
-This is a terrible game please don't try it
 
 **LeoNunk** - Art, Name, Story
 
