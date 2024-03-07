@@ -137,12 +137,13 @@ class GameScene : Scene() {
             bark.playAnimationLooped()
             catHasMoved = true
             moveCat()
-            //moveDog()
+            moveDog()
             barkSound.play()
         }
         addUpdater {
             if (input.keys.justPressed(Key.SPACE))launch(coroutineContext) {
                 moveCat()
+                moveDog()
                 catHasMoved = true
                 bark.playAnimationLooped()
                 barkSound.play()
@@ -151,7 +152,7 @@ class GameScene : Scene() {
         }
         addUpdater {
             if(catHasMoved) {
-                //moveDog()
+                moveDog()
             }
         }
         bark.onCollision({it == clicky}) {
