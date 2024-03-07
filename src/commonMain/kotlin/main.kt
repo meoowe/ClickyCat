@@ -25,7 +25,9 @@ import kotlinx.coroutines.*
 suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors["#0063FF"], title = "Click Cat") {
     val sceneContainer = sceneContainer()
 //TODO: Make the volume adjustable
-    sceneContainer.changeTo { TitleScreen() }
+    sceneContainer.changeTo {
+        TitleScreen()
+    }
     val sound = resourcesVfs["music2.mp3"].readSound()
         if (playMusic) {
             sound.play(infinitePlaybackTimes)
@@ -44,7 +46,9 @@ class GameScene : Scene() {
         val clickSound = resourcesVfs["click.mp3"].readSound()
         val optionButton = uiButton {
             onClick {
-                sceneContainer.changeTo { Options() }
+                sceneContainer.changeTo {
+                    Options()
+                }
                 clickSound.play()
             }
             text = "Options"
@@ -80,6 +84,7 @@ class GameScene : Scene() {
             rows = 8,
             offsetBetweenColumns = 0,
             offsetBetweenRows = 0,
+
         )
         val bark = sprite(dogAnimation) {
             position(40, 215)
@@ -104,14 +109,16 @@ class GameScene : Scene() {
                 bark.y -= 1
             }else {
                 launch(coroutineContext) {
-                    sceneContainer.changeTo { Winningscreen() }
+                    sceneContainer.changeTo {
+                        Winningscreen()
+                    }
                 }
 
             }
         }
         fun moveCat() {
 
-            if (clicky.x.toInt() != 640) {
+            if (clicky.x.toInt() != 645) {
                 clicky.x += 25.0
                 clicky.y -= 8
                 clickAmount += 1
@@ -119,14 +126,10 @@ class GameScene : Scene() {
                 scoreDisplay.text = "Score: $score"
             } else {
                 launch(coroutineContext) {
-                    sceneContainer.changeTo { Winningscreen() }
+                    //sceneContainer.changeTo { Winningscreen() }
                 }
 
             }
-            if(score == 10) {
-                clicky.y -= 10
-            }
-
         }
 
         var catHasMoved = false
@@ -134,7 +137,7 @@ class GameScene : Scene() {
             bark.playAnimationLooped()
             catHasMoved = true
             moveCat()
-            moveDog()
+            //moveDog()
             barkSound.play()
         }
         addUpdater {
@@ -143,15 +146,19 @@ class GameScene : Scene() {
                 catHasMoved = true
                 bark.playAnimationLooped()
                 barkSound.play()
+
             }
         }
         addUpdater {
-            if(catHasMoved)
-            moveDog()
+            if(catHasMoved) {
+                //moveDog()
+            }
         }
         bark.onCollision({it == clicky}) {
             launch(coroutineContext) {
-                sceneContainer.changeTo{LoosingScreen()}
+                sceneContainer.changeTo{
+                    LoosingScreen()
+                }
             }
         }
         val luna = sprite(KR.img.luna.read()) {
@@ -159,13 +166,35 @@ class GameScene : Scene() {
             position(600,-35)
         }
         while(true) {
+            // Why did I make this catastrophe?
+            when(clicky.x.toInt()) {
+                245 -> clicky.y = 200.0
+                270 -> clicky.y = 200.0
+                295 -> clicky.y = 171.0
+                345 -> clicky.y = 152.0
+                320 -> clicky.y = 159.0
+                445 -> clicky.y = 110.0
+                495 -> clicky.y = 75.0
+                520 -> clicky.y = 63.0
+                545 -> clicky.y = 50.0
+                570 -> clicky.y = 40.0
+                395 -> clicky.y = 130.0
+                420 -> clicky.y = 125.0
+                470 -> clicky.y = 100.0
+                595 -> clicky.y = 25.0
+            }
             bark.tween(bark::rotation[2.degrees], time = 1.seconds, easing = Easing.EASE_IN_OUT)
             bark.tween(bark::rotation[(-2).degrees], time = 1.seconds, easing = Easing.EASE_IN_OUT)
 
+            println("Clicky X: ${clicky.x}")
+            println("Clicky Y: ${clicky.y}")
+
         }
-
-
     }}
+
+
+
+
 
 
     class Options : Scene() {
@@ -185,7 +214,9 @@ class GameScene : Scene() {
             val quitButton = uiButton {
 
                 onClick {
-                    sceneContainer.changeTo { TitleScreen() }
+                    sceneContainer.changeTo {
+                        TitleScreen()
+                    }
                     clickSound.play()
                 }
                 text = "Quit To Title"
@@ -197,7 +228,12 @@ class GameScene : Scene() {
 
             }
             val back = uiButton {
-                onClick { sceneContainer.changeTo { GameScene() }; clickSound.play() }
+                onClick {
+                    sceneContainer.changeTo {
+                        GameScene()
+                    }
+                    clickSound.play()
+                }
                 text = "Back To Game"
                 centerXOnStage()
                 positionY(225)
@@ -206,13 +242,22 @@ class GameScene : Scene() {
                 textColor = BLACK
             }
             val credits = text("Made by meoowe and LeoNunk") {
-                stage?.let { alignBottomToBottomOf(it) }
+                stage?.let {
+                    alignBottomToBottomOf(it)
+                }
                 fontSize = 20.0
             }
             val creditsButton = uiButton {
-                onClick { sceneContainer.changeTo { Credits() }; clickSound.play() }
+                onClick{
+                    sceneContainer.changeTo {
+                        Credits()
+                    }
+                    clickSound.play()
+                }
                 text = "Credits"
-                stage?.let { alignRightToRightOf(it) }
+                stage?.let {
+                    alignRightToRightOf(it)
+                }
                 centerXOnStage()
                 positionY(355)
                 bgColorOut = ORANGE
@@ -225,6 +270,11 @@ class GameScene : Scene() {
 
     }
 
+
+
+
+
+
 class Winningscreen : Scene() {
     override suspend fun SContainer.sceneMain() {
         val confetti = image(KR.img.confetti1.read())
@@ -234,23 +284,37 @@ class Winningscreen : Scene() {
         }
         val continueButton = uiButton {
             text = "Continue"
-            onClick { sceneContainer.changeTo { TitleScreen() }
+            onClick { sceneContainer.changeTo {
+                TitleScreen()
+            }
         }
         val luna = sprite(KR.img.luna.read()) {
             scale = 0.125
-            stage?.let { alignBottomToBottomOf(it) }
+            stage?.let {
+                alignBottomToBottomOf(it)
+            }
         }
         val trophy = sprite(KR.img.trophy.read()) {
             scale = 0.125
             position(500,0)
         }
             addUpdater {
-                if (input.keys.justPressed(Key.ENTER))launch(coroutineContext) {  sceneContainer.changeTo { TitleScreen() }}
+                if (input.keys.justPressed(Key.ENTER))
+                    launch(coroutineContext) {
+                        sceneContainer.changeTo {
+                            TitleScreen()
+                        }
+                    }
             }
     }
         score = 0
 }
 }
+
+
+
+
+
 class Credits : Scene() {
     override suspend fun SContainer.sceneMain() {
         val clickSound = resourcesVfs["click.mp3"].readSound()
@@ -277,7 +341,12 @@ class Credits : Scene() {
             fontSize = 35.0
         }
         val back = uiButton {
-            onClick { sceneContainer.changeTo { TitleScreen() }; clickSound.play() }
+            onClick {
+                sceneContainer.changeTo {
+                    TitleScreen()
+                }
+                clickSound.play()
+            }
             text = "Back To Game"
             centerXOnStage()
             positionY(225)
@@ -291,28 +360,46 @@ class Credits : Scene() {
 
 
 }
+
+
+
+
 class LoosingScreen : Scene() {
     override suspend fun SContainer.sceneMain() {
+
         val loosingImage = image(KR.img.lost.read()){
             anchor(.5, .5)
             scale(1)
             position(400, 200)
         }
+
         val looseText = text("You have lost with a score of $score!") {
             centerYOnStage()
             font = KR.publicpixel.read()
         }
+
         val continueButton = uiButton {
             text = "Continue"
-            onClick { sceneContainer.changeTo { TitleScreen() } }
-
+            onClick {
+                sceneContainer.changeTo {
+                    TitleScreen()
+                }
+            }
 
         }
+
         addUpdater {
-            if (input.keys.justPressed(Key.ENTER))launch(coroutineContext) {  sceneContainer.changeTo { TitleScreen() }}
+            if (input.keys.justPressed(Key.ENTER))launch(coroutineContext) {
+                sceneContainer.changeTo {
+                    TitleScreen()
+                }
+            }
         }
+
         score = 0
+
     }
+
 
 
 }
