@@ -126,7 +126,7 @@ class GameScene : Scene() {
                 scoreDisplay.text = "Score: $score"
             } else {
                 launch(coroutineContext) {
-                    //sceneContainer.changeTo { Winningscreen() }
+                    sceneContainer.changeTo { Winningscreen() }
                 }
 
             }
