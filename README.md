@@ -1,4 +1,5 @@
 # ClickyCat
+[![](https://tokei.rs/b1/github/meoowe/ClickyCat?style=for-the-badge)]([https://github.com/XAMPPRocky/tokei_rs](https://tokei.rs/b1/github/meoowe/ClickyCat?style=for-the-badge)).
 This is a game about scaling obstacles such as mountains by clicking. 
 
 # Story
