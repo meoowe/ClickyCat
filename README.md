@@ -3,7 +3,7 @@
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/meoowe/ClickyCat/blank.yml?branch=dev&style=for-the-badge&label=Dev%20Builds)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/meoowe/ClickyCat/blank.yml?branch=master&style=for-the-badge&label=Master%20Builds)
 ![GitHub License](https://img.shields.io/github/license/meoowe/ClickyCat?style=for-the-badge)
-![GitHub last commit](https://img.shields.io/github/last-commit/meoowe/ClickyCat)
+![GitHub last commit](https://img.shields.io/github/last-commit/meoowe/ClickyCat?style=for-the-badge)
 
 This is a game about scaling obstacles such as mountains by clicking. 
 
