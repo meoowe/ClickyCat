@@ -1,0 +1,6 @@
+metadata:
+	input-methods:
+ 		-keyboard
+	  -mouse
+	max-player-count: 1
+  supported-languages: "English"
