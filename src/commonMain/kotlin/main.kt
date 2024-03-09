@@ -6,19 +6,17 @@ import korlibs.image.color.*
 import korlibs.image.color.Colors.BLACK
 import korlibs.image.color.Colors.ORANGE
 import korlibs.image.color.Colors.YELLOW
+import korlibs.image.font.*
 import korlibs.image.format.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
 import korlibs.korge.input.*
 import korlibs.korge.scene.*
-import korlibs.korge.tween.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.korge.view.collision.*
 import korlibs.math.geom.*
-import korlibs.math.interpolation.*
-import korlibs.time.*
 import kotlinx.coroutines.*
 
 // title screen
@@ -29,10 +27,10 @@ suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors
         TitleScreen()
     }
     val sound = resourcesVfs["music2.mp3"].readSound()
-        if (playMusic) {
-            sound.play(infinitePlaybackTimes)
-        }
+    if (playMusic) {
+        sound.play(infinitePlaybackTimes)
     }
+}
 var score = 0
 var playMusic = true
 
@@ -41,20 +39,77 @@ var playMusic = true
 
 
 
+
+
+
+
+
+
+class TitleScreen() : Scene() {
+    override suspend fun SContainer.sceneInit() {
+        val version = "1.2.0-DEV_9.3.2024"
+        val verText = text("Version: $version") {
+            stage?.let {
+                alignBottomToBottomOf(it)
+                fontSize = 15.0
+            }
+        }
+        val clickSound = resourcesVfs["click.mp3"].readSound()
+        val background = image(KR.img.cover.read()) {
+            anchor(.5, .5)
+            scale(1)
+            position(400, 200)
+        }
+        val title = text("Clicky the Cat") {
+            positionX(150)
+            color = Colors.LAWNGREEN
+            fontSize = 30.0
+            font = resourcesVfs["PublicPixel.ttf"].readTtfFont()
+        }
+        val playButton = uiButton("Play") {
+            position(350, 200)
+        }
+        val quitButton = uiButton("Quit to Desktop") {
+            position(350, 250)
+        }
+        val creditsButton = uiButton {
+            text = "Credits"
+            stage?.let {
+                alignRightToRightOf(it)
+            }
+            stage?.let {
+                alignBottomToBottomOf(it)
+            }
+        }
+        sceneMain(playButton, clickSound, quitButton, creditsButton)
+    }
+    suspend fun SContainer.sceneMain(playButton: UIButton,clickSound: Sound, quitButton: UIButton,creditsButton: UIButton) {
+        playButton.onClick {
+            sceneContainer.changeTo {
+                GameScene()
+            }
+        }
+        playButton.onClick {
+            clickSound.play()
+        }
+        quitButton.onClick {
+            gameWindow.close(0)
+        }
+        creditsButton.onClick {
+            sceneContainer.changeTo {
+                Credits()
+            }
+            clickSound.play()
+        }
+    }
+
+}
 class GameScene : Scene() {
-    override suspend fun SContainer.sceneMain() {
+    override suspend fun SContainer.sceneInit(){
         val clickSound = resourcesVfs["click.mp3"].readSound()
         val optionButton = uiButton {
-            onClick {
-                sceneContainer.changeTo {
-                    Options()
-                }
-                clickSound.play()
-            }
             text = "Options"
         }
-        val time = 30.seconds
-
         val house = image(KR.img.house.read()) {
             position(-32, 200)
             scale(0.125)
@@ -85,24 +140,68 @@ class GameScene : Scene() {
             offsetBetweenColumns = 0,
             offsetBetweenRows = 0,
 
-        )
-        val bark = sprite(dogAnimation) {
-            position(40, 215)
-            scale(0.125)
-        }
-        var clickAmount = 0
-        val scoreDisplay = text("Score: $score") {
-            position(675, 0)
-            fontSize = 25.0
-        }
-        var scoreAmount = 10
-        onClick { height = 4.0;scoreAmount = 20 }
+            )
 
         val mountain = sprite(KR.img.mountain.read()) {
             scale(0.5)
             position(290, -100)
         }
         val barkSound = resourcesVfs["bark.mp3"].readSound()
+        val bark = sprite(dogAnimation) {
+            position(40, 215)
+            scale(0.125)
+        }
+        val clickAmount = 0
+        val scoreDisplay = text("Score: $score") {
+            position(675, 0)
+            fontSize = 25.0
+        }
+        val scoreAmount:Int = 10
+        val catHasMoved = false
+        val luna = sprite(KR.img.luna.read()) {
+            scale = 0.125
+            position(600,-35)
+        }
+        sceneMain(
+            clickSound = clickSound,
+            optionButton = optionButton,
+            dogAnimation = dogAnimation,
+            house = house,
+            clicky = clicky,
+            grass = grass,
+            otherGrass = otherGrass,
+            bark = bark,
+            barkSound = barkSound,
+            clickAmount = clickAmount,
+            scoreDisplay = scoreDisplay,
+            scoreAmount = scoreAmount,
+            catHasMoved = catHasMoved
+        )
+    }
+    suspend fun SContainer.sceneMain(
+        clickSound: Sound,
+        optionButton: UIButton,
+        dogAnimation: SpriteAnimation,
+        house: Image,
+        clicky: Sprite,
+        grass: Image,
+        otherGrass: Image,
+        bark: Sprite,
+        barkSound: Sound,
+        clickAmount: Int,
+        scoreDisplay: Text,
+        scoreAmount: Int,
+        catHasMoved: Boolean
+    )
+    {
+        var mutableClickAmount = clickAmount
+        var mutableCatHasMoved = catHasMoved
+        optionButton.onClick {
+            sceneContainer.changeTo {
+                Options()
+            }
+            clickSound.play()
+        }
         fun moveDog() {
             if (bark.x.toInt() != 640) {
                 bark.x += 2.0
@@ -117,25 +216,25 @@ class GameScene : Scene() {
             }
         }
         fun moveCat() {
-
             if (clicky.x.toInt() != 645) {
                 clicky.x += 25.0
                 clicky.y -= 8
-                clickAmount += 1
+                mutableClickAmount += 1
                 score += scoreAmount
                 scoreDisplay.text = "Score: $score"
-            } else {
+            }
+            else {
                 launch(coroutineContext) {
-                    sceneContainer.changeTo { Winningscreen() }
+                    sceneContainer.changeTo {
+                        Winningscreen()
+                    }
                 }
 
             }
         }
-
-        var catHasMoved = false
         clicky.onClick {
             bark.playAnimationLooped()
-            catHasMoved = true
+            mutableCatHasMoved = true
             moveCat()
             moveDog()
             barkSound.play()
@@ -144,14 +243,15 @@ class GameScene : Scene() {
             if (input.keys.justPressed(Key.SPACE))launch(coroutineContext) {
                 moveCat()
                 moveDog()
-                catHasMoved = true
+                mutableCatHasMoved = true
                 bark.playAnimationLooped()
                 barkSound.play()
 
             }
         }
+        // Make the dog move continuously
         addUpdater {
-            if(catHasMoved) {
+            if(mutableCatHasMoved) {
                 moveDog()
             }
         }
@@ -162,11 +262,7 @@ class GameScene : Scene() {
                 }
             }
         }
-        val luna = sprite(KR.img.luna.read()) {
-            scale = 0.125
-            position(600,-35)
-        }
-        while(true) {
+        addUpdater {
             // Why did I make this catastrophe?
             when(clicky.x.toInt()) {
                 245 -> clicky.y = 200.0
@@ -184,12 +280,6 @@ class GameScene : Scene() {
                 470 -> clicky.y = 100.0
                 595 -> clicky.y = 25.0
             }
-            bark.tween(bark::rotation[2.degrees], time = 1.seconds, easing = Easing.EASE_IN_OUT)
-            bark.tween(bark::rotation[(-2).degrees], time = 1.seconds, easing = Easing.EASE_IN_OUT)
-
-            println("Clicky X: ${clicky.x}")
-            println("Clicky Y: ${clicky.y}")
-
         }
     }}
 
@@ -198,78 +288,83 @@ class GameScene : Scene() {
 
 
 
-    class Options : Scene() {
-        override suspend fun SContainer.sceneMain() {
-            val clickSound = resourcesVfs["click.mp3"].readSound()
-            val cloudBackground = image(KR.img.clouds.read()) {
-                       anchor(.5, .5)
-                scale(1)
-                position(400, 200)
-            }
-            val scroll = image(KR.img.scroll.read()) {
 
-                scale(0.5)
-                    .centerOnStage()
-            }
 
-            val quitButton = uiButton {
-
-                onClick {
-                    sceneContainer.changeTo {
-                        TitleScreen()
-                    }
-                    clickSound.play()
-                }
-                text = "Quit To Title"
-                centerXOnStage()
-                positionY(125)
-                bgColorOut = ORANGE
-                bgColorOver = YELLOW
-                textColor = BLACK
-
-            }
-            val back = uiButton {
-                onClick {
-                    sceneContainer.changeTo {
-                        GameScene()
-                    }
-                    clickSound.play()
-                }
-                text = "Back To Game"
-                centerXOnStage()
-                positionY(225)
-                bgColorOut = ORANGE
-                bgColorOver = YELLOW
-                textColor = BLACK
-            }
-            val credits = text("Made by meoowe and LeoNunk") {
-                stage?.let {
-                    alignBottomToBottomOf(it)
-                }
-                fontSize = 20.0
-            }
-            val creditsButton = uiButton {
-                onClick{
-                    sceneContainer.changeTo {
-                        Credits()
-                    }
-                    clickSound.play()
-                }
-                text = "Credits"
-                stage?.let {
-                    alignRightToRightOf(it)
-                }
-                centerXOnStage()
-                positionY(355)
-                bgColorOut = ORANGE
-                bgColorOver = YELLOW
-                textColor = BLACK
-
-            }
+class Options : Scene() {
+    override suspend fun SContainer.sceneInit(){
+        val clickSound = resourcesVfs["click.mp3"].readSound()
+        val cloudBackground = image(KR.img.clouds.read()) {
+            anchor(.5, .5)
+            scale(1)
+            position(400, 200)
         }
+        val scroll = image(KR.img.scroll.read()) {
 
+            scale(0.5)
+                .centerOnStage()
+        }
+        val quitButton = uiButton {
+            text = "Quit To Title"
+            centerXOnStage()
+            positionY(125)
+            bgColorOut = ORANGE
+            bgColorOver = YELLOW
+            textColor = BLACK
+        }
+        val credits = text("Made by meoowe and LeoNunk") {
+            stage?.let {
+                alignBottomToBottomOf(it)
+            }
+            fontSize = 20.0
+        }
+        val back = uiButton {
+            text = "Back To Game"
+            centerXOnStage()
+            positionY(225)
+            bgColorOut = ORANGE
+            bgColorOver = YELLOW
+            textColor = BLACK
+        }
+        val creditsButton = uiButton {
+            text = "Credits"
+            stage?.let {
+                alignRightToRightOf(it)
+            }
+            centerXOnStage()
+            positionY(355)
+            bgColorOut = ORANGE
+            bgColorOver = YELLOW
+            textColor = BLACK
+
+        }
+        sceneMain(quitButton, back, creditsButton, clickSound)
 
     }
+     suspend fun SContainer.sceneMain(quitButton: UIButton, back: UIButton, creditsButton: UIButton,clickSound: Sound,) {
+            quitButton.onClick {
+                sceneContainer.changeTo {
+                    TitleScreen()
+                }
+                clickSound.play()
+            }
+            back.onClick {
+                sceneContainer.changeTo {
+                    GameScene()
+                }
+                clickSound.play()
+            }
+            creditsButton.onClick{
+                sceneContainer.changeTo {
+                    Credits()
+                }
+                clickSound.play()
+            }
+    }
+
+
+}
+
+
 
 
 
@@ -288,17 +383,17 @@ class Winningscreen : Scene() {
             onClick { sceneContainer.changeTo {
                 TitleScreen()
             }
-        }
-        val luna = sprite(KR.img.luna.read()) {
-            scale = 0.125
-            stage?.let {
-                alignBottomToBottomOf(it)
             }
-        }
-        val trophy = sprite(KR.img.trophy.read()) {
-            scale = 0.125
-            position(500,0)
-        }
+            val luna = sprite(KR.img.luna.read()) {
+                scale = 0.125
+                stage?.let {
+                    alignBottomToBottomOf(it)
+                }
+            }
+            val trophy = sprite(KR.img.trophy.read()) {
+                scale = 0.125
+                position(500,0)
+            }
             addUpdater {
                 if (input.keys.justPressed(Key.ENTER))
                     launch(coroutineContext) {
@@ -307,9 +402,9 @@ class Winningscreen : Scene() {
                         }
                     }
             }
-    }
+        }
         score = 0
-}
+    }
 }
 
 
@@ -400,6 +495,7 @@ class LoosingScreen : Scene() {
         score = 0
 
     }
+
 
 
 
