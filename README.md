@@ -10,7 +10,7 @@
 This is a game about scaling obstacles such as mountains by clicking. 
 Check out the [metadata](metadata.yml) file
 # Story
-On the tropical island of Mauritius, lived a feeble cat, just waiting for motivation. The name of this cat is Clicky. One day, Clicky heard a knock at his door. When he answered, he saw an old cat, which he would soon find out was named Loki. He offered to be Clicky’s sensei, making him a strong cat. Clicky willingly agreed and from the first training session, Loki noticed his potential. He could see Clicky one day becoming the best of the best but knew that he needed much work. Your first objective, climb Le Pouce, a well-known mountain in the area.
+On the tropical island of Mauritius, a feeble cat lived, just waiting for motivation. The name of this cat is Clicky. One day, Clicky heard a knock at his door. When he answered, he saw an old cat, which he would soon find out was named Loki. He offered to be Clicky’s sensei, making him a strong cat. Clicky willingly agreed and from the first training session, Loki noticed his potential. He could see Clicky one day becoming the best of the best but knew that he needed much work. Your first objective, climb Le Pouce, a well-known mountain in the area.
 
 Made for Game Off 2023(https://itch.io/jam/game-off-2023) Still in active development!
 # Tools Used
@@ -23,7 +23,8 @@ Made for Game Off 2023(https://itch.io/jam/game-off-2023) Still in active develo
 # Credits
 **Meoowe** - Programming, Music,
 **LeoNunk** - Art, Name
- 
+
+This is a great game please try it :)
 
 **LeoNunk** - Art, Name, Story
 
