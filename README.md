@@ -6,6 +6,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/meoowe/ClickyCat?style=for-the-badge)
 ![Dynamic YAML Badge](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmeoowe%2FClickyCat%2Fdev%2Fmetadata.yml&query=%24.metadata.version&style=for-the-badge&label=Version)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](http://makeapullrequest.com)
+[![Awesome Kotlin Badge](https://kotlin.link/awesome-kotlin.svg)](https://github.com/KotlinBy/awesome-kotlin)
 This is a game about scaling obstacles such as mountains by clicking. 
 Check out the [metadata](metadata.yml) file
 # Story
