@@ -2,7 +2,7 @@
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "main", "master", "dev" ]
 
 env:
   JAVA_DISTRIBUTION: zulu
@@ -24,3 +24,6 @@ jobs:
           BRANCH: github-pages # The branch the action should deploy to.
           FOLDER: build/dist/js/productionExecutable # The folder the action should deploy.
           CLEAN: true # Automatically remove deleted files from the deploy branch
+      - name: Lines of Code Badge
+        uses: shadowmoose/GHA-LoC-Badge@1.0.0
+            
