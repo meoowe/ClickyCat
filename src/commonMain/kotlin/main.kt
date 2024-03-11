@@ -189,6 +189,8 @@ class GameScene : Scene() {
 
             )
 
+
+
         val mountain = sprite(KR.img.mountain.read()) {
             scale(0.5)
             position(290, -100)
