@@ -22,7 +22,7 @@ import kotlinx.coroutines.*
 // title screen
 suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors["#0063FF"], title = "Click Cat") {
     val sceneContainer = sceneContainer()
-//TODO: Make the volume adjustable
+//?TODO: Make the volume adjustable
     sceneContainer.changeTo {
         TitleScreen()
     }
@@ -47,7 +47,7 @@ var playMusic = true
 
 class TitleScreen : Scene() {
     override suspend fun SContainer.sceneInit() {
-        // Set version text
+        //= Set version text
         val version = "1.2.0-DEV_9.3.2024"
         val verText = text("Version: $version") {
             stage?.let {
@@ -255,7 +255,7 @@ class GameScene : Scene() {
             }
         }
         fun moveCat() {
-            if (clicky.x.toInt() != 750) {
+            if (clicky.x.toInt() != 850) {
                 clicky.x += 25.0
                 clicky.y -= 8
                 mutableClickAmount += 1
