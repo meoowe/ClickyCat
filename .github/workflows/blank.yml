@@ -16,7 +16,8 @@ jobs:
       - { name: Set up JDK, uses: actions/setup-java@v3, with: { distribution: "${{ env.JAVA_DISTRIBUTION }}", java-version: "${{ env.JAVA_VERSION }}" } }
       - { name: Prepare Gradle, uses: gradle/gradle-build-action@ef76a971e2fa3f867b617efd72f2fbd72cf6f8bc } # v2.8.0
       - { name: fix permission error, run: chmod +x gradlew }
-      - { name: Buid JS bundle, run: ./gradlew jsBrowserProductionWebpack }
+      - { name: 🛠️ Build JS bundle, run: ./gradlew jsBrowserProductionWebpack }
+      - { name: 📦 package Windows app, run: ./gradlew packageJvmWindowsApp }
       - name: Deploy 🚀 to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
@@ -27,3 +28,5 @@ jobs:
       - name: Lines of Code Badge
         uses: shadowmoose/GHA-LoC-Badge@1.0.0
             
+---
+
