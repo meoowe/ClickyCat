@@ -22,7 +22,7 @@ import kotlinx.coroutines.*
 // title screen
 suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors["#0063FF"], title = "Click Cat") {
     val sceneContainer = sceneContainer()
-//TODO: Make the volume adjustable
+//?TODO: Make the volume adjustable
     sceneContainer.changeTo {
         TitleScreen()
     }
@@ -45,8 +45,9 @@ var playMusic = true
 
 
 
-class TitleScreen() : Scene() {
+class TitleScreen : Scene() {
     override suspend fun SContainer.sceneInit() {
+        //= Set version text
         val version = "1.2.0-DEV_9.3.2024"
         val verText = text("Version: $version") {
             stage?.let {
@@ -54,24 +55,35 @@ class TitleScreen() : Scene() {
                 fontSize = 15.0
             }
         }
+        // Load click sound effect from resources
         val clickSound = resourcesVfs["click.mp3"].readSound()
+
+        // Add the cloud background
         val background = image(KR.img.cover.read()) {
             anchor(.5, .5)
             scale(1)
             position(400, 200)
         }
+
+        // Add the title text
         val title = text("Clicky the Cat") {
             positionX(150)
             color = Colors.LAWNGREEN
             fontSize = 30.0
             font = resourcesVfs["PublicPixel.ttf"].readTtfFont()
         }
+
+        // Add the play button
         val playButton = uiButton("Play") {
             position(350, 200)
         }
+
+        // Add the quit button
         val quitButton = uiButton("Quit to Desktop") {
             position(350, 250)
         }
+
+        // Add the credit button
         val creditsButton = uiButton {
             text = "Credits"
             stage?.let {
@@ -81,24 +93,50 @@ class TitleScreen() : Scene() {
                 alignBottomToBottomOf(it)
             }
         }
-        sceneMain(playButton, clickSound, quitButton, creditsButton)
+
+        // Call main scene function
+        sceneMain(
+            playButton,
+            clickSound,
+            quitButton,
+            creditsButton
+        )
     }
-    suspend fun SContainer.sceneMain(playButton: UIButton,clickSound: Sound, quitButton: UIButton,creditsButton: UIButton) {
+    private suspend fun sceneMain(
+        playButton: UIButton,
+        clickSound: Sound,
+        quitButton: UIButton,
+        creditsButton: UIButton
+    ) {
+        // Handle play button click
         playButton.onClick {
+
+            //Change to GameScene()
             sceneContainer.changeTo {
                 GameScene()
             }
         }
+
+        // Play click sound on play button click
         playButton.onClick {
             clickSound.play()
         }
+
+        //Handle quit button click
         quitButton.onClick {
+
+            //Close the game window
             gameWindow.close(0)
         }
+
+        // Handle credit button click
         creditsButton.onClick {
+
+            //Change to Credits()
             sceneContainer.changeTo {
                 Credits()
             }
+            // Play click sound
             clickSound.play()
         }
     }
@@ -106,23 +144,32 @@ class TitleScreen() : Scene() {
 }
 class GameScene : Scene() {
     override suspend fun SContainer.sceneInit(){
+        // Define click sound effect
         val clickSound = resourcesVfs["click.mp3"].readSound()
+        // Define option button
         val optionButton = uiButton {
+            // Set text to "Options"
             text = "Options"
         }
+        // Define house image
         val house = image(KR.img.house.read()) {
+            // Position in the bottom right corner
             position(-32, 200)
             scale(0.125)
         }
+        // Define  main cat image
         val clicky = sprite(KR.img.cat.read()) {
             position(220, 200)
             scale(0.125)
         }
+        // TODO: Possibly make this into 1 sprite
+        // Define floor
         val grass = image(KR.img.grass1.read()) {
             scale(0.5)
             positionY(4)
             positionX(1)
         }
+        // Define floor
         val otherGrass = image(KR.img.grass2.read()) {
             scale(0.5)
             positionY(4)
@@ -142,6 +189,8 @@ class GameScene : Scene() {
 
             )
 
+
+
         val mountain = sprite(KR.img.mountain.read()) {
             scale(0.5)
             position(290, -100)
@@ -156,7 +205,7 @@ class GameScene : Scene() {
             position(675, 0)
             fontSize = 25.0
         }
-        val scoreAmount:Int = 10
+        val scoreAmount = 10
         val catHasMoved = false
         val luna = sprite(KR.img.luna.read()) {
             scale = 0.125
@@ -165,11 +214,7 @@ class GameScene : Scene() {
         sceneMain(
             clickSound = clickSound,
             optionButton = optionButton,
-            dogAnimation = dogAnimation,
-            house = house,
             clicky = clicky,
-            grass = grass,
-            otherGrass = otherGrass,
             bark = bark,
             barkSound = barkSound,
             clickAmount = clickAmount,
@@ -178,14 +223,10 @@ class GameScene : Scene() {
             catHasMoved = catHasMoved
         )
     }
-    suspend fun SContainer.sceneMain(
+    private suspend fun SContainer.sceneMain(
         clickSound: Sound,
         optionButton: UIButton,
-        dogAnimation: SpriteAnimation,
-        house: Image,
         clicky: Sprite,
-        grass: Image,
-        otherGrass: Image,
         bark: Sprite,
         barkSound: Sound,
         clickAmount: Int,
@@ -216,7 +257,7 @@ class GameScene : Scene() {
             }
         }
         fun moveCat() {
-            if (clicky.x.toInt() != 645) {
+            if (clicky.x.toInt() != 850) {
                 clicky.x += 25.0
                 clicky.y -= 8
                 mutableClickAmount += 1
@@ -340,7 +381,12 @@ class Options : Scene() {
         sceneMain(quitButton, back, creditsButton, clickSound)
 
     }
-     suspend fun SContainer.sceneMain(quitButton: UIButton, back: UIButton, creditsButton: UIButton,clickSound: Sound,) {
+     private suspend fun sceneMain(
+         quitButton: UIButton,
+         back: UIButton,
+         creditsButton: UIButton,
+         clickSound: Sound
+     ) {
             quitButton.onClick {
                 sceneContainer.changeTo {
                     TitleScreen()
@@ -463,7 +509,7 @@ class Credits : Scene() {
 class LoosingScreen : Scene() {
     override suspend fun SContainer.sceneMain() {
 
-        val loosingImage = image(KR.img.lost.read()){
+        val loosingImage = image(KR.img.lost.read()) {
             anchor(.5, .5)
             scale(1)
             position(400, 200)
@@ -485,7 +531,7 @@ class LoosingScreen : Scene() {
         }
 
         addUpdater {
-            if (input.keys.justPressed(Key.ENTER))launch(coroutineContext) {
+            if (input.keys.justPressed(Key.ENTER)) launch(coroutineContext) {
                 sceneContainer.changeTo {
                     TitleScreen()
                 }
