@@ -23,3 +23,5 @@ jobs:
         run: chmod +x gradlew
       - name: 📦 package Windows app
         run: ./gradlew packageJvmWindowsApp
+      - name: packageFat Jar
+        run: ./gradlew packageJvmFatJar
