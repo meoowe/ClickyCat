@@ -6,14 +6,13 @@ plugins {
 
 korge {
 	id = "com.meoowe.clickycat"
-
+    androidSdk(compileSdk = 28, minSdk = 22, targetSdk = 32)
 // To enable all targets at once
 
 	//targetAll()
 
 // To enable targets based on properties/environment variables
 	//targetDefault()
-
 // To selectively enable targets
     targetJvm()
     targetJs()
