@@ -33,6 +33,7 @@ suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors
 }
 var score = 0
 var playMusic = true
+var usePixelFont = true
 
 
 
@@ -47,6 +48,7 @@ var playMusic = true
 
 class TitleScreen : Scene() {
     override suspend fun SContainer.sceneInit() {
+        val pixelFont =  resourcesVfs["PublicPixel.ttf"].readTtfFont()
         //= Set version text
         val version = "1.2.0-DEV_9.3.2024"
         val verText = text("Version: $version") {
@@ -70,12 +72,15 @@ class TitleScreen : Scene() {
             positionX(150)
             color = Colors.LAWNGREEN
             fontSize = 30.0
-            font = resourcesVfs["PublicPixel.ttf"].readTtfFont()
+            if (usePixelFont) {
+                font = pixelFont
+            }
         }
 
         // Add the play button
         val playButton = uiButton("Play") {
             position(350, 200)
+
         }
 
         // Add the quit button
@@ -169,7 +174,6 @@ class GameScene : Scene() {
             positionY(4)
             positionX(1)
         }
-        // Define floor
         val otherGrass = image(KR.img.grass2.read()) {
             scale(0.5)
             positionY(4)
@@ -207,10 +211,6 @@ class GameScene : Scene() {
         }
         val scoreAmount = 10
         val catHasMoved = false
-        val luna = sprite(KR.img.luna.read()) {
-            scale = 0.125
-            position(600,-35)
-        }
         sceneMain(
             clickSound = clickSound,
             optionButton = optionButton,
@@ -293,34 +293,281 @@ class GameScene : Scene() {
         // Make the dog move continuously
         addUpdater {
             if(mutableCatHasMoved) {
-                moveDog()
+               moveDog()
             }
         }
         bark.onCollision({it == clicky}) {
             launch(coroutineContext) {
                 sceneContainer.changeTo{
                     LoosingScreen()
-                }
+               }
             }
         }
         addUpdater {
             // Why did I make this catastrophe?
             when(clicky.x.toInt()) {
-                245 -> clicky.y = 200.0
-                270 -> clicky.y = 200.0
-                295 -> clicky.y = 171.0
-                345 -> clicky.y = 152.0
-                320 -> clicky.y = 159.0
-                445 -> clicky.y = 110.0
-                495 -> clicky.y = 75.0
-                520 -> clicky.y = 63.0
-                545 -> clicky.y = 50.0
-                570 -> clicky.y = 40.0
-                395 -> clicky.y = 130.0
-                420 -> clicky.y = 125.0
-                470 -> clicky.y = 100.0
-                595 -> clicky.y = 25.0
+                245 -> {
+                    clicky.y = 200.0
+                }
+                270 -> {
+                    clicky.y = 200.0
+                }
+                295 -> {
+                    clicky.y = 171.0
+                }
+                345 -> {
+                    clicky.y = 152.0
+                }
+                320 -> {
+                    clicky.y = 159.0
+                }
+                445 -> {
+                    clicky.y = 110.0
+                }
+                495 -> {
+                    clicky.y = 75.0
+                }
+                520 -> {
+                    clicky.y = 63.0
+                }
+                545 -> {
+                    clicky.y = 50.0
+                }
+                570 -> {
+                    clicky.y = 40.0
+                }
+                395 -> {
+                    clicky.y = 130.0
+                }
+                420 -> {
+                    clicky.y = 125.0
+                }
+                470 -> {
+                    clicky.y = 100.0
+                }
+                595 -> {
+                    clicky.y = 25.0
+                }
             }
+            when(bark.x.toInt()) {
+                42 -> {
+                    bark.y = 215.0
+                }
+                52 -> {
+                    bark.y = 215.0
+                }
+                54 -> {
+                    bark.y = 215.0
+                }
+                56 -> {
+                    bark.y = 215.0
+                }
+                58 -> {
+                    bark.y = 215.0
+                }
+                60 -> {
+                    bark.y = 215.0
+                }
+                62 -> {
+                    bark.y = 215.0
+                }
+                64 -> {
+                    bark.y = 215.0
+                }
+                68 -> {
+                    bark.y = 215.0
+                }
+                70 -> {
+                    bark.y = 215.0
+                }
+                72 -> {
+                    bark.y = 215.0
+                }
+                74 -> {
+                    bark.y = 215.0
+                }
+                78 -> {
+                    bark.y = 215.0
+                }
+                80 -> {
+                    bark.y = 215.0
+                }
+                82 -> {
+                    bark.y = 215.0
+                }
+                84 -> {
+                    bark.y = 215.0
+                }
+                86 -> {
+                    bark.y = 215.0
+                }
+                88 -> {
+                    bark.y = 215.0
+                }
+                90 -> {
+                    bark.y = 215.0
+                }
+                92 -> {
+                    bark.y = 215.0
+                }
+                94 -> {
+                    bark.y = 215.0
+                }
+                98-> {
+                    bark.y = 215.0
+                }
+                100 -> {
+                    bark.y = 215.0
+                }
+                102 -> {
+                    bark.y = 215.0
+                }
+                104 -> {
+                    bark.y = 215.0
+                }
+                108-> {
+                    bark.y = 215.0
+                }
+                110 -> {
+                    bark.y = 215.0
+                }
+                112 -> {
+                    bark.y = 215.0
+                }
+                114-> {
+                    bark.y = 215.0
+                }
+                118 -> {
+                    bark.y = 215.0
+                }
+                120 -> {
+                    bark.y = 215.0
+                }
+                122 -> {
+                    bark.y = 215.0
+                }
+                124 -> {
+                    bark.y = 215.0
+                }
+                128-> {
+                    bark.y = 215.0
+                }
+                130 -> {
+                    bark.y = 215.0
+                }
+                132 -> {
+                    bark.y = 215.0
+                }
+                134-> {
+                    bark.y = 215.0
+                }
+                138 -> {
+                    bark.y = 215.0
+                }
+                140 -> {
+                    bark.y = 215.0
+                }
+                142 -> {
+                    bark.y = 215.0
+                }
+                144-> {
+                    bark.y = 215.0
+                }
+                148 -> {
+                    bark.y = 215.0
+                }
+                150 -> {
+                    bark.y = 215.0
+                }
+                152 -> {
+                    bark.y = 215.0
+                }
+                154-> {
+                    bark.y = 215.0
+                }
+                158 -> {
+                    bark.y = 215.0
+                }
+                160 -> {
+                    bark.y = 215.0
+                }
+                162 -> {
+                    bark.y = 215.0
+                }
+                164-> {
+                    bark.y = 215.0
+                }
+                168 -> {
+                    bark.y = 215.0
+                }
+                170 -> {
+                    bark.y = 215.0
+                }
+                172 -> {
+                    bark.y = 215.0
+                }
+                174-> {
+                    bark.y = 215.0
+                }
+                178 -> {
+                    bark.y = 215.0
+                }
+                180 -> {
+                    bark.y = 215.0
+                }
+                182 -> {
+                    bark.y = 215.0
+                }
+                184-> {
+                    bark.y = 215.0
+                }
+                188 -> {
+                    bark.y = 215.0
+                }
+                190 -> {
+                    bark.y = 215.0
+                }
+                192 -> {
+                    bark.y = 215.0
+                }
+                194-> {
+                    bark.y = 215.0
+                }
+                198 -> {
+                    bark.y = 215.0
+                }
+                200 -> {
+                    bark.y = 215.0
+                }
+                202 -> {
+                    bark.y = 215.0
+                }
+                204 -> {
+                    bark.y = 215.0
+                }
+                208-> {
+                    bark.y = 215.0
+                }
+                210 -> {
+                    bark.y = 215.0
+                }
+                212 -> {
+                    bark.y = 215.0
+                }
+                214-> {
+                    bark.y = 215.0
+                }
+                218 -> {
+                    bark.y = 215.0
+                }
+                220 -> {
+                    bark.y = 215.0
+                }
+                538 -> {
+                    bark.y = 62.0
+                }
+            }
+
         }
     }}
 
@@ -381,30 +628,30 @@ class Options : Scene() {
         sceneMain(quitButton, back, creditsButton, clickSound)
 
     }
-     private suspend fun sceneMain(
-         quitButton: UIButton,
-         back: UIButton,
-         creditsButton: UIButton,
-         clickSound: Sound
-     ) {
-            quitButton.onClick {
-                sceneContainer.changeTo {
-                    TitleScreen()
-                }
-                clickSound.play()
+    private suspend fun sceneMain(
+        quitButton: UIButton,
+        back: UIButton,
+        creditsButton: UIButton,
+        clickSound: Sound
+    ) {
+        quitButton.onClick {
+            sceneContainer.changeTo {
+                TitleScreen()
             }
-            back.onClick {
-                sceneContainer.changeTo {
-                    GameScene()
-                }
-                clickSound.play()
+            clickSound.play()
+        }
+        back.onClick {
+            sceneContainer.changeTo {
+                GameScene()
             }
-            creditsButton.onClick{
-                sceneContainer.changeTo {
-                    Credits()
-                }
-                clickSound.play()
+            clickSound.play()
+        }
+        creditsButton.onClick{
+            sceneContainer.changeTo {
+                Credits()
             }
+            clickSound.play()
+        }
     }
 
 
