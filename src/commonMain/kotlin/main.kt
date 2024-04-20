@@ -12,11 +12,13 @@ import korlibs.io.file.std.*
 import korlibs.korge.*
 import korlibs.korge.input.*
 import korlibs.korge.scene.*
+import korlibs.korge.time.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 import korlibs.korge.view.collision.*
 import korlibs.math.geom.*
+import korlibs.time.*
 import kotlinx.coroutines.*
 
 // title screen
@@ -149,6 +151,7 @@ class TitleScreen : Scene() {
 }
 class GameScene : Scene() {
     override suspend fun SContainer.sceneInit(){
+        var scoreAmount = 10
         // Define click sound effect
         val clickSound = resourcesVfs["click.mp3"].readSound()
         // Define option button
@@ -209,7 +212,10 @@ class GameScene : Scene() {
             position(675, 0)
             fontSize = 25.0
         }
-        val scoreAmount = 10
+        val balloon = sprite(KR.img.balloon.read()) {
+            scale(0.125)
+            positionX(50)
+        }
         val catHasMoved = false
         sceneMain(
             clickSound = clickSound,
@@ -220,7 +226,8 @@ class GameScene : Scene() {
             clickAmount = clickAmount,
             scoreDisplay = scoreDisplay,
             scoreAmount = scoreAmount,
-            catHasMoved = catHasMoved
+            catHasMoved = catHasMoved,
+            balloon = balloon
         )
     }
     private suspend fun SContainer.sceneMain(
@@ -232,11 +239,13 @@ class GameScene : Scene() {
         clickAmount: Int,
         scoreDisplay: Text,
         scoreAmount: Int,
-        catHasMoved: Boolean
+        catHasMoved: Boolean,
+        balloon:  Sprite
     )
     {
         var mutableClickAmount = clickAmount
         var mutableCatHasMoved = catHasMoved
+        var mutableScoreAmount = scoreAmount
         optionButton.onClick {
             sceneContainer.changeTo {
                 Options()
@@ -261,7 +270,8 @@ class GameScene : Scene() {
                 clicky.x += 25.0
                 clicky.y -= 8
                 mutableClickAmount += 1
-                score += scoreAmount
+                println(mutableScoreAmount)
+                score += mutableScoreAmount
                 scoreDisplay.text = "Score: $score"
             }
             else {
@@ -273,12 +283,19 @@ class GameScene : Scene() {
 
             }
         }
+        balloon.interval(500.milliseconds) {
+            balloon.visible = !balloon.visible
+            val randomPos = (50..700).random()
+            balloon.positionX(randomPos)
+        }
+        balloon.onClick {
+            mutableScoreAmount = 20
+        }
         clicky.onClick {
             bark.playAnimationLooped()
             mutableCatHasMoved = true
             moveCat()
             moveDog()
-            barkSound.play()
         }
         addUpdater {
             if (input.keys.justPressed(Key.SPACE))launch(coroutineContext) {
@@ -286,8 +303,6 @@ class GameScene : Scene() {
                 moveDog()
                 mutableCatHasMoved = true
                 bark.playAnimationLooped()
-                barkSound.play()
-
             }
         }
         // Make the dog move continuously
@@ -301,6 +316,11 @@ class GameScene : Scene() {
                 sceneContainer.changeTo{
                     LoosingScreen()
                }
+            }
+        }
+        bark.interval(1.seconds) {
+            launch(coroutineContext) {
+                barkSound.play()
             }
         }
         addUpdater {
