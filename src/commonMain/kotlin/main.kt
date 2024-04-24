@@ -34,7 +34,7 @@ suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors
 }
 var score = 0
 var playMusic = true
-
+var hiScore = score
 
 
 
@@ -145,7 +145,7 @@ class TitleScreen : Scene() {
 }
 class GameScene : Scene() {
     override suspend fun SContainer.sceneInit(){
-        var scoreAmount = 10
+        val scoreAmount = 10
         // Define click sound effect
         val clickSound = resourcesVfs["click.mp3"].readSound()
         // Define option button
@@ -203,7 +203,7 @@ class GameScene : Scene() {
         }
         val clickAmount = 0
         val scoreDisplay = text("Score: $score") {
-            position(675, 0)
+            position(620, 0)
             fontSize = 25.0
         }
         val balloon = sprite(KR.img.balloon.read()) {
@@ -266,7 +266,7 @@ class GameScene : Scene() {
                 mutableClickAmount += 1
                 println(mutableScoreAmount)
                 score += mutableScoreAmount
-                scoreDisplay.text = "Score: $score"
+                scoreDisplay.text = "Score: $score Hi: $hiScore"
             }
             else {
                 launch(coroutineContext) {
@@ -581,7 +581,6 @@ class GameScene : Scene() {
                     bark.y = 62.0
                 }
             }
-
         }
     }}
 
@@ -681,10 +680,17 @@ class Options : Scene() {
 class Winningscreen : Scene() {
     override suspend fun SContainer.sceneMain() {
         val confetti = image(KR.img.confetti1.read())
-        val winText = text("You have won with a score of $score!") {
+        var hiScoreBeaten = false
+        if(score > hiScore) {
+            hiScore = score
+            hiScoreBeaten = true
+        }
+        val winText = text("You have won with a score of $score! \n Your high score is $hiScore") {
             centerOnStage()
             fontSize = 25.0
         }
+        val beatenScoreText = text("You beat your high score! Well done!!"){visible = false; centerXOnStage()}
+        if(hiScoreBeaten) {beatenScoreText.visible = true}
         val continueButton = uiButton {
             text = "Continue"
             onClick { sceneContainer.changeTo {

@@ -28,7 +28,6 @@ object __KR {
 	
 	interface KR {
 		val __file get() = resourcesVfs[""]
-		@ResourceVfsPath("PublicPixel.ttf") val `publicpixel` get() = TypedVfsFileTTF(resourcesVfs["PublicPixel.ttf"])
 		@ResourceVfsPath("Track.mp3") val `track` get() = TypedVfsFileSound(resourcesVfs["Track.mp3"])
 		@ResourceVfsPath("bark.mp3") val `bark` get() = TypedVfsFileSound(resourcesVfs["bark.mp3"])
 		@ResourceVfsPath("click.mp3") val `click` get() = TypedVfsFileSound(resourcesVfs["click.mp3"])
