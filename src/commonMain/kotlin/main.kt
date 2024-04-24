@@ -6,7 +6,6 @@ import korlibs.image.color.*
 import korlibs.image.color.Colors.BLACK
 import korlibs.image.color.Colors.ORANGE
 import korlibs.image.color.Colors.YELLOW
-import korlibs.image.font.*
 import korlibs.image.format.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
@@ -35,7 +34,6 @@ suspend fun main() = Korge(windowSize = Size(780, 400), backgroundColor = Colors
 }
 var score = 0
 var playMusic = true
-var usePixelFont = true
 
 
 
@@ -50,7 +48,6 @@ var usePixelFont = true
 
 class TitleScreen : Scene() {
     override suspend fun SContainer.sceneInit() {
-        val pixelFont =  resourcesVfs["PublicPixel.ttf"].readTtfFont()
         //= Set version text
         val version = "1.2.0-DEV_9.3.2024"
         val verText = text("Version: $version") {
@@ -74,9 +71,6 @@ class TitleScreen : Scene() {
             positionX(150)
             color = Colors.LAWNGREEN
             fontSize = 30.0
-            if (usePixelFont) {
-                font = pixelFont
-            }
         }
 
         // Add the play button
@@ -254,9 +248,9 @@ class GameScene : Scene() {
         }
         fun moveDog() {
             if (bark.x.toInt() != 640) {
-                bark.x += 2.0
-                bark.y -= 1
-            }else {
+                bark.x += 1.0
+                bark.y -= 0.5
+                         }else {
                 launch(coroutineContext) {
                     sceneContainer.changeTo {
                         Winningscreen()
@@ -267,7 +261,7 @@ class GameScene : Scene() {
         }
         fun moveCat() {
             if (clicky.x.toInt() != 850) {
-                clicky.x += 25.0
+                clicky.x += 20.0
                 clicky.y -= 8
                 mutableClickAmount += 1
                 println(mutableScoreAmount)
@@ -688,8 +682,8 @@ class Winningscreen : Scene() {
     override suspend fun SContainer.sceneMain() {
         val confetti = image(KR.img.confetti1.read())
         val winText = text("You have won with a score of $score!") {
-            centerYOnStage()
-            font = KR.publicpixel.read()
+            centerOnStage()
+            fontSize = 25.0
         }
         val continueButton = uiButton {
             text = "Continue"
@@ -783,8 +777,8 @@ class LoosingScreen : Scene() {
         }
 
         val looseText = text("You have lost with a score of $score!") {
-            centerYOnStage()
-            font = KR.publicpixel.read()
+            centerOnStage()
+            fontSize = 20.0
         }
 
         val continueButton = uiButton {
