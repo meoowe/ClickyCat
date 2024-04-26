@@ -49,7 +49,7 @@ var hiScore = score
 class TitleScreen : Scene() {
     override suspend fun SContainer.sceneInit() {
         //= Set version text
-        val version = "1.2.0-DEV_9.3.2024"
+        val version = "1.3.1-DEV_24.4.2024"
         val verText = text("Version: $version") {
             stage?.let {
                 alignBottomToBottomOf(it)
@@ -237,6 +237,7 @@ class GameScene : Scene() {
         balloon:  Sprite
     )
     {
+        score = 0
         var mutableClickAmount = clickAmount
         var mutableCatHasMoved = catHasMoved
         var mutableScoreAmount = scoreAmount
