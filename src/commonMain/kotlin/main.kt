@@ -1,5 +1,4 @@
 @file:Suppress("UNUSED_VARIABLE")
-
 import korlibs.audio.sound.*
 import korlibs.event.*
 import korlibs.image.color.*
@@ -49,7 +48,7 @@ var hiScore = score
 class TitleScreen : Scene() {
     override suspend fun SContainer.sceneInit() {
         //= Set version text
-        val version = "1.3.1-DEV_24.4.2024"
+        val version = "1.3.2-DEV_27.4.2024"
         val verText = text("Version: $version") {
             stage?.let {
                 alignBottomToBottomOf(it)
@@ -247,36 +246,32 @@ class GameScene : Scene() {
             }
             clickSound.play()
         }
-        fun moveDog() {
-            if (bark.x.toInt() != 640) {
-                bark.x += 1.0
-                bark.y -= 0.5
-                         }else {
-                launch(coroutineContext) {
-                    sceneContainer.changeTo {
-                        Winningscreen()
-                    }
+        fun onReachTarget() {
+            launch(coroutineContext) {
+                sceneContainer.changeTo {
+                    Winningscreen()
                 }
-
             }
         }
-        fun moveCat() {
-            if (clicky.x.toInt() != 850) {
-                clicky.x += 20.0
-                clicky.y -= 8
-                mutableClickAmount += 1
-                println(mutableScoreAmount)
-                score += mutableScoreAmount
-                scoreDisplay.text = "Score: $score Hi: $hiScore"
+        fun moveSprite(sprite: Sprite, limitX: Int,xStep:  Double, yStep: Double) {
+            if (sprite.x.toInt() != limitX) {
+                sprite.x += xStep
+                sprite.y -= yStep
             }
             else {
-                launch(coroutineContext) {
-                    sceneContainer.changeTo {
-                        Winningscreen()
-                    }
-                }
-
+                onReachTarget()
             }
+        }
+        fun moveDog() {
+            moveSprite(bark, 640, 1.0, 0.5)
+            bark.playAnimationLooped()
+        }
+        fun moveCat() {
+            moveSprite(clicky, 850, 20.0, 8.0)
+            mutableClickAmount += 1
+            println(mutableScoreAmount)
+            score += mutableScoreAmount
+            scoreDisplay.text = "Score: $score Hi: $hiScore"
         }
         balloon.interval(500.milliseconds) {
             balloon.visible = !balloon.visible
@@ -297,7 +292,6 @@ class GameScene : Scene() {
                 moveCat()
                 moveDog()
                 mutableCatHasMoved = true
-                bark.playAnimationLooped()
             }
         }
         // Make the dog move continuously
@@ -365,219 +359,7 @@ class GameScene : Scene() {
                 }
             }
             when(bark.x.toInt()) {
-                42 -> {
-                    bark.y = 215.0
-                }
-                52 -> {
-                    bark.y = 215.0
-                }
-                54 -> {
-                    bark.y = 215.0
-                }
-                56 -> {
-                    bark.y = 215.0
-                }
-                58 -> {
-                    bark.y = 215.0
-                }
-                60 -> {
-                    bark.y = 215.0
-                }
-                62 -> {
-                    bark.y = 215.0
-                }
-                64 -> {
-                    bark.y = 215.0
-                }
-                68 -> {
-                    bark.y = 215.0
-                }
-                70 -> {
-                    bark.y = 215.0
-                }
-                72 -> {
-                    bark.y = 215.0
-                }
-                74 -> {
-                    bark.y = 215.0
-                }
-                78 -> {
-                    bark.y = 215.0
-                }
-                80 -> {
-                    bark.y = 215.0
-                }
-                82 -> {
-                    bark.y = 215.0
-                }
-                84 -> {
-                    bark.y = 215.0
-                }
-                86 -> {
-                    bark.y = 215.0
-                }
-                88 -> {
-                    bark.y = 215.0
-                }
-                90 -> {
-                    bark.y = 215.0
-                }
-                92 -> {
-                    bark.y = 215.0
-                }
-                94 -> {
-                    bark.y = 215.0
-                }
-                98-> {
-                    bark.y = 215.0
-                }
-                100 -> {
-                    bark.y = 215.0
-                }
-                102 -> {
-                    bark.y = 215.0
-                }
-                104 -> {
-                    bark.y = 215.0
-                }
-                108-> {
-                    bark.y = 215.0
-                }
-                110 -> {
-                    bark.y = 215.0
-                }
-                112 -> {
-                    bark.y = 215.0
-                }
-                114-> {
-                    bark.y = 215.0
-                }
-                118 -> {
-                    bark.y = 215.0
-                }
-                120 -> {
-                    bark.y = 215.0
-                }
-                122 -> {
-                    bark.y = 215.0
-                }
-                124 -> {
-                    bark.y = 215.0
-                }
-                128-> {
-                    bark.y = 215.0
-                }
-                130 -> {
-                    bark.y = 215.0
-                }
-                132 -> {
-                    bark.y = 215.0
-                }
-                134-> {
-                    bark.y = 215.0
-                }
-                138 -> {
-                    bark.y = 215.0
-                }
-                140 -> {
-                    bark.y = 215.0
-                }
-                142 -> {
-                    bark.y = 215.0
-                }
-                144-> {
-                    bark.y = 215.0
-                }
-                148 -> {
-                    bark.y = 215.0
-                }
-                150 -> {
-                    bark.y = 215.0
-                }
-                152 -> {
-                    bark.y = 215.0
-                }
-                154-> {
-                    bark.y = 215.0
-                }
-                158 -> {
-                    bark.y = 215.0
-                }
-                160 -> {
-                    bark.y = 215.0
-                }
-                162 -> {
-                    bark.y = 215.0
-                }
-                164-> {
-                    bark.y = 215.0
-                }
-                168 -> {
-                    bark.y = 215.0
-                }
-                170 -> {
-                    bark.y = 215.0
-                }
-                172 -> {
-                    bark.y = 215.0
-                }
-                174-> {
-                    bark.y = 215.0
-                }
-                178 -> {
-                    bark.y = 215.0
-                }
-                180 -> {
-                    bark.y = 215.0
-                }
-                182 -> {
-                    bark.y = 215.0
-                }
-                184-> {
-                    bark.y = 215.0
-                }
-                188 -> {
-                    bark.y = 215.0
-                }
-                190 -> {
-                    bark.y = 215.0
-                }
-                192 -> {
-                    bark.y = 215.0
-                }
-                194-> {
-                    bark.y = 215.0
-                }
-                198 -> {
-                    bark.y = 215.0
-                }
-                200 -> {
-                    bark.y = 215.0
-                }
-                202 -> {
-                    bark.y = 215.0
-                }
-                204 -> {
-                    bark.y = 215.0
-                }
-                208-> {
-                    bark.y = 215.0
-                }
-                210 -> {
-                    bark.y = 215.0
-                }
-                212 -> {
-                    bark.y = 215.0
-                }
-                214-> {
-                    bark.y = 215.0
-                }
-                218 -> {
-                    bark.y = 215.0
-                }
-                220 -> {
-                    bark.y = 215.0
-                }
+                in 42..220 -> bark.y = 215.0
                 538 -> {
                     bark.y = 62.0
                 }
