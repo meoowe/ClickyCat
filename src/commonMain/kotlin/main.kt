@@ -6,6 +6,7 @@ import korlibs.korge.*
 import korlibs.korge.scene.*
 import korlibs.math.geom.*
 
+
 // Entry point of the Korge application
 suspend fun main() = Korge(
     // Set the window size to 780x400 pixels

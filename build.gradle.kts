@@ -6,7 +6,6 @@ plugins {
 
 korge {
 	id = "com.meoowe.clickycat"
-    androidSdk(compileSdk = 28, minSdk = 22, targetSdk = 32)
 // To enable all targets at once
 
 	//targetAll()
