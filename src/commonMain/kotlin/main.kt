@@ -306,48 +306,19 @@ class GameScene : Scene() {
         addUpdater {
             // Why did I make this catastrophe?
             when(clicky.x.toInt()) {
-                245 -> {
-                    clicky.y = 200.0
-                }
-                270 -> {
-                    clicky.y = 200.0
-                }
-                295 -> {
-                    clicky.y = 171.0
-                }
-                345 -> {
-                    clicky.y = 152.0
-                }
-                320 -> {
-                    clicky.y = 159.0
-                }
-                445 -> {
-                    clicky.y = 110.0
-                }
-                495 -> {
-                    clicky.y = 75.0
-                }
-                520 -> {
-                    clicky.y = 63.0
-                }
-                545 -> {
-                    clicky.y = 50.0
-                }
-                570 -> {
-                    clicky.y = 40.0
-                }
-                395 -> {
-                    clicky.y = 130.0
-                }
-                420 -> {
-                    clicky.y = 125.0
-                }
-                470 -> {
-                    clicky.y = 100.0
-                }
-                595 -> {
-                    clicky.y = 25.0
-                }
+                245, 270 -> clicky.y = 200.0
+                295 -> clicky.y = 171.0
+                345 -> clicky.y = 152.0
+                320 -> clicky.y = 159.0
+                445 -> clicky.y = 110.0
+                495 -> clicky.y = 75.0
+                520 -> clicky.y = 63.0
+                545 -> clicky.y = 50.0
+                570 -> clicky.y = 40.0
+                395 -> clicky.y = 130.0
+                420 -> clicky.y = 125.0
+                470 -> clicky.y = 100.0
+                595 -> clicky.y = 25.0
             }
             when(bark.x.toInt()) {
                 42 -> {
@@ -569,7 +540,8 @@ class GameScene : Scene() {
             }
 
         }
-    }}
+    }
+}
 
 
 
