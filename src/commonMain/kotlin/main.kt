@@ -1,10 +1,11 @@
-import scenes.*
+
 import korlibs.audio.sound.*
 import korlibs.image.color.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
 import korlibs.korge.scene.*
 import korlibs.math.geom.*
+import scenes.*
 
 
 // Entry point of the Korge application
@@ -29,7 +30,7 @@ suspend fun main() = Korge(
 
     // If playMusic is true, play the loaded sound infinitely
     if (playMusic) {
-        sound.play(infinitePlaybackTimes)
+       // sound.play(infinitePlaybackTimes)
     }
 }
 

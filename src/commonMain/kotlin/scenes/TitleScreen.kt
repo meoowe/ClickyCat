@@ -1,7 +1,9 @@
 package scenes
 
+import __KR
 import korlibs.audio.sound.*
 import korlibs.image.color.*
+import korlibs.image.format.*
 import korlibs.io.file.std.*
 import korlibs.korge.input.*
 import korlibs.korge.scene.*
@@ -30,21 +32,23 @@ class TitleScreen : Scene() {
         }
 
         // Add the title text
-        val title = text("Clicky the Cat") {
+        val title = text("Clicky Cat") {
             positionX(150)
             color = Colors.LAWNGREEN
             fontSize = 30.0
         }
 
         // Add the play button
-        val playButton = uiButton("Play") {
-            position(350, 200)
+        val playButton = image(resourcesVfs["img/playButton.png"].readBitmap()) {
+            position(100, 270)
+            scale(0.25)
 
         }
 
         // Add the quit button
-        val quitButton = uiButton("Quit to Desktop") {
-            position(350, 250)
+        val quitButton = image(resourcesVfs["img/exitButton.png"].readBitmap()) {
+            position(350, 280)
+            scale(0.25)
         }
 
         // Add the credit button
@@ -67,14 +71,13 @@ class TitleScreen : Scene() {
         )
     }
     private suspend fun sceneMain(
-        playButton: UIButton,
+        playButton: Image,
         clickSound: Sound,
-        quitButton: UIButton,
+        quitButton: Image,
         creditsButton: UIButton
     ) {
         // Handle play button click
         playButton.onClick {
-
             //Change to Scenes.GameScene()
             sceneContainer.changeTo {
                 GameScene()

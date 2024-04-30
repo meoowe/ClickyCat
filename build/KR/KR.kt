@@ -39,7 +39,6 @@ object __KR {
 	object KRImg {
 		val __file get() = resourcesVfs["img"]
 		@ResourceVfsPath("img/DogBark.png") val `dogbark` get() = TypedVfsFileBitmap(resourcesVfs["img/DogBark.png"])
-		@ResourceVfsPath("img/IMG_0377.png") val `img0377` get() = TypedVfsFileBitmap(resourcesVfs["img/IMG_0377.png"])
 		@ResourceVfsPath("img/Lost.png") val `lost` get() = TypedVfsFileBitmap(resourcesVfs["img/Lost.png"])
 		@ResourceVfsPath("img/SCROLL.PNG") val `scroll` get() = TypedVfsFileBitmap(resourcesVfs["img/SCROLL.PNG"])
 		@ResourceVfsPath("img/balloon.png") val `balloon` get() = TypedVfsFileBitmap(resourcesVfs["img/balloon.png"])
@@ -49,12 +48,14 @@ object __KR {
 		@ResourceVfsPath("img/cover.PNG") val `cover` get() = TypedVfsFileBitmap(resourcesVfs["img/cover.PNG"])
 		@ResourceVfsPath("img/credits.png") val `credits` get() = TypedVfsFileBitmap(resourcesVfs["img/credits.png"])
 		@ResourceVfsPath("img/dog.PNG") val `dog` get() = TypedVfsFileBitmap(resourcesVfs["img/dog.PNG"])
+		@ResourceVfsPath("img/exitButton.png") val `exitbutton` get() = TypedVfsFileBitmap(resourcesVfs["img/exitButton.png"])
 		@ResourceVfsPath("img/grass1.png") val `grass1` get() = TypedVfsFileBitmap(resourcesVfs["img/grass1.png"])
 		@ResourceVfsPath("img/grass2.png") val `grass2` get() = TypedVfsFileBitmap(resourcesVfs["img/grass2.png"])
 		@ResourceVfsPath("img/house.PNG") val `house` get() = TypedVfsFileBitmap(resourcesVfs["img/house.PNG"])
 		@ResourceVfsPath("img/icons") val `icons` get() = __KR.KRImgIcons
 		@ResourceVfsPath("img/luna.png") val `luna` get() = TypedVfsFileBitmap(resourcesVfs["img/luna.png"])
 		@ResourceVfsPath("img/mountain.png") val `mountain` get() = TypedVfsFileBitmap(resourcesVfs["img/mountain.png"])
+		@ResourceVfsPath("img/playButton.png") val `playbutton` get() = TypedVfsFileBitmap(resourcesVfs["img/playButton.png"])
 		@ResourceVfsPath("img/trophy.png") val `trophy` get() = TypedVfsFileBitmap(resourcesVfs["img/trophy.png"])
 		@ResourceVfsPath("img/unused") val `unused` get() = __KR.KRImgUnused
 	}
@@ -72,5 +73,6 @@ object __KR {
 		@ResourceVfsPath("img/unused/Unused_.png") val `unused` get() = TypedVfsFileBitmap(resourcesVfs["img/unused/Unused_.png"])
 		@ResourceVfsPath("img/unused/dog_barking.png") val `dogBarking` get() = TypedVfsFileBitmap(resourcesVfs["img/unused/dog_barking.png"])
 		@ResourceVfsPath("img/unused/grass3.png") val `grass3` get() = TypedVfsFileBitmap(resourcesVfs["img/unused/grass3.png"])
+		@ResourceVfsPath("img/unused/robocat.png") val `robocat` get() = TypedVfsFileBitmap(resourcesVfs["img/unused/robocat.png"])
 	}
 }
