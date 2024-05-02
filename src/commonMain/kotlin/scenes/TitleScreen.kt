@@ -7,7 +7,6 @@ import korlibs.image.format.*
 import korlibs.io.file.std.*
 import korlibs.korge.input.*
 import korlibs.korge.scene.*
-import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
 
@@ -35,31 +34,28 @@ class TitleScreen : Scene() {
         val title = text("Clicky Cat") {
             positionX(150)
             color = Colors.LAWNGREEN
-            fontSize = 30.0
+            fontSize = 60.0
+            centerOnStage()
         }
 
         // Add the play button
-        val playButton = image(resourcesVfs["img/playButton.png"].readBitmap()) {
-            position(100, 270)
-            scale(0.25)
-
+        val playButton = image(resourcesVfs["img/buttons/playButton.png"].readBitmap()) {
+            positionY(210)
+            scale(0.125)
+            centerXOnStage()
         }
 
         // Add the quit button
-        val quitButton = image(resourcesVfs["img/exitButton.png"].readBitmap()) {
-            position(350, 280)
-            scale(0.25)
+        val quitButton = image(resourcesVfs["img/buttons/exitButton.png"].readBitmap()) {
+            positionY( 280)
+            scale(0.125)
+            centerXOnStage()
         }
 
         // Add the credit button
-        val creditsButton = uiButton {
-            text = "Credits"
-            stage?.let {
-                alignRightToRightOf(it)
-            }
-            stage?.let {
-                alignBottomToBottomOf(it)
-            }
+        val creditsButton = image(resourcesVfs["img/buttons/creditsButton.png"].readBitmap()) {
+            position(655,340)
+            scale(0.125)
         }
 
         // Call main scene function
@@ -74,7 +70,7 @@ class TitleScreen : Scene() {
         playButton: Image,
         clickSound: Sound,
         quitButton: Image,
-        creditsButton: UIButton
+        creditsButton: Image
     ) {
         // Handle play button click
         playButton.onClick {

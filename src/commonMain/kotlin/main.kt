@@ -1,7 +1,5 @@
 
-import korlibs.audio.sound.*
 import korlibs.image.color.*
-import korlibs.io.file.std.*
 import korlibs.korge.*
 import korlibs.korge.scene.*
 import korlibs.math.geom.*
@@ -24,14 +22,7 @@ suspend fun main() = Korge(
 
     // Change to the TitleScreen scene
     sceneContainer.changeTo { TitleScreen() }
-
-    // Load the "music2.mp3" sound resource
-    val sound = resourcesVfs["music2.mp3"].readSound()
-
     // If playMusic is true, play the loaded sound infinitely
-    if (playMusic) {
-       // sound.play(infinitePlaybackTimes)
-    }
 }
 
 // Initialize the score to 0
@@ -42,3 +33,4 @@ var playMusic = true
 
 // Initialize hiScore with the current score (0)
 var hiScore = score
+

@@ -1,5 +1,6 @@
 package scenes
 
+import __KR
 import korlibs.audio.sound.*
 import korlibs.image.color.*
 import korlibs.io.file.std.*
