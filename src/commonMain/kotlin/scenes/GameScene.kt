@@ -1,5 +1,6 @@
 package scenes
 
+import __KR
 import hiScore
 import korlibs.audio.sound.*
 import korlibs.event.*
@@ -88,6 +89,22 @@ class GameScene : Scene() {
             text = "Move"
             centerXOnStage()
         }
+        val ClickyYPositions = mapOf(
+            245 to 200.0,
+            270 to 200.0,
+            295 to 171.0,
+            345 to 152.0,
+            320 to 159.0,
+            445 to 110.0,
+            495 to 75.0,
+            520 to 63.0,
+            545 to 50.0,
+            570 to 40.0,
+            395 to 130.0,
+            420 to 125.0,
+            470 to 100.0,
+            595 to 25.0
+        )
         sceneMain(
             clickSound = clickSound,
             optionButton = optionButton,
@@ -99,7 +116,8 @@ class GameScene : Scene() {
             scoreAmount = scoreAmount,
             catHasMoved = catHasMoved,
             balloon = balloon,
-            moveButton = moveButton
+            moveButton = moveButton,
+            clickyYPositions = ClickyYPositions
         )
     }
     private suspend fun SContainer.sceneMain(
@@ -113,8 +131,10 @@ class GameScene : Scene() {
         scoreAmount: Int,
         catHasMoved: Boolean,
         balloon: Sprite,
-        moveButton: UIButton
+        moveButton: UIButton,
+        clickyYPositions: Map<Int, Double>
     )
+
     {
         score = 0
         var mutableClickAmount = clickAmount
@@ -125,6 +145,11 @@ class GameScene : Scene() {
                 Options()
             }
             clickSound.play()
+        }
+        fun launchCoroutine(block: suspend CoroutineScope.() -> Unit) {
+            launch(coroutineContext) {
+                block()
+            }
         }
         /**
          * onReachTarget: This function is called when a sprite reaches its target position.
@@ -137,12 +162,13 @@ class GameScene : Scene() {
          * instance of the WinningScreen class.
          */
         fun onReachTarget() {
-            launch(coroutineContext) {
+            launchCoroutine {
                 sceneContainer.changeTo {
                     Winningscreen()
                 }
             }
         }
+
         /**
          * Moves a sprite across the screen by a specified step size along the x and y axes.
          *
@@ -166,12 +192,7 @@ class GameScene : Scene() {
                 onReachTarget()
             }
         }
-        fun moveDog() {
-            moveSprite(bark, 640, 1.0, 0.5)
-            bark.playAnimationLooped()
-        }
-        fun moveCat() {
-            moveSprite(clicky, 850, 20.0, 8.0)
+        fun changeScore(){
             mutableClickAmount += 1
             println(mutableScoreAmount)
             score += mutableScoreAmount
@@ -188,56 +209,44 @@ class GameScene : Scene() {
         clicky.onClick {
             bark.playAnimationLooped()
             mutableCatHasMoved = true
-            moveCat()
-            moveDog()
+            moveSprite(clicky, 850, 20.0, 8.0)
+            moveSprite(bark, 640, 1.0, 0.5)
+            changeScore()
         }
         addUpdater {
-            if (input.keys.justPressed(Key.SPACE))launch(coroutineContext) {
-                moveCat()
-                moveDog()
+            if (input.keys.justPressed(Key.SPACE))launchCoroutine {
+                moveSprite(clicky, 850, 20.0, 8.0)
+                moveSprite(bark, 640, 1.0, 0.5)
+                changeScore()
                 mutableCatHasMoved = true
             }
         }
         moveButton.onClick {
-            moveCat()
-            moveDog()
+            moveSprite(clicky, 850, 20.0, 8.0)
+            moveSprite(bark, 640, 1.0, 0.5)
+            changeScore()
             mutableCatHasMoved = true
         }
         // Make the dog move continuously
         addUpdater {
             if(mutableCatHasMoved) {
-                moveDog()
+                moveSprite(bark, 640, 1.0, 0.5)
             }
         }
         bark.onCollision({it == clicky}) {
-            launch(coroutineContext) {
-                sceneContainer.changeTo{
-                    LoosingScreen()
-                }
+            launchCoroutine {
+                sceneContainer.changeTo { LoosingScreen() }
+
             }
         }
         bark.interval(1.seconds) {
-            launch(coroutineContext) {
+            launchCoroutine {
                 barkSound.play()
             }
         }
         addUpdater {
             // Why did I make this catastrophe?
-            when(clicky.x.toInt()) {
-                245, 270 -> clicky.y = 200.0
-                295 -> clicky.y = 171.0
-                345 -> clicky.y = 152.0
-                320 -> clicky.y = 159.0
-                445 -> clicky.y = 110.0
-                495 -> clicky.y = 75.0
-                520 -> clicky.y = 63.0
-                545 -> clicky.y = 50.0
-                570 -> clicky.y = 40.0
-                395 -> clicky.y = 130.0
-                420 -> clicky.y = 125.0
-                470 -> clicky.y = 100.0
-                595 -> clicky.y = 25.0
-            }
+            clicky.y = clickyYPositions[clicky.x.toInt()] ?: clicky.y
             when(bark.x.toInt()) {
                 in 42..220 -> bark.y = 215.0
                 538 -> {
