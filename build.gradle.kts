@@ -23,5 +23,21 @@ korge {
 
 dependencies {
     add("commonMainApi", project(":deps"))
+    //noinspection GradleDynamicVersion
+
+
+}
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
 

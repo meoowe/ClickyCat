@@ -1,5 +1,3 @@
-package scenes
-
 import korlibs.audio.sound.*
 import korlibs.image.color.*
 import korlibs.io.file.std.*
@@ -8,33 +6,52 @@ import korlibs.korge.scene.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.korge.view.align.*
+import scenes.*
 
 class Credits : Scene() {
     override suspend fun SContainer.sceneMain() {
         val clickSound = resourcesVfs["click.mp3"].readSound()
-        val cloudBackground = image(__KR.KRImg.clouds.read()) {
+
+        createCloudBackground()
+        createCreditsScroll()
+        createCreditsText()
+        createBackButton(clickSound)
+    }
+
+    private suspend fun SContainer.createCloudBackground(): Image {
+        return image(__KR.KRImg.clouds.read()) {
             anchor(.5, .5)
             scale(1)
             position(400, 200)
         }
-        val scroll = image(__KR.KRImg.credits.read()) {
+    }
+
+    private suspend fun SContainer.createCreditsScroll(): Image {
+        return image(__KR.KRImg.credits.read()) {
             scale(0.5)
             centerOnStage()
         }
-        val creditsText = text("Programming - meoowe") {
-            positionX(210)
-            positionY(125)
-            color = Colors.BLACK
-            fontSize = 35.0
-        }
+    }
 
-        val othercreditsText = text("Art - LeoNunk") {
-            positionX(290)
-            positionY(155)
-            color = Colors.BLACK
-            fontSize = 35.0
-        }
-        val back = uiButton {
+    private fun SContainer.createCreditsText(): List<Text> {
+        return listOf(
+            text("Programming - meoowe") {
+                positionX(210)
+                positionY(125)
+                color = Colors.BLACK
+                fontSize = 35.0
+            },
+            text("Art - LeoNunk") {
+                positionX(290)
+                positionY(155)
+                color = Colors.BLACK
+                fontSize = 35.0
+            }
+        )
+    }
+
+    private fun SContainer.createBackButton(clickSound: Sound): UIButton {
+        return uiButton {
             onClick {
                 sceneContainer.changeTo {
                     TitleScreen()
@@ -47,10 +64,6 @@ class Credits : Scene() {
             bgColorOut = Colors.ORANGE
             bgColorOver = Colors.YELLOW
             textColor = Colors.BLACK
-
         }
-
     }
-
-
 }

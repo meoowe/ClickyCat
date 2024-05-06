@@ -88,8 +88,9 @@ class GameScene : Scene() {
         val moveButton = uiButton {
             text = "Move"
             centerXOnStage()
+            scale(2)
         }
-        val ClickyYPositions = mapOf(
+        val clickyYPositions = mapOf(
             245 to 200.0,
             270 to 200.0,
             295 to 171.0,
@@ -117,7 +118,7 @@ class GameScene : Scene() {
             catHasMoved = catHasMoved,
             balloon = balloon,
             moveButton = moveButton,
-            clickyYPositions = ClickyYPositions
+            clickyYPositions = clickyYPositions
         )
     }
     private suspend fun SContainer.sceneMain(
@@ -198,35 +199,37 @@ class GameScene : Scene() {
             score += mutableScoreAmount
             scoreDisplay.text = "Score: $score Hi: $hiScore"
         }
-        balloon.interval(500.milliseconds) {
-            balloon.visible = !balloon.visible
-            val randomPos = (50..700).random()
-            balloon.positionX(randomPos)
-        }
-        balloon.onClick {
+
+        fun handleBalloonClick() {
             mutableScoreAmount = 20
         }
-        clicky.onClick {
+
+        fun handleClickyClick() {
             bark.playAnimationLooped()
             mutableCatHasMoved = true
             moveSprite(clicky, 850, 20.0, 8.0)
             moveSprite(bark, 640, 1.0, 0.5)
             changeScore()
         }
+
+        fun handleSpaceKeyPress() = launchCoroutine {
+            handleClickyClick()
+        }
+
+        fun handleMoveButtonClick() {
+            handleClickyClick()
+        }
+        balloon.interval(500.milliseconds) {
+            balloon.visible = !balloon.visible
+            val randomPos = (50..700).random()
+            balloon.positionX(randomPos)
+        }
+        balloon.onClick { handleBalloonClick() }
+        clicky.onClick { handleClickyClick() }
         addUpdater {
-            if (input.keys.justPressed(Key.SPACE))launchCoroutine {
-                moveSprite(clicky, 850, 20.0, 8.0)
-                moveSprite(bark, 640, 1.0, 0.5)
-                changeScore()
-                mutableCatHasMoved = true
-            }
+            if (input.keys.justPressed(Key.SPACE)) handleSpaceKeyPress()
         }
-        moveButton.onClick {
-            moveSprite(clicky, 850, 20.0, 8.0)
-            moveSprite(bark, 640, 1.0, 0.5)
-            changeScore()
-            mutableCatHasMoved = true
-        }
+        moveButton.onClick {handleMoveButtonClick()}
         // Make the dog move continuously
         addUpdater {
             if(mutableCatHasMoved) {
@@ -256,3 +259,5 @@ class GameScene : Scene() {
         }
     }
 }
+
+

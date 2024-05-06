@@ -1,5 +1,6 @@
 package scenes
 
+import __KR
 import korlibs.event.*
 import korlibs.korge.input.*
 import korlibs.korge.scene.*
