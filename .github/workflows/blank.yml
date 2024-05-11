@@ -29,8 +29,6 @@ jobs:
         run: ./gradlew jsBrowserProductionWebpack
       - name: 🫙 Build Jar File
         run: ./gradlew packageJvmFatJar
-      - name: 🪟 Build Windows Executable
-        run: ./gradlew packageJvmWindowsApp && chmod +x /home/runner/.konan/dependencies/resourcehacker/ResourceHacker.exe && ./gradlew packageJvmWindowsApp
       - name: 🐧 Build Linux Executable
         run: ./gradlew packageJvmLinuxApp
       - name: Copy Directory
@@ -58,3 +56,5 @@ jobs:
           BRANCH: github-pages
           FOLDER: build/dist/js/productionExecutable
           CLEAN: true
+      - name: 🪟 Build Windows Executable
+        run: ./gradlew packageJvmWindowsApp && chmod +x /home/runner/.konan/dependencies/resourcehacker/ResourceHacker.exe && ./gradlew packageJvmWindowsApp
