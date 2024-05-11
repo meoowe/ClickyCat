@@ -32,22 +32,16 @@ jobs:
       - name: 🐧 Build Linux Executable
         run: ./gradlew packageJvmLinuxApp
       - name: Copy Directory
-  # You may pin to the exact commit or the version.
-  # uses: MadaraUchiha/copy-action@7ddff6fc153a2ea2cd0fb88ed9750544c051e399
-        uses: MadaraUchiha/copy-action@0.0.1
+        uses: canastro/copy-file-action@master
         with:
           # Source file
           source: build/libs
           # Target file
           target: /out
       - name: Copy Directory
-  # You may pin to the exact commit or the version.
-  # uses: MadaraUchiha/copy-action@7ddff6fc153a2ea2cd0fb88ed9750544c051e399
-        uses: MadaraUchiha/copy-action@0.0.1
+        uses: canastro/copy-file-action@master
         with:
-          # Source file
           source: build/dist/js/productionExecutable
-          # Target file
           target: /out
       - name: Deploy 🚀 to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@3.7.1
