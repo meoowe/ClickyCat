@@ -9,9 +9,12 @@ env:
   JAVA_DISTRIBUTION: zulu
   JAVA_VERSION: 17
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
+   build:
+     strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+     runs-on: ${{matrix.os}}
+     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK
         uses: actions/setup-java@v3
@@ -27,7 +30,7 @@ jobs:
       - name: 🫙 Build Jar File
         run: ./gradlew packageJvmFatJar
       - name: 🪟 Build Windows Executable
-        run: chmod +x /home/runner/.konan/dependencies/resourcehacker/ResourceHacker.exe && ./gradlew packageJvmWindowsApp
+        run: ./gradlew packageJvmWindowsApp && chmod +x /home/runner/.konan/dependencies/resourcehacker/ResourceHacker.exe && ./gradlew packageJvmWindowsApp
       - name: 🐧 Build Linux Executable
         run: ./gradlew packageJvmLinuxApp
       - name: Copy Directory
