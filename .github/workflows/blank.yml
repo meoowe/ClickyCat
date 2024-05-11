@@ -31,18 +31,6 @@ jobs:
         run: ./gradlew packageJvmFatJar
       - name: 🐧 Build Linux Executable
         run: ./gradlew packageJvmLinuxApp
-      - name: Copy Directory
-        uses: canastro/copy-file-action@master
-        with:
-          # Source file
-          source: build/libs
-          # Target file
-          target: /out
-      - name: Copy Directory
-        uses: canastro/copy-file-action@master
-        with:
-          source: build/dist/js/productionExecutable
-          target: /out
       - name: Deploy 🚀 to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
