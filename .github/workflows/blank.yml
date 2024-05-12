@@ -39,17 +39,17 @@ jobs:
           FOLDER: build/dist/js/productionExecutable
           CLEAN: true
       - name: Upload JS
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v4
         with:
           name: JS Bundle
           path: "build/dist/js/productionExecutable"
       - name: Upload Jar
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v4
         with:
           name: Jar Files
           path: "build/libs"
       - name: Upload Linux
-        uses: actions/upload-artifact@v1.0.0
+        uses: actions/upload-artifact@v4
         with:
           name: Linux Executable
           path: "build/platforms"
