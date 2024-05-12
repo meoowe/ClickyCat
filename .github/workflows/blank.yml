@@ -39,4 +39,4 @@ jobs:
           FOLDER: build/dist/js/productionExecutable
           CLEAN: true
       - name: 🪟 Build Windows Executable
-        run: ./gradlew packageJvmWindowsApp && chmod +x /home/runner/.konan/dependencies/resourcehacker/ResourceHacker.exe && ./gradlew packageJvmWindowsApp
+        run: ./gradlew packageJvmWindowsApp && chmod +x /home/runner && ./gradlew packageJvmWindowsApp
