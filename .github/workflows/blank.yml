@@ -53,4 +53,20 @@ jobs:
         with:
           name: Linux Executable
           path: "build/platforms"
+      - name: Upload S3
+      - uses: actions/checkout@master
+      - uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{secrets.AWS_ACCES_KEY_ID}}
+          aws_secret_access_key: ${{ secrets.AWS_ACCESS_KEY_SECRET}}
+          aws_bucket: ${{ env.AWS_BUCKET_NAME }}
+          source_dir: 'build/platforms'
+      - name: Upload S3 again
+      - uses: actions/checkout@master
+      - uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{secrets.AWS_ACCES_KEY_ID}}
+          aws_secret_access_key: ${{ secrets.AWS_ACCESS_KEY_SECRET}}
+          aws_bucket: ${{ env.AWS_BUCKET_NAME }}
+          source_dir: 'build/libs'
       
