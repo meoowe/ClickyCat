@@ -6,14 +6,12 @@ plugins {
 
 korge {
 	id = "com.meoowe.clickycat"
-
 // To enable all targets at once
 
 	//targetAll()
 
 // To enable targets based on properties/environment variables
 	//targetDefault()
-
 // To selectively enable targets
     targetJvm()
     targetJs()
@@ -25,5 +23,21 @@ korge {
 
 dependencies {
     add("commonMainApi", project(":deps"))
+    //noinspection GradleDynamicVersion
+
+
+}
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
 
