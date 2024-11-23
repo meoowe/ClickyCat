@@ -1,5 +1,5 @@
 # ClickyCat
-# No longer in development, if you want to keep this game alive by becoming a maintainer, start a discussion.
+
 [![](https://tokei.rs/b1/github/meoowe/ClickyCat?style=for-the-badge)]([https://github.com/XAMPPRocky/tokei_rs](https://tokei.rs/b1/github/meoowe/ClickyCat?style=for-the-badge)).
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/meoowe/ClickyCat/blank.yml?branch=dev&style=for-the-badge&label=Dev%20Builds)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/meoowe/ClickyCat/blank.yml?branch=master&style=for-the-badge&label=Master%20Builds)
