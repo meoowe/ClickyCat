@@ -1,5 +1,0 @@
-dependencies:
-- https://github.com/korlibs/korge-ext/tree/v0.1.2/korge-collision
-- https://github.com/korlibs/korge-box2d/tree/v0.1.2/korge-box2d
-- https://github.com/korlibs/korge-ext/tree/v0.1.2/korma-tile-raycasting/korma-tile-raycasting
-- https://github.com/korlibs/korge-ext/tree/v0.1.2/korge-ktree
