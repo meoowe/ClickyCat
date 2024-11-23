@@ -1,8 +1,6 @@
 # ClickyCat
 
 [![](https://tokei.rs/b1/github/meoowe/ClickyCat?style=for-the-badge)]([https://github.com/XAMPPRocky/tokei_rs](https://tokei.rs/b1/github/meoowe/ClickyCat?style=for-the-badge)).
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/meoowe/ClickyCat/blank.yml?branch=dev&style=for-the-badge&label=Dev%20Builds)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/meoowe/ClickyCat/blank.yml?branch=master&style=for-the-badge&label=Master%20Builds)
 ![GitHub License](https://img.shields.io/github/license/meoowe/ClickyCat?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/meoowe/ClickyCat?style=for-the-badge)
 ![Dynamic YAML Badge](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmeoowe%2FClickyCat%2Fdev%2Fmetadata.yml&query=%24.metadata.version&style=for-the-badge&label=Version)
