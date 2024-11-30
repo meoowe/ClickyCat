@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://b51332hqejkkn"]
+
+[ext_resource type="Script" path="res://scripts/autoloads/Global.gd" id="1_y3cdf"]
+[ext_resource type="AudioStream" uid="uid://cas3diym2lyfa" path="res://assets/music2.mp3" id="2_7k0v1"]
+[ext_resource type="AudioStream" uid="uid://doyscnoadhdpr" path="res://assets/otherTrack.mp3" id="3_22tia"]
+[ext_resource type="AudioStream" uid="uid://c4tvfxaxbe20j" path="res://assets/bark.mp3" id="4_7bgt6"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_meubt"]
+shuffle = true
+fade_time = 1.0
+stream_count = 2
+stream_0 = ExtResource("2_7k0v1")
+stream_1 = ExtResource("3_22tia")
+
+[node name="Global" type="Node"]
+script = ExtResource("1_y3cdf")
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPlaylist_meubt")
+
+[node name="bark" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_7bgt6")
+bus = &"sfx"

@@ -1,0 +1,87 @@
+[gd_scene load_steps=7 format=3 uid="uid://cwderxh2bn70g"]
+
+[ext_resource type="Script" path="res://scripts/win.gd" id="1_jsomg"]
+[ext_resource type="Texture2D" uid="uid://c3pd7osh6hxqd" path="res://assets/img/trophy.png" id="3_tcv51"]
+[ext_resource type="Texture2D" uid="uid://n85ydfhmpl3b" path="res://assets/img/luna.png" id="5_21kbb"]
+[ext_resource type="PackedScene" uid="uid://clw216irx0h74" path="res://winBG.tscn" id="5_w63as"]
+[ext_resource type="Texture2D" uid="uid://c14sn4owrr1et" path="res://assets/img/cat.png" id="6_r2ggq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_08j7k"]
+font_size = 48
+
+[node name="winScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jsomg")
+
+[node name="Trophy" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -299.0
+offset_top = 19.0
+offset_right = 725.0
+offset_bottom = 1043.0
+grow_horizontal = 0
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_tcv51")
+
+[node name="Luna" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -327.0
+offset_right = 1023.0
+offset_bottom = 697.0
+grow_vertical = 0
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_21kbb")
+
+[node name="Cat" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -261.0
+offset_top = -326.0
+offset_right = 763.0
+offset_bottom = 698.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("6_r2ggq")
+
+[node name="title" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Go Back To Title"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "You won with a score of "
+label_settings = SubResource("LabelSettings_08j7k")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("5_w63as")]
+
+[connection signal="pressed" from="title" to="." method="_on_title_pressed"]

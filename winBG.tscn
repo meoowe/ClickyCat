@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://clw216irx0h74"]
+
+[ext_resource type="Script" path="res://parallax_background.gd" id="1_fes5h"]
+[ext_resource type="Texture2D" uid="uid://d5bfhq8rs7g1" path="res://assets/img/clouds.png" id="2_nag3f"]
+[ext_resource type="Texture2D" uid="uid://b7yb2ayqtr74d" path="res://assets/img/grass1.png" id="3_3y2mj"]
+[ext_resource type="Texture2D" uid="uid://bbfsx5i8yms2p" path="res://assets/img/confetti1.png" id="4_n3yc8"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+script = ExtResource("1_fes5h")
+
+[node name="Clouds" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(800, 400)
+
+[node name="Clouds2" type="Sprite2D" parent="Clouds"]
+position = Vector2(1, 13)
+texture = ExtResource("2_nag3f")
+centered = false
+
+[node name="Clouds3" type="Sprite2D" parent="Clouds"]
+position = Vector2(801, 13)
+texture = ExtResource("2_nag3f")
+centered = false
+
+[node name="ground" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+
+[node name="ground" type="Sprite2D" parent="ground"]
+position = Vector2(508, 598)
+texture = ExtResource("3_3y2mj")
+
+[node name="ground2" type="Sprite2D" parent="ground"]
+position = Vector2(1530, 598)
+texture = ExtResource("3_3y2mj")
+
+[node name="confetti" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 1)
+motion_mirroring = Vector2(0, 1024)
+
+[node name="Confetti1" type="Sprite2D" parent="confetti"]
+position = Vector2(674, 409)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_n3yc8")

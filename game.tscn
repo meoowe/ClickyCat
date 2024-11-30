@@ -1,0 +1,235 @@
+[gd_scene load_steps=29 format=3 uid="uid://llio8lombjqw"]
+
+[ext_resource type="PackedScene" uid="uid://d1cxtfy37f8g6" path="res://blankBG.tscn" id="1_8ep6t"]
+[ext_resource type="Texture2D" uid="uid://dvtvijybmd17u" path="res://assets/img/DogBark.png" id="3_kxon8"]
+[ext_resource type="Texture2D" uid="uid://c14sn4owrr1et" path="res://assets/img/cat.png" id="4_uhgcr"]
+[ext_resource type="Script" path="res://cat.gd" id="4_w173p"]
+[ext_resource type="Texture2D" uid="uid://q6sdcy6arc01" path="res://assets/img/mountain.png" id="5_dnohc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qidma"]
+size = Vector2(2604.5, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ya2gc"]
+size = Vector2(124, 124)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_36uyj"]
+size = Vector2(285.5, 280)
+
+[sub_resource type="Curve2D" id="Curve2D_ii427"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 157, 724, 0, 0, 0, 0, 397, 723, 0, 0, 0, 0, 417.182, 702.455, 0, 0, 0, 0, 446.273, 669.727, 0, 0, 0, 0, 512, 636, 0, 0, 0, 0, 544.017, 573.926, 0, 0, 0, 0, 580.38, 540.868, 0, 0, 0, 0, 609.306, 509.463, 0, 0, 0, 0, 641.537, 475.578, 0, 0, 0, 0, 701.446, 439.818, 0, 0, 0, 0, 738.636, 410.893, 0, 0, 0, 0, 799.793, 378.661, 0, 0, 0, 0, 863, 351, 0, 0, 0, 0, 897.597, 317.166, 0, 0, 0, 0, 993.429, 285.222, 0, 0, 0, 0, 1024, 252, 0, 0, 0, 0, 1055, 221, 0, 0, 0, 0, 1083, 188, 0, 0, 0, 0, 1117.21, 153.453, 0, 0, 0, 0, 1248.98, 93.5584, 0, 0, 0, 0, 1348.81, 64.2764, 0, 0, 0, 0, 1441, 58)
+}
+point_count = 22
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1ot5"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(0, 0, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86yph"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(1024, 0, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pn37f"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(0, 896, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cp34h"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(1024, 896, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_enrtm"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(0, 1792, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tejxa"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(1024, 1792, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b77hc"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(0, 2688, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yblyv"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(1024, 2688, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ic86"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(0, 3584, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1e81j"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(1024, 3584, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gxhv"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(0, 4480, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tl48"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(1024, 4480, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbu3v"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(0, 5376, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nshpo"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(1024, 5376, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbknp"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(0, 6272, 1024, 896)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igefx"]
+atlas = ExtResource("3_kxon8")
+region = Rect2(1024, 6272, 1024, 896)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6fwbv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1ot5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86yph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pn37f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cp34h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_enrtm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tejxa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b77hc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yblyv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ic86")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1e81j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gxhv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8tl48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qbu3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nshpo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qbknp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igefx")
+}],
+"loop": true,
+"name": &"bark",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fkqua"]
+size = Vector2(146.495, 121.611)
+
+[sub_resource type="LabelSettings" id="LabelSettings_25a57"]
+font_size = 64
+
+[node name="game" type="Node2D"]
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("1_8ep6t")]
+
+[node name="ground" type="StaticBody2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ground"]
+position = Vector2(1301.75, 738)
+shape = SubResource("RectangleShape2D_qidma")
+
+[node name="cat" type="Area2D" parent="."]
+script = ExtResource("4_w173p")
+
+[node name="Sprite2D" type="Sprite2D" parent="cat"]
+position = Vector2(330, 662)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("4_uhgcr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cat"]
+position = Vector2(328, 668)
+shape = SubResource("RectangleShape2D_ya2gc")
+debug_color = Color(0.622924, 0.533121, 0, 0.42)
+
+[node name="mountain" type="StaticBody2D" parent="."]
+position = Vector2(2, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="mountain"]
+position = Vector2(926, 220)
+texture = ExtResource("5_dnohc")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="mountain"]
+polygon = PackedVector2Array(413, 730, 413, 700, 446, 700, 446, 668, 510, 668, 510, 637, 542, 637, 543, 572, 574, 572, 574, 540, 606, 540, 606, 509, 637, 508, 639, 477, 703, 477, 701, 445, 731, 445, 736, 412, 797, 412, 798, 382, 861, 380, 862, 350, 892, 349, 894, 317, 989, 317, 990, 284, 1020, 285, 1023, 252, 1054, 253, 1055, 220, 1085, 219, 1087, 190, 1118, 190, 1119, 156, 1181, 156, 1181, 124, 1245, 124, 1246, 92, 1342, 93, 1342, 59, 1436, 61, 1435, 733)
+
+[node name="winZone" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="winZone"]
+position = Vector2(1298, 156)
+shape = SubResource("RectangleShape2D_36uyj")
+
+[node name="path" type="Path2D" parent="."]
+curve = SubResource("Curve2D_ii427")
+
+[node name="follower" type="PathFollow2D" parent="path"]
+position = Vector2(157, 724)
+rotation = -0.00416664
+loop = false
+
+[node name="dog" type="StaticBody2D" parent="path/follower"]
+
+[node name="dog2" type="AnimatedSprite2D" parent="path/follower/dog"]
+position = Vector2(-1.79993, -48.0073)
+rotation = 0.00416664
+scale = Vector2(0.125, 0.125)
+sprite_frames = SubResource("SpriteFrames_6fwbv")
+animation = &"bark"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="path/follower/dog"]
+position = Vector2(-3.28122, -52.514)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_fkqua")
+
+[node name="scoire" type="Label" parent="."]
+offset_left = 211.0
+offset_top = 23.0
+offset_right = 377.0
+offset_bottom = 94.0
+text = "Score: "
+label_settings = SubResource("LabelSettings_25a57")
+
+[node name="move" type="Button" parent="."]
+offset_left = 41.0
+offset_top = 30.0
+offset_right = 126.0
+offset_bottom = 89.0
+text = "Move!"
+
+[connection signal="body_entered" from="cat" to="cat" method="_on_body_entered"]
+[connection signal="body_exited" from="cat" to="cat" method="_on_body_exited"]
+[connection signal="body_entered" from="winZone" to="cat" method="_on_win_zone_body_entered"]
+[connection signal="pressed" from="move" to="cat" method="_on_move_pressed"]

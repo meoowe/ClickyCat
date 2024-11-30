@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://d12qatvipuj85"]
+
+[ext_resource type="Texture2D" uid="uid://c4f3f4o1dmt6d" path="res://assets/img/credits.png" id="1_g40ww"]
+[ext_resource type="Script" path="res://scripts/credits.gd" id="1_qlyjt"]
+[ext_resource type="PackedScene" uid="uid://cnv1rmmxmj0m4" path="res://background.tscn" id="2_hdwxe"]
+[ext_resource type="Theme" uid="uid://dxjovxyl7xvqv" path="res://theme.tres" id="3_oe87b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_75sj4"]
+font_size = 60
+font_color = Color(0, 0, 0, 1)
+
+[node name="Credits" type="Node2D"]
+script = ExtResource("1_qlyjt")
+
+[node name="Credits" type="Sprite2D" parent="."]
+position = Vector2(647, 409)
+texture = ExtResource("1_g40ww")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("2_hdwxe")]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 328.0
+offset_top = 282.0
+offset_right = 1024.0
+offset_bottom = 451.0
+text = "Programming - meoowe
+Art - LeoNunk"
+label_settings = SubResource("LabelSettings_75sj4")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 581.0
+offset_top = 523.0
+offset_right = 705.0
+offset_bottom = 563.0
+theme = ExtResource("3_oe87b")
+text = "Return to Title."
+expand_icon = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
