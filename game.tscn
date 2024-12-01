@@ -1,10 +1,12 @@
-[gd_scene load_steps=29 format=3 uid="uid://llio8lombjqw"]
+[gd_scene load_steps=31 format=3 uid="uid://llio8lombjqw"]
 
 [ext_resource type="PackedScene" uid="uid://d1cxtfy37f8g6" path="res://blankBG.tscn" id="1_8ep6t"]
 [ext_resource type="Texture2D" uid="uid://dvtvijybmd17u" path="res://assets/img/DogBark.png" id="3_kxon8"]
 [ext_resource type="Texture2D" uid="uid://c14sn4owrr1et" path="res://assets/img/cat.png" id="4_uhgcr"]
 [ext_resource type="Script" path="res://cat.gd" id="4_w173p"]
 [ext_resource type="Texture2D" uid="uid://q6sdcy6arc01" path="res://assets/img/mountain.png" id="5_dnohc"]
+[ext_resource type="Script" path="res://scripts/balloon.gd" id="6_3htib"]
+[ext_resource type="Texture2D" uid="uid://6233fyevq60n" path="res://assets/img/balloon.png" id="7_csxdl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qidma"]
 size = Vector2(2604.5, 22)
@@ -151,6 +153,7 @@ size = Vector2(146.495, 121.611)
 
 [sub_resource type="LabelSettings" id="LabelSettings_25a57"]
 font_size = 64
+font_color = Color(0, 0, 0, 1)
 
 [node name="game" type="Node2D"]
 
@@ -209,9 +212,8 @@ scale = Vector2(0.125, 0.125)
 sprite_frames = SubResource("SpriteFrames_6fwbv")
 animation = &"bark"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="path/follower/dog"]
+[node name="dogShapew" type="CollisionShape2D" parent="path/follower/dog"]
 position = Vector2(-3.28122, -52.514)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_fkqua")
 
 [node name="scoire" type="Label" parent="."]
@@ -228,6 +230,11 @@ offset_top = 30.0
 offset_right = 126.0
 offset_bottom = 89.0
 text = "Move!"
+
+[node name="balloon" type="TextureButton" parent="."]
+scale = Vector2(0.125, 0.125)
+texture_normal = ExtResource("7_csxdl")
+script = ExtResource("6_3htib")
 
 [connection signal="body_entered" from="cat" to="cat" method="_on_body_entered"]
 [connection signal="body_exited" from="cat" to="cat" method="_on_body_exited"]

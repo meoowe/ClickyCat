@@ -8,11 +8,13 @@ var floor = false
 @onready var ground: StaticBody2D = $"../ground"
 @onready var dog: StaticBody2D = $"../path/follower/dog"
 @onready var scoire: Label = $"../scoire"
+@onready var dog_shapew: CollisionShape2D = $"../path/follower/dog/dogShapew"
 
 @onready var dog_2: AnimatedSprite2D = $"../path/follower/dog/dog2"
 
 signal started
 var first = false
+var cat_first = true
 func _ready() -> void:
 	Global.score = 0 # Reset Score so that the player can't 'cheat'.
 	_gravity()
@@ -30,13 +32,17 @@ func _process(delta: float) -> void:
 	scoire.text = "Score: " + str(Global.score)
 	if Global.score > Global.highScore:
 		Global.highScore = Global.score
+	if self.position.x > dog.position.x:
+		cat_first = true
+	else: 
+		cat_first = false
 
 
 func _on_body_entered(body: Node2D) -> void:
 	if body != dog:
 		print("true")
 		floor = true
-	else:
+	elif body == dog or body == dog_2 or body == dog_shapew:
 		get_tree().change_scene_to_file("res://lost.tscn")
 func _gravity():
 	while true:

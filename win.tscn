@@ -8,6 +8,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_08j7k"]
 font_size = 48
+font_color = Color(0, 0, 0, 1)
 
 [node name="winScreen" type="Control"]
 layout_mode = 3
