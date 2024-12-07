@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cl2yue7rhynf7"]
+[gd_scene load_steps=7 format=3 uid="uid://cl2yue7rhynf7"]
 
 [ext_resource type="Script" path="res://scripts/lost.gd" id="1_1y3d0"]
 [ext_resource type="Texture2D" uid="uid://dux2id3ro3uwp" path="res://assets/img/Lost.png" id="1_t2gxh"]
 [ext_resource type="Texture2D" uid="uid://7wq6qjf0wd2m" path="res://assets/img/buttons/exitButton.png" id="2_ixwpm"]
+[ext_resource type="Texture2D" uid="uid://dmtxetv3vy6f7" path="res://assets/img/buttons/titleButton.png" id="4_286nm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hoyf"]
 bg_color = Color(0.6, 0.643137, 0.6, 0.254902)
@@ -73,9 +74,9 @@ stretch_mode = 4
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="Panel/VBoxContainer"]
+[node name="Button2" type="TextureButton" parent="Panel/VBoxContainer"]
 layout_mode = 2
-text = "Back to Title"
+texture_normal = ExtResource("4_286nm")
 
 [connection signal="pressed" from="Panel/VBoxContainer/Button" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Button2" to="." method="_on_title_pressed"]

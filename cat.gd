@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 	if first == true: # Only execute if user has pressed or clicked to move.
 		follower.progress += 78 * delta
 	if Input.is_action_just_pressed("move"):
-		Global.score += 10 # Each press is worth 10.
+		Global.score += Global.scoreIncrement
 		first = true # 
 		position.x += 12
 		position.y -= 20
@@ -31,6 +31,7 @@ func _process(delta: float) -> void:
 		get_tree().change_scene_to_file("res://win.tscn")
 	scoire.text = "Score: " + str(Global.score)
 	if Global.score > Global.highScore:
+		
 		Global.highScore = Global.score
 	if self.position.x > dog.position.x:
 		cat_first = true

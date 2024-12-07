@@ -1,1 +1,12 @@
+res://lost.tscn
+res://title.tscn
 res://game.tscn
+res://win.tscn
+res://scripts/balloon.gd
+res://cat.gd
+res://scripts/autoloads/Global.gd
+res://global.tscn
+res://scripts/lost.gd
+res://scripts/title.gd
+res://scripts/win.gd
+res://scripts/dog.gd
