@@ -33,7 +33,6 @@ jobs:
           godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR/windows/$EXPORT_NAME.exe"
       - name: 📦 Zip Windows Folder
         run: |
-          cd 
           rm -rf Windows-ClickyCat.zip
           zip -r Windows-ClickyCat.zip . -i build/windows
       - name: Release
@@ -70,7 +69,6 @@ jobs:
           godot --headless --verbose --export-release "Linux/X11" "$EXPORT_DIR/linux/$EXPORT_NAME.x86_64"
       - name: 📦 Zip Linux Folder
         run: |
-          cd 
           rm -rf Linux-ClickyCat.zip
           zip -r Linux-ClickyCat.zip . -i build/linux
       - name: Release
@@ -108,7 +106,6 @@ jobs:
           godot --headless --verbose --export-release "Web" "$EXPORT_DIR/web/index.html"
       - name: 📦 Zip Web Folder
         run: |
-          cd 
           rm -rf Web-ClickyCat.zip
           zip -r Web-ClickyCat.zip . -i build/web
       - name: Release
