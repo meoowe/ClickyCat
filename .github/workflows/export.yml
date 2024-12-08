@@ -36,12 +36,6 @@ jobs:
         run: |
           rm -rf Windows-ClickyCat.zip
           zip -r Windows-ClickyCat.zip . -i build/windows
-      - name: Release
-        uses: ncipollo/release-action@v1
-        with:
-          allowUpdates: true
-          artifacts: "Windows-ClickyCat.zip"
-          generateReleaseNotes: true
       - name: 📤 Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -71,12 +65,6 @@ jobs:
         run: |
           rm -rf Linux-ClickyCat.zip
           zip -r Linux-ClickyCat.zip . -i build/linux
-      - name: Release
-        uses: ncipollo/release-action@v1
-        with:
-          allowUpdates: true
-          artifacts: "Linux-ClickyCat.zip"
-          generateReleaseNotes: true
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -107,12 +95,6 @@ jobs:
         run: |
           rm -rf Web-ClickyCat.zip
           zip -r Web-ClickyCat.zip . -i build/web
-      - name: Release
-        uses: ncipollo/release-action@v1
-        with:
-          allowUpdates: true
-          artifacts: "Web-ClickyCat.zip"
-          generateReleaseNotes: true
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
