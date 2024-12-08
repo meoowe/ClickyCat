@@ -7,6 +7,7 @@ env:
   GODOT_VERSION: 4.3
   EXPORT_NAME: ClickyCat
   PROJECT_PATH: .
+  PROJECT_VERSION: 2.0.0
 
 jobs:
   export-windows:
@@ -41,7 +42,7 @@ jobs:
           allowUpdates: true
           artifacts: "Windows-ClickyCat.zip"
           generateReleaseNotes: true
-          tag: master
+          tag: $PROJECT_VERSION
       - name: 📤 Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -77,7 +78,7 @@ jobs:
           allowUpdates: true
           artifacts: "Linux-ClickyCat.zip"
           generateReleaseNotes: true
-          tag: master
+          tag: $PROJECT_VERSION
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -114,7 +115,7 @@ jobs:
           allowUpdates: true
           artifacts: "Web-ClickyCat.zip"
           generateReleaseNotes: true
-          tag: master
+          tag: $PROJECT_VERSION
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
