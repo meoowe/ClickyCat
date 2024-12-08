@@ -35,7 +35,7 @@ jobs:
         run: |
           cd 
           rm -rf Windows-ClickyCat.zip
-          zip -r Windows-ClickyCat.zip build/windows
+          zip -r Windows-ClickyCat.zip . -i build/windows
       - name: Release
         uses: ncipollo/release-action@v1
         with:
@@ -71,7 +71,7 @@ jobs:
         run: |
           cd 
           rm -rf Linux-ClickyCat.zip
-          zip -r Linux-ClickyCat.zip build/linux
+          zip -r Linux-ClickyCat.zip . -i build/linux
       - name: Release
         uses: ncipollo/release-action@v1
         with:
@@ -108,7 +108,7 @@ jobs:
         run: |
           cd 
           rm -rf Web-ClickyCat.zip
-          zip -r Web-ClickyCat.zip build/web
+          zip -r Web-ClickyCat.zip . -i build/web
       - name: Release
         uses: ncipollo/release-action@v1
         with:
