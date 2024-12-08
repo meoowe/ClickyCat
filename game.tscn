@@ -219,21 +219,24 @@ position = Vector2(-3.28122, -52.514)
 shape = SubResource("RectangleShape2D_fkqua")
 
 [node name="scoire" type="Label" parent="."]
-offset_left = 211.0
-offset_top = 23.0
-offset_right = 377.0
-offset_bottom = 94.0
+offset_left = 257.0
+offset_top = 14.0
+offset_right = 462.0
+offset_bottom = 102.0
 text = "Score: "
 label_settings = SubResource("LabelSettings_25a57")
 
 [node name="move" type="Button" parent="."]
-offset_left = 41.0
-offset_top = 30.0
-offset_right = 126.0
-offset_bottom = 89.0
+offset_right = 85.0
+offset_bottom = 59.0
+scale = Vector2(3, 3)
 text = "Move!"
 
 [node name="balloon" type="TextureButton" parent="."]
+offset_left = 424.0
+offset_top = 12.0
+offset_right = 1448.0
+offset_bottom = 1036.0
 scale = Vector2(0.125, 0.125)
 texture_normal = ExtResource("7_csxdl")
 script = ExtResource("6_3htib")

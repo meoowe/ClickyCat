@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 func randPos():
 	while true:
 		await get_tree().create_timer(1).timeout
-		pos= randi_range(165, 1200)
+		pos= randi_range(530, 1200)
 		self.position.x = pos
 
 

@@ -18,7 +18,6 @@ config/icon="res://icon.PNG"
 [autoload]
 
 Global="*res://global.tscn"
-Firebase="res://addons/godot-firebase/firebase/firebase.tscn"
 PlayerAccounts="*res://addons/quiver_player_accounts/player_accounts.tscn"
 Leaderboards="*res://addons/quiver_leaderboards/leaderboards.tscn"
 
