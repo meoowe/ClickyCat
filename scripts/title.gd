@@ -2,8 +2,11 @@ extends Control
 
 @onready var vrsn: Label = $vrsn
 
+
 func _ready() -> void:
 	vrsn.text = Global.VERSION
+
+
 func _on_play_pressed() -> void:
 	get_tree().change_scene_to_file("res://game.tscn")
 

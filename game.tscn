@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://cat.gd" id="4_w173p"]
 [ext_resource type="Texture2D" uid="uid://q6sdcy6arc01" path="res://assets/img/mountain.png" id="5_dnohc"]
 [ext_resource type="Script" path="res://scripts/balloon.gd" id="6_3htib"]
-[ext_resource type="Script" path="res://scripts/dog.gd" id="6_g8084"]
 [ext_resource type="Texture2D" uid="uid://6233fyevq60n" path="res://assets/img/balloon.png" id="7_csxdl"]
+[ext_resource type="PackedScene" uid="uid://b1fc8abfnvh06" path="res://options.tscn" id="8_5s45l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qidma"]
 size = Vector2(2604.5, 22)
@@ -212,7 +212,6 @@ rotation = 0.00416664
 scale = Vector2(0.125, 0.125)
 sprite_frames = SubResource("SpriteFrames_6fwbv")
 animation = &"bark"
-script = ExtResource("6_g8084")
 
 [node name="dogShapew" type="CollisionShape2D" parent="path/follower/dog"]
 position = Vector2(-3.28122, -52.514)
@@ -240,6 +239,13 @@ offset_bottom = 1036.0
 scale = Vector2(0.125, 0.125)
 texture_normal = ExtResource("7_csxdl")
 script = ExtResource("6_3htib")
+
+[node name="options" parent="." instance=ExtResource("8_5s45l")]
+visible = false
+offset_left = 779.0
+offset_top = 384.0
+offset_right = 779.0
+offset_bottom = 384.0
 
 [connection signal="body_entered" from="cat" to="cat" method="_on_body_entered"]
 [connection signal="body_exited" from="cat" to="cat" method="_on_body_exited"]

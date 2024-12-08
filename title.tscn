@@ -53,11 +53,10 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -130.0
 offset_top = 32.0
-offset_right = 894.0
-offset_bottom = 544.0
+offset_right = 126.0
+offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.25, 0.25)
 texture_normal = ExtResource("2_u7nay")
 
 [node name="Credits" type="TextureButton" parent="."]

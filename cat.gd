@@ -1,8 +1,8 @@
 extends Area2D
 @onready var follower: PathFollow2D = $"../path/follower"
+@onready var options: Control = $"../options"
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -200.0
+var paused = false
 var floor = false
 @onready var mountain: StaticBody2D = $"../mountain"
 @onready var ground: StaticBody2D = $"../ground"
@@ -37,6 +37,8 @@ func _process(delta: float) -> void:
 		cat_first = true
 	else: 
 		cat_first = false
+	if Input.is_action_just_pressed("pause"):
+		pause()
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -65,3 +67,12 @@ func _on_move_pressed() -> void:
 	first = true
 	position.x += 12
 	position.y -= 10
+
+func pause():
+	if paused:
+		options.hide()
+		Engine.time_scale = 1
+	else:
+		options.show()
+		Engine.time_scale = 0
+	paused = !paused
