@@ -38,12 +38,13 @@ jobs:
           mkdir -v -p build/windows
           EXPORT_DIR="$(readlink -f build)"
           cd .
-          godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR/windows/$EXPORT_NAME.exe"
+          godot --headless --verbose --export-release "Windows Desktop" "build/windows/ClickyCat-${{env.TAG}}.exe"
       - name: 📦 Zip Windows Folder
-        working-directory: ./build
+        working-directory: .
         run: |
-          rm -rf Windows-ClickyCat.zip
-          zip -r Windows-ClickyCat.zip $EXPORT_NAME.exe
+          cd .
+          rm -rf Windows-ClickyCat-${{env.TAG}}.zip
+          zip -r Windows-ClickyCat-${{env.TAG}} build/windows/ClickyCat-${{env.TAG}}.exe
       - name: Upload Release Asset 🚀
         uses: svenstaro/upload-release-action@v2
         with:
