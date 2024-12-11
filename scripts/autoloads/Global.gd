@@ -10,7 +10,7 @@ var balloonClicked: bool = false
 var playerName: String = "Nickname"
 
 const VERSION: String = "2.0.2-10.12.24"
-const LEADERBOARD_ID: String = "clicky-cat-high-score-LQze"
+#const LEADERBOARD_ID: String = "clicky-cat-high-score-LQze"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	music.play()

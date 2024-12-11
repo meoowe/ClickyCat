@@ -18,8 +18,6 @@ config/icon="res://icon.PNG"
 [autoload]
 
 Global="*res://global.tscn"
-PlayerAccounts="*res://addons/quiver_player_accounts/player_accounts.tscn"
-Leaderboards="*res://addons/quiver_leaderboards/leaderboards.tscn"
 Analytics="*res://addons/quiver_analytics/analytics.tscn"
 
 [display]
@@ -29,7 +27,7 @@ window/size/viewport_height=800
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/quiver_analytics/plugin.cfg", "res://addons/quiver_leaderboards/plugin.cfg", "res://addons/quiver_player_accounts/plugin.cfg")
+enabled=PackedStringArray("res://addons/quiver_analytics/plugin.cfg")
 
 [file_customization]
 

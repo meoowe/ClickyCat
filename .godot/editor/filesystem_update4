@@ -3,3 +3,12 @@ res://export_presets.cfg
 res://scripts/balloon.gd
 res://cat.gd
 res://scripts/credits.gd
+res://scripts/autoloads/Global.gd
+res://scripts/win.gd
+res://title.tscn
+res://game.tscn
+res://lost.tscn
+res://win.tscn
+res://leaderboard.tscn
+res://cat.tscn
+res://options.tscn
