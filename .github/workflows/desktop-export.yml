@@ -38,7 +38,7 @@ jobs:
           mkdir -v -p build/windows
           EXPORT_DIR="$(readlink -f build)"
           cd .
-          godot --headless --verbose --export-release "Windows Desktop" "build/windows/ClickyCat-${{env.TAG}}.exe"
+          godot --headless --verbose --export-release "Windows Desktop" "builds/windows/ClickyCat-${{env.TAG}}.exe"
       - name: 📦 Zip Windows Folder
         working-directory: .
         run: |
