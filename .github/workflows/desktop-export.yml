@@ -73,8 +73,6 @@ jobs:
         run: godot --headless -v --import
       - name: Linux Build 🔧
         run: |
-          mkdir -v -p builds/linux
-          EXPORT_DIR="$(readlink -f build)"
           cd .
           godot --headless -v --export-release "Linux" "./build/linux/ClickyCat-${{env.TAG}}.x86_64"
         continue-on-error: true
