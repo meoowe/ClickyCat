@@ -58,8 +58,11 @@ func _gravity():
 
 
 func _on_body_exited(body: Node2D) -> void:
-	print("exit")
-	floor = false
+	if body != dog:
+		print("true")
+		floor = false
+	elif body == dog or body == dog_2 or body == dog_shapew:
+		get_tree().change_scene_to_file("res://lost.tscn")
 
 
 func _on_move_pressed() -> void:

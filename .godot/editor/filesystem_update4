@@ -1,17 +1,1 @@
-res://game.tscn
-res://cat.tscn
-res://scripts/balloon.gd
-res://cat.gd
-res://scripts/autoloads/Global.gd
-res://leaderboard.gd
-res://scripts/lost.gd
-res://scripts/parallax_background.gd
-res://title.tscn
-res://scripts/title.gd
-res://lost.tscn
-res://win.tscn
 res://global.tscn
-res://leaderboard.tscn
-res://scripts/win.gd
-res://options.tscn
-res://scripts/options.gd

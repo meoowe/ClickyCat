@@ -56,3 +56,7 @@ pause={
 [quiver]
 
 general/auth_token="uNUn36UfxediUx2zplZppkOit4CGTgLojjgdA6GA"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
