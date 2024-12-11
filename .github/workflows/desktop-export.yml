@@ -35,13 +35,11 @@ jobs:
         run: godot --headless -v --import
       - name: Windows Build 🔧
         run: |
-          godot --headless -v --export-release "Windows Desktop 64-bit" ./build/${EXPORT_NAME}-Windows-64bit/${EXPORT_NAME}.exe
-          godot --headless -v --export-release "Windows Desktop 32-bit" ./build/${EXPORT_NAME}-Windows-32bit/${EXPORT_NAME}.exe
+          godot --headless -v --export-release "Windows Desktop" ./build/${EXPORT_NAME}-Windows/${EXPORT_NAME}.exe
       - name: Zip 🗜️
         working-directory: ./build
         run: |
-          zip -r ${EXPORT_NAME}-Windows-64bit.zip ${EXPORT_NAME}-Windows-64bit
-          zip -r ${EXPORT_NAME}-Windows-32bit.zip ${EXPORT_NAME}-Windows-32bit
+          zip -r ${EXPORT_NAME}-Windows.zip ${EXPORT_NAME}-Windows
       - name: Upload Release Asset 🚀
         uses: svenstaro/upload-release-action@v2
         with:
