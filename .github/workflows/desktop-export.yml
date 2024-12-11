@@ -44,7 +44,7 @@ jobs:
         run: |
           cd .
           rm -rf Windows-ClickyCat-${{env.TAG}}.zip
-          zip -r Windows-ClickyCat-${{env.TAG}} build/windows/ClickyCat-${{env.TAG}}.exe
+          zip -r Windows-ClickyCat-${{env.TAG}} builds/windows/ClickyCat-${{env.TAG}}.exe
       - name: Upload Release Asset 🚀
         uses: svenstaro/upload-release-action@v2
         with:
