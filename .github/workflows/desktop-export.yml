@@ -74,7 +74,7 @@ jobs:
       - name: Linux Build 🔧
         run: |
           cd .
-          godot --headless -v --export-release "Linux" "./build/linux/ClickyCat-${{env.TAG}}.x86_64"
+          godot --headless -v --export-release "Linux Export" "./build/linux/ClickyCat-${{env.TAG}}.x86_64"
       - name: Give execute permission ☑️
         run: |
           chmod +x ./build/linux/ClickyCat-${{env.TAG}}.x86_64

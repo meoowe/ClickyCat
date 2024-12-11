@@ -1,1 +1,5 @@
 res://global.tscn
+res://export_presets.cfg
+res://scripts/balloon.gd
+res://cat.gd
+res://scripts/credits.gd
