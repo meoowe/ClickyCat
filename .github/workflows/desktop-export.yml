@@ -74,14 +74,14 @@ jobs:
       - name: Linux Build 🔧
         run: |
           cd .
-          godot --headless -v --export-release "Linux" "./builds/linux/ClickyCat-${{env.TAG}}.x86_64"
+          godot --headless -v --export-release "Linux" "builds/linux/ClickyCat-${{env.TAG}}.x86_64"
       - name: Give execute permission ☑️
         run: |
-          chmod +x ./builds/linux/ClickyCat-${{env.TAG}}.x86_64
+          chmod +x builds/linux/ClickyCat-${{env.TAG}}.x86_64
       - name: Create tar.gz archive 🗜️
         run: |
           cd .
-          tar zcvf ./builds/linux/ClickyCat-${{env.TAG}}.tar.gz ./builds/linux/ClickyCat-${{env.TAG}}.x86_64
+          tar zcvf builds/linux/ClickyCat-${{env.TAG}}.tar.gz builds/linux/ClickyCat-${{env.TAG}}.x86_64
       - name: Upload Release Asset 🚀
         uses: svenstaro/upload-release-action@v2
         with:
