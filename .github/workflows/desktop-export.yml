@@ -33,13 +33,17 @@ jobs:
       - name: Import resources once 📦
         continue-on-error: true
         run: godot --headless -v --import
-      - name: Windows Build 🔧
+      - name: 🛠️ Windows Build
         run: |
-          godot --headless -v --export-release "Windows Desktop" ./build/${EXPORT_NAME}-Windows/${EXPORT_NAME}.exe
-      - name: Zip 🗜️
+          mkdir -v -p build/windows
+          EXPORT_DIR="$(readlink -f build)"
+          cd .
+          godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR/windows/$EXPORT_NAME.exe"
+      - name: 📦 Zip Windows Folder
         working-directory: ./build
         run: |
-          zip -r ${EXPORT_NAME}-Windows.zip ${EXPORT_NAME}-Windows
+          rm -rf Windows-ClickyCat.zip
+          zip -r Windows-ClickyCat.zip $EXPORT_NAME.exe
       - name: Upload Release Asset 🚀
         uses: svenstaro/upload-release-action@v2
         with:
