@@ -80,7 +80,7 @@ jobs:
         continue-on-error: true
       - name: Give execute permission ☑️
         run: |
-          chmod +x builds/linux/
+          chmod +x /builds/linux/ClickyCat-${{env.TAG}}.x86_64
       - name: Create tar.gz archive 🗜️
         run: |
           cd .
