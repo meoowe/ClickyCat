@@ -1,7 +1,7 @@
 # ClickyCat
 <div align="centre">
   
-  ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/meoowe/ClickyCat/export.yml?style=for-the-badge)
+  ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/meoowe/ClickyCat/desktop-export.yml?style=for-the-badge)
   ![GitHub License](https://img.shields.io/github/license/meoowe/ClickyCat?style=for-the-badge)
   ![GitHub last commit](https://img.shields.io/github/last-commit/meoowe/ClickyCat?style=for-the-badge)
   ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)
