@@ -58,25 +58,27 @@ jobs:
     name: Linux Export 🐧
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout 🛎️
+      # Always include the checkout step so that 
+      # your project is available for Godot to export
+    - name: checkout
       uses: actions/checkout@v4
+    - name: 📤export game
+      id: export
+      # Use latest version (see releases for all versions)
+      uses: firebelley/godot-export@v6.0.0
       with:
-        submodules: true
-    - name: ⬇️ Install Godot 4.4-dev3
-      uses: lihop/setup-godot@v2
+        # Defining all the required inputs
+        godot_executable_download_url: https://github.com/godotengine/godot-builds/releases/download/4.4-dev3/Godot_v4.4-dev3_linux.x86_64.zip
+        godot_export_templates_download_url: https://github.com/godotengine/godot-builds/releases/download/4.4-dev3/Godot_v4.4-dev3_export_templates.tpz
+        relative_project_path: ./
+        archive_output: true
+
+      # This release action has worked well for me. However, you can most likely use any release action of your choosing.
+      # https://github.com/ncipollo/release-action
+    - name: create release
+      uses: ncipollo/release-action@v1.14.0
       with:
-       version: 4.4-dev3
-       export-templates: true
-    - name: ▶️ Run Godot Export
-      run: |
-        cd 
-        godot --no-window --export "Linux" "builds/linux/Linux-ClickyCat-${{env.TAG}}.x86_64
-    - name: 📦 Zip Linux
-      run: |
-        cd builds
-        ls
-        rm -rf Linux-ClickyCat-${{env.TAG}}.zip
-        zip -r /linux/ Linux-ClickyCat-${{env.TAG}}.zip
-        
-    
-       
+        token: ${{ secrets.GITHUB_TOKEN }}
+        generateReleaseNotes: true
+        tag: ${{ env.TAG }}
+        artifacts: ${{ steps.export.outputs.archive_directory }}/*
