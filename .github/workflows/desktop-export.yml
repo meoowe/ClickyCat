@@ -10,59 +10,15 @@ env:
   TAG: v2.0.2
 
 jobs:
-  export-windows:
-    name: Windows Export 🗔
-    runs-on: ubuntu-latest
-    container:
-      image: docker://barichello/godot-ci:4.3
-    steps:
-      - name: Setup WINE and rcedit 🍷
-        run: |
-          chown root:root -R ~
-          godot --headless --quit
-          echo 'export/windows/wine = "/usr/bin/wine64-stable"' >> ~/.config/godot/editor_settings-4.3.tres
-          echo 'export/windows/rcedit = "/opt/rcedit.exe"' >> ~/.config/godot/editor_settings-4.3.tres
-      - name: Checkout 🛎️
-        uses: actions/checkout@v4
-        with:
-          submodules: true
-      - name: Setup 💻
-        run: |
-          mkdir -v -p build/${EXPORT_NAME}-Windows-64bit  ~/.local/share/godot/export_templates
-          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
-      - name: Import resources once 📦
-        continue-on-error: true
-        run: godot --headless -v --import
-      - name: 🛠️ Windows Build
-        run: |
-          mkdir -v -p builds/windows
-          EXPORT_DIR="$(readlink -f build)"
-          cd .
-          godot --headless --verbose --export-release "Windows Desktop" "builds/windows/ClickyCat-${{env.TAG}}.exe"
-      - name: 📦 Zip Windows Folder
-        working-directory: .
-        run: |
-          cd .
-          rm -rf Windows-ClickyCat-${{env.TAG}}.zip
-          zip -r Windows-ClickyCat-${{env.TAG}} builds/windows/ClickyCat-${{env.TAG}}.exe
-      - name: Upload Release Asset 🚀
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./build/*
-          tag: ${{env.TAG}}
-          overwrite: true
-          file_glob: true
-
-  export-linux:
-    name: Linux Export 🐧
+  export:
+    name: Export 🐧🪟
     runs-on: ubuntu-latest
     steps:
       # Always include the checkout step so that 
       # your project is available for Godot to export
-    - name: checkout
+    - name: 🛒 checkout
       uses: actions/checkout@v4
-    - name: 📤export game
+    - name: 📤 export game
       id: export
       # Use latest version (see releases for all versions)
       uses: firebelley/godot-export@v6.0.0
@@ -82,3 +38,4 @@ jobs:
         generateReleaseNotes: true
         tag: ${{ env.TAG }}
         artifacts: ${{ steps.export.outputs.archive_directory }}/*
+        replacesArtifacts: true
