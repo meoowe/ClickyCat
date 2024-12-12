@@ -28,7 +28,7 @@ jobs:
           submodules: true
       - name: Setup 💻
         run: |
-          mkdir -v -p build/${EXPORT_NAME}-Windows-64bit build/${EXPORT_NAME}-Windows-32bit ~/.local/share/godot/export_templates
+          mkdir -v -p build/${EXPORT_NAME}-Windows-64bit  ~/.local/share/godot/export_templates
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
       - name: Import resources once 📦
         continue-on-error: true
@@ -66,13 +66,15 @@ jobs:
           submodules: true
       - name: Setup 💻
         run: |
-          mkdir -v -p build/${EXPORT_NAME}-Linux-64bit build/${EXPORT_NAME}-Linux-32bit build/${EXPORT_NAME}-Linux-ARM64 build/${EXPORT_NAME}-Linux-ARM32 ~/.local/share/godot/export_templates
+          mkdir -v -p build/${EXPORT_NAME}-Linux-64bit ~/.local/share/godot/export_templates
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
       - name: Import resources once 📦
         continue-on-error: true
         run: godot --headless -v --import
       - name: Linux Build 🔧
         run: |
+          mkdir -v -p builds/windows
+          EXPORT_DIR="$(readlink -f build)"
           cd .
           godot --headless -v --export-release "Linux" "build/linux/ClickyCat-${{env.TAG}}.x86_64"
         continue-on-error: true
