@@ -15,23 +15,26 @@ var floor = false
 signal started
 var first = false
 var cat_first = true
+
+
 func _ready() -> void:
-	Global.score = 0 # Reset Score so that the player can't 'cheat'.
+	Global.score = 0  # Reset Score so that the player can't 'cheat'.
 	_gravity()
-	dog_2.play() # Start bark animation.
+	dog_2.play()  # Start bark animation.
+
+
 func _process(delta: float) -> void:
-	if first == true: # Only execute if user has pressed or clicked to move.
+	if first == true:  # Only execute if user has pressed or clicked to move.
 		follower.progress += 78 * delta
 	if Input.is_action_just_pressed("move"):
 		Global.score += Global.scoreIncrement
-		first = true # 
+		first = true
 		position.x += 12
 		position.y -= 20
 	if follower.position.x >= 1200:
 		get_tree().change_scene_to_file("res://win.tscn")
 	scoire.text = "Score: " + str(Global.score)
 	if Global.score > Global.highScore:
-		
 		Global.highScore = Global.score
 	if self.position.x > dog.position.x:
 		cat_first = true
@@ -47,6 +50,8 @@ func _on_body_entered(body: Node2D) -> void:
 		floor = true
 	elif body == dog or body == dog_2 or body == dog_shapew:
 		get_tree().change_scene_to_file("res://lost.tscn")
+
+
 func _gravity():
 	while true:
 		await get_tree().create_timer(0.1).timeout
@@ -70,6 +75,7 @@ func _on_move_pressed() -> void:
 	first = true
 	position.x += 12
 	position.y -= 10
+
 
 func pause():
 	if paused:

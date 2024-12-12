@@ -1,11 +1,11 @@
+Label
+TextureButton
 Control
 CenterContainer
 VBoxContainer
 HBoxContainer
 ScrollContainer
-TextureButton
 TextureRect
-Label
 LineEdit
 TextEdit
 CollisionShape2D

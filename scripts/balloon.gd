@@ -1,6 +1,7 @@
 extends TextureButton
 var pos
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randPos()
@@ -9,10 +10,12 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
+
 func randPos():
 	while true:
 		await get_tree().create_timer(1).timeout
-		pos= randi_range(530, 1200)
+		pos = randi_range(530, 1200)
 		self.position.x = pos
 
 

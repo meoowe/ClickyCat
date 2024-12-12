@@ -7,7 +7,10 @@ on:
 env:
   GODOT_VERSION: 4.3
   EXPORT_NAME: ClickyCat
-  TAG: v2.0.2
+  TAG: v2.0.3
+
+
+
 
 jobs:
   export:
