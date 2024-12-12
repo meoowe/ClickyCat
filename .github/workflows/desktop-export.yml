@@ -57,41 +57,26 @@ jobs:
   export-linux:
     name: Linux Export 🐧
     runs-on: ubuntu-latest
-    container:
-      image: docker://barichello/godot-ci:4.3
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v4
-        with:
-          submodules: true
-      - name: Setup 💻
-        run: |
-          mkdir -v -p build/${EXPORT_NAME}-Linux-64bit ~/.local/share/godot/export_templates
-          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
-      - name: Import resources once 📦
-        continue-on-error: true
-        run: godot --headless -v --import
-      - name: Linux Build 🔧
-        run: |
-          mkdir -v -p builds/windows
-          EXPORT_DIR="$(readlink -f build)"
-          cd .
-          godot --headless -v --export-release "Linux" "build/linux/ClickyCat-${{env.TAG}}.x86_64"
-          ls
-        continue-on-error: true
-      - name: Give execute permission ☑️
-        run: |
-          chmod +x /builds/linux/ClickyCat-${{env.TAG}}.x86_64
-      - name: Create tar.gz archive 🗜️
-        run: |
-          cd .
-          tar zcvf builds/linux/ClickyCat-${{env.TAG}}.tar.gz builds/linux/ClickyCat-${{env.TAG}}.x86_64
-      - name: Upload Release Asset 🚀
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./builds/linux/ClickyCat-${{env.TAG}}.x86_64
-          tag: ${{env.TAG}}
-          overwrite: true
-          file_glob: true
-
+    - name: Checkout 🛎️
+      uses: actions/checkout@v4
+      with:
+        submodules: true
+    - name: ⬇️ Install Godot 4.4-dev3
+      uses: lihop/setup-godot@v2
+      with:
+       version: 4.4-dev3
+       export-templates: true
+    - name: ▶️ Run Godot Export
+      run: |
+        cd 
+        godot --no-window --export "Linux" "builds/linux/Linux-ClickyCat-${{env.TAG}}.x86_64
+    - name: 📦 Zip Linux
+      run: |
+        cd builds
+        ls
+        rm -rf Linux-ClickyCat-${{env.TAG}}.zip
+        zip -r /linux/ Linux-ClickyCat-${{env.TAG}}.zip
+        
+    
+       
