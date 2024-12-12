@@ -1,10 +1,13 @@
 name: Web build
+
 on:
   push:
     branches: [ master ]
+
 env:
   GODOT_VERSION: 4.3
   EXPORT_NAME: ClickyCat
+
 jobs:
   export-web:
     name: Web Export 🌐
