@@ -1,4 +1,4 @@
-name: Export Desktop
+name: Export All
 
 on:
   push:
@@ -14,7 +14,7 @@ env:
 
 jobs:
   export:
-    name: Export 🐧🪟
+    name: Export 🐧🪟🌐
     runs-on: ubuntu-latest
     steps:
       # Always include the checkout step so that 
@@ -31,7 +31,17 @@ jobs:
         godot_export_templates_download_url: https://github.com/godotengine/godot-builds/releases/download/4.4-dev3/Godot_v4.4-dev3_export_templates.tpz
         relative_project_path: ./
         archive_output: true
-
+    - name: Install rsync 📚
+      run: |
+          apt-get update && apt-get install -y rsync
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          single-commit: true
+          folder: ${{ steps.export.outputs.build_directory }}/web # The folder the action should deploy.
+          branch: gh-pages
+          tag: ${{env.TAG}}
       # This release action has worked well for me. However, you can most likely use any release action of your choosing.
       # https://github.com/ncipollo/release-action
     - name: create release
