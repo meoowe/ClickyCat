@@ -39,7 +39,7 @@ jobs:
       with:
           token: ${{ secrets.GITHUB_TOKEN }}
           single-commit: true
-          folder: ${{ steps.export.outputs.build_directory }}/web # The folder the action should deploy.
+          folder: ${{ steps.export.outputs.build_directory }}/Web # The folder the action should deploy.
           branch: gh-pages
           tag: ${{env.TAG}}
       # This release action has worked well for me. However, you can most likely use any release action of your choosing.
