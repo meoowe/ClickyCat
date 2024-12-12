@@ -1,0 +1,32 @@
+name: Static Checks 📊
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+      - korGE-legacy
+      - dev
+      
+  pull_request:
+    paths:
+      - "addons/**"
+      - "src/**"
+
+concurrency:
+  group: ci-${{github.actor}}-${{github.head_ref || github.run_number}}-${{github.ref}}-static
+  cancel-in-progress: true
+
+jobs:
+  static-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: Scony/godot-gdscript-toolkit@master
+      - name: Formatting checks
+        run: gdformat --diff .
+      - name: Linting checks
+        run: gdlint .
+      - name: Spell checks via codespell
+        uses: codespell-project/actions-codespell@v2
+        with:
+          skip: ./addons
