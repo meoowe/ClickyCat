@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bk6whxyanspb8" path="res://assets/img/buttons/playButton.png" id="3_c0tdt"]
 
 [node name="options" type="Control"]
+process_mode = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

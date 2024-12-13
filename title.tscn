@@ -1,16 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://cgb60ltqld0ss"]
+[gd_scene load_steps=10 format=3 uid="uid://cgb60ltqld0ss"]
 
 [ext_resource type="PackedScene" uid="uid://cnv1rmmxmj0m4" path="res://scripts/background.tscn" id="1_gd7tk"]
 [ext_resource type="Script" path="res://scripts/title.gd" id="1_wp1gc"]
 [ext_resource type="Texture2D" uid="uid://bk6whxyanspb8" path="res://assets/img/buttons/playButton.png" id="2_u7nay"]
 [ext_resource type="Texture2D" uid="uid://b5lkntqbmqbma" path="res://assets/img/buttons/creditsButton.png" id="3_h4cq8"]
 [ext_resource type="Texture2D" uid="uid://7wq6qjf0wd2m" path="res://assets/img/buttons/exitButton.png" id="4_ou0px"]
+[ext_resource type="Texture2D" uid="uid://c3pd7osh6hxqd" path="res://assets/img/trophy.png" id="6_2pwgd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_onpbh"]
 font_size = 100
 font_color = Color(0.486275, 0.988235, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_nbey0"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nvlaq"]
 font_color = Color(0, 0, 0, 1)
 
 [node name="Control" type="Control"]
@@ -97,6 +101,32 @@ offset_bottom = -82.0
 grow_vertical = 0
 label_settings = SubResource("LabelSettings_nbey0")
 
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -132.0
+offset_top = 18.0
+offset_right = 892.0
+offset_bottom = 1042.0
+grow_horizontal = 0
+scale = Vector2(0.125, 0.125)
+texture_normal = ExtResource("6_2pwgd")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_top = 160.0
+offset_bottom = 183.0
+grow_horizontal = 0
+text = "Leaderboard"
+label_settings = SubResource("LabelSettings_nvlaq")
+
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

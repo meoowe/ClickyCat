@@ -26,13 +26,14 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if first == true:  # Only execute if user has pressed or clicked to move.
 		follower.progress += 78 * delta
-	if Input.is_action_just_pressed("move"):
-		Global.score += Global.scoreIncrement
-		first = true
-		position.x += 12
-		position.y -= 20
-	if follower.position.x >= 1200:
-		get_tree().change_scene_to_file("res://win.tscn")
+	if !paused:
+		if Input.is_action_just_pressed("move"):
+			Global.score += Global.scoreIncrement
+			first = true
+			position.x += 12
+			position.y -= 20
+		if follower.position.x >= 1200:
+			get_tree().change_scene_to_file("res://win.tscn")
 	scoire.text = "Score: " + str(Global.score)
 	if Global.score > Global.highScore:
 		Global.highScore = Global.score
@@ -71,10 +72,12 @@ func _on_body_exited(body: Node2D) -> void:
 
 
 func _on_move_pressed() -> void:
-	Global.score += 10
-	first = true
-	position.x += 12
-	position.y -= 10
+	Global.PlayClick()
+	if !paused:
+		Global.score += Global.scoreIncrement
+		first = true
+		position.x += 12
+		position.y -= 10
 
 
 func pause():

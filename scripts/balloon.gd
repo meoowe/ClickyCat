@@ -20,6 +20,10 @@ func randPos():
 
 
 func _on_pressed() -> void:
+	self.modulate = Color.SKY_BLUE
+	await get_tree().create_timer(0.3).timeout
+	self.modulate = Color.WHITE
 	if !Global.balloonClicked:
 		Global.scoreIncrement = Global.scoreIncrement * 2
 		Global.balloonClicked = true
+		Global.PlayClick()

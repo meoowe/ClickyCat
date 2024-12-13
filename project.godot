@@ -18,6 +18,8 @@ config/icon="res://icon.PNG"
 [autoload]
 
 Global="*res://global.tscn"
+Leaderboards="*res://addons/quiver_leaderboards/leaderboards.tscn"
+PlayerAccounts="*res://addons/quiver_player_accounts/player_accounts.tscn"
 
 [display]
 
@@ -26,7 +28,7 @@ window/size/viewport_height=800
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/quiver_leaderboards/plugin.cfg", "res://addons/quiver_player_accounts/plugin.cfg", "res://addons/supabase/plugin.cfg", "res://addons/talo/plugin.cfg")
 
 [file_customization]
 

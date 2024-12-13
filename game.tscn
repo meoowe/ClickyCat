@@ -218,18 +218,12 @@ position = Vector2(-3.28122, -52.514)
 shape = SubResource("RectangleShape2D_fkqua")
 
 [node name="scoire" type="Label" parent="."]
-offset_left = 257.0
-offset_top = 14.0
-offset_right = 462.0
-offset_bottom = 102.0
+offset_left = 21.0
+offset_top = 25.0
+offset_right = 226.0
+offset_bottom = 113.0
 text = "Score: "
 label_settings = SubResource("LabelSettings_25a57")
-
-[node name="move" type="Button" parent="."]
-offset_right = 85.0
-offset_bottom = 59.0
-scale = Vector2(3, 3)
-text = "Move!"
 
 [node name="balloon" type="TextureButton" parent="."]
 offset_left = 424.0
@@ -240,7 +234,14 @@ scale = Vector2(0.125, 0.125)
 texture_normal = ExtResource("7_csxdl")
 script = ExtResource("6_3htib")
 
+[node name="moveArea" type="TextureButton" parent="."]
+offset_top = 114.0
+offset_right = 1438.0
+offset_bottom = 760.0
+mouse_filter = 1
+
 [node name="options" parent="." instance=ExtResource("8_5s45l")]
+process_mode = 1
 visible = false
 offset_left = 779.0
 offset_top = 384.0
@@ -250,5 +251,5 @@ offset_bottom = 384.0
 [connection signal="body_entered" from="cat" to="cat" method="_on_body_entered"]
 [connection signal="body_exited" from="cat" to="cat" method="_on_body_exited"]
 [connection signal="body_entered" from="winZone" to="cat" method="_on_win_zone_body_entered"]
-[connection signal="pressed" from="move" to="cat" method="_on_move_pressed"]
 [connection signal="pressed" from="balloon" to="balloon" method="_on_pressed"]
+[connection signal="pressed" from="moveArea" to="cat" method="_on_move_pressed"]

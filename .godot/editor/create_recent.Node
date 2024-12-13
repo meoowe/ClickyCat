@@ -1,5 +1,6 @@
-Label
+AudioStreamPlayer
 TextureButton
+Label
 Control
 CenterContainer
 VBoxContainer

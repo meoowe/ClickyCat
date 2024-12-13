@@ -15,8 +15,10 @@ func _process(_delta: float) -> void:
 
 
 func _on_quit_pressed() -> void:
+	Global.PlayClick()
 	get_tree().quit()
 
 
 func _on_title_pressed() -> void:
+	Global.PlayClick()
 	get_tree().change_scene_to_file("res://title.tscn")
