@@ -12,8 +12,8 @@ extends Node
 ## If a score fails to post, this class can be configured to handle retries.
 ## If the game is exited, this class will handle saving scores to disk for a later retry.
 
-enum ScoreFilter {ALL, PLAYER, NEARBY}
-enum NearbyAnchor {BEST, LATEST}
+enum ScoreFilter { ALL, PLAYER, NEARBY }
+enum NearbyAnchor { BEST, LATEST }
 
 ## This controls the maximum size of the request queue that is saved to disk
 ## in the situation the scores weren't able to be successfully posted.
@@ -51,7 +51,9 @@ var _retry_time := 2.0
 
 func _ready() -> void:
 	if not get_tree().root.has_node("PlayerAccounts"):
-		printerr("[Quiver Leaderboards] PlayerAccounts plugin must be installed to use Leaderboards. See documentation for details.")
+		printerr(
+			"[Quiver Leaderboards] PlayerAccounts plugin must be installed to use Leaderboards. See documentation for details."
+		)
 
 	await PlayerAccounts.ready
 
@@ -75,14 +77,23 @@ func _ready() -> void:
 ## Returns a boolean indicating whether this operation completed successfully or not.
 ## If this operation failed and automatically_retry is true, you do not need to post it again.
 ## The built-in retry mechanism will try again until the operation succeeeds, even across game restarts.
-func post_guest_score(leaderboard_id: String, score: float, nickname := "", metadata := {}, timestamp := 0.0, automatically_retry := true) -> bool:
+func post_guest_score(
+	leaderboard_id: String,
+	score: float,
+	nickname := "",
+	metadata := {},
+	timestamp := 0.0,
+	automatically_retry := true
+) -> bool:
 	var retry := automatically_retry
 
 	var success := true
 
 	if success and nickname.length() > 15:
 		success = false
-		printerr("[Quiver Leaderboards] Couldn't post score because nickname is greater than 15 characters")
+		printerr(
+			"[Quiver Leaderboards] Couldn't post score because nickname is greater than 15 characters"
+		)
 		# Don't retry since this will never work
 		retry = false
 
@@ -104,13 +115,15 @@ func post_guest_score(leaderboard_id: String, score: float, nickname := "", meta
 			url,
 			["Authorization: Token " + PlayerAccounts.player_token],
 			HTTPClient.METHOD_POST,
-			JSON.stringify({
-				"score": float(score),
-				"nickname": nickname,
-				"timestamp": timestamp,
-				"metadata": metadata,
-				"checksum": str(int(score) + int(timestamp)).md5_text()
-			})
+			JSON.stringify(
+				{
+					"score": float(score),
+					"nickname": nickname,
+					"timestamp": timestamp,
+					"metadata": metadata,
+					"checksum": str(int(score) + int(timestamp)).md5_text()
+				}
+			)
 		)
 		if error != OK:
 			printerr("[Quiver Leaderboards] There was an error posting a score.")
@@ -171,10 +184,18 @@ func post_score(leaderboard_id: String, score: float) -> bool:
 ##   "has_more_scores": false,
 ##   "error": ""
 ## }
-func get_scores(leaderboard_id: String, offset := 0, limit := 10, start_time := MIN_UNIX_TIME, end_time := MAX_UNIX_TIME) -> Dictionary:
+func get_scores(
+	leaderboard_id: String,
+	offset := 0,
+	limit := 10,
+	start_time := MIN_UNIX_TIME,
+	end_time := MAX_UNIX_TIME
+) -> Dictionary:
 	if not _validate_score_params(offset, limit):
 		return {"scores": [], "has_more_scores": false, "error": "Error validating parameters"}
-	var query_string := "?offset=%d&limit=%d&start_time=%f&end_time=%f" % [offset, limit, start_time, end_time]
+	var query_string := (
+		"?offset=%d&limit=%d&start_time=%f&end_time=%f" % [offset, limit, start_time, end_time]
+	)
 	var path_to_use := GET_SCORES_PATH
 	var token = auth_token
 	# If we have a logged in player, we use a separate URL and player's auth token
@@ -198,13 +219,23 @@ func get_scores(leaderboard_id: String, offset := 0, limit := 10, start_time := 
 ## restrict scores to this time period.
 ##
 ## Return value is the same as get_scores()
-func get_player_scores(leaderboard_id: String, offset := 0, limit := 10, start_time := MIN_UNIX_TIME, end_time := MAX_UNIX_TIME) -> Dictionary:
+func get_player_scores(
+	leaderboard_id: String,
+	offset := 0,
+	limit := 10,
+	start_time := MIN_UNIX_TIME,
+	end_time := MAX_UNIX_TIME
+) -> Dictionary:
 	if not _validate_score_params(offset, limit):
 		return {"scores": [], "has_more_scores": false, "error": "Error validating parameters"}
 	if not PlayerAccounts.player_token:
 		return {"scores": [], "has_more_scores": false, "error": "No logged in player"}
-	var query_string := "?offset=%d&limit=%d&start_time=%f&end_time=%f" % [offset, limit, start_time, end_time]
-	return await _get_scores_base(leaderboard_id, PlayerAccounts.player_token, GET_PLAYER_SCORES_PATH, query_string)
+	var query_string := (
+		"?offset=%d&limit=%d&start_time=%f&end_time=%f" % [offset, limit, start_time, end_time]
+	)
+	return await _get_scores_base(
+		leaderboard_id, PlayerAccounts.player_token, GET_PLAYER_SCORES_PATH, query_string
+	)
 
 
 ## Get scores near the score of the current guest player or logged in player.
@@ -222,7 +253,13 @@ func get_player_scores(leaderboard_id: String, offset := 0, limit := 10, start_t
 ## restrict scores to this time period.
 ##
 ## Return value is the same as get_scores()
-func get_nearby_scores(leaderboard_id: String, nearby_count := 5, anchor := NearbyAnchor.BEST, start_time := MIN_UNIX_TIME, end_time := MAX_UNIX_TIME) -> Dictionary:
+func get_nearby_scores(
+	leaderboard_id: String,
+	nearby_count := 5,
+	anchor := NearbyAnchor.BEST,
+	start_time := MIN_UNIX_TIME,
+	end_time := MAX_UNIX_TIME
+) -> Dictionary:
 	if nearby_count <= 0 or nearby_count > 25:
 		printerr("[Quiver Leaderboards] Nearby count must be between 1 and 25")
 		return {"scores": [], "has_more_scores": false, "error": "Error validating parameters"}
@@ -233,8 +270,13 @@ func get_nearby_scores(leaderboard_id: String, nearby_count := 5, anchor := Near
 		anchor_string = "best"
 	elif anchor == NearbyAnchor.LATEST:
 		anchor_string = "latest"
-	var query_string := "?nearby_count=%d&anchor=%s&start_time=%f&end_time=%f" % [nearby_count, anchor_string, start_time, end_time]
-	return await _get_scores_base(leaderboard_id, PlayerAccounts.player_token, GET_NEARBY_SCORES_PATH, query_string)
+	var query_string := (
+		"?nearby_count=%d&anchor=%s&start_time=%f&end_time=%f"
+		% [nearby_count, anchor_string, start_time, end_time]
+	)
+	return await _get_scores_base(
+		leaderboard_id, PlayerAccounts.player_token, GET_NEARBY_SCORES_PATH, query_string
+	)
 
 
 func _validate_score_params(offset: int, limit: int):
@@ -261,9 +303,7 @@ func _get_scores_base(leaderboard_id: String, token: String, path: String, query
 	_http_get_request_busy = true
 	var url = SERVER_PATH + path % leaderboard_id + query_string
 	var error = http_get_request.request(
-		url,
-		["Authorization: Token " + token],
-		HTTPClient.METHOD_GET
+		url, ["Authorization: Token " + token], HTTPClient.METHOD_GET
 	)
 	var error_msg := ""
 	if error != OK:
@@ -342,10 +382,24 @@ func _failed_queue_sort(a, b):
 			return true
 
 
-func _handle_failed_post(type: String, leaderboard_id: String, score: float, nickname: String, metadata: Dictionary, timestamp: float):
+func _handle_failed_post(
+	type: String,
+	leaderboard_id: String,
+	score: float,
+	nickname: String,
+	metadata: Dictionary,
+	timestamp: float
+):
 	# If the score fails to post, we immediately queue it up for retry and save it to disk.
 	# The reason we do both is we don't want to risk losing score data if the game unexpectedly quits.
-	var failed_score := {"type": type, "leaderboard_id": leaderboard_id, "score": score, "nickname": nickname, "metadata": metadata, "timestamp": timestamp}
+	var failed_score := {
+		"type": type,
+		"leaderboard_id": leaderboard_id,
+		"score": score,
+		"nickname": nickname,
+		"metadata": metadata,
+		"timestamp": timestamp
+	}
 	_failed_queue.append(failed_score)
 
 	# If we exceed our maximum queue size, we'll drop the lowest score and

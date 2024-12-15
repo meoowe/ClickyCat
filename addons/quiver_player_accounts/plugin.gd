@@ -17,7 +17,9 @@ func _enter_tree() -> void:
 			ProjectSettings.set_initial_value(name, default)
 			if basic:
 				ProjectSettings.set_as_basic(name, true)
-	add_autoload_singleton(AUTOLOAD_NAME, "res://addons/quiver_player_accounts/player_accounts.tscn")
+	add_autoload_singleton(
+		AUTOLOAD_NAME, "res://addons/quiver_player_accounts/player_accounts.tscn"
+	)
 	if not ProjectSettings.get_setting("quiver/general/auth_token"):
 		printerr("[Quiver Player Accounts] Auth key hasn't been set for Quiver services.")
 

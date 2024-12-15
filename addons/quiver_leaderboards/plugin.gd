@@ -6,6 +6,7 @@ const CUSTOM_PROPERTIES := [
 	{"name": "quiver/general/auth_token", "default": "", "basic": true, "general": true},
 ]
 
+
 func _enter_tree() -> void:
 	for property in CUSTOM_PROPERTIES:
 		var name = property["name"]

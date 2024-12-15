@@ -50,7 +50,9 @@ func _ready() -> void:
 
 func refresh_scores():
 	if not leaderboard_id:
-		printerr("[Quiver Leaderboards] Scores couldn't be fetched since leaderboard ID not set in Leaderboard UI.")
+		printerr(
+			"[Quiver Leaderboards] Scores couldn't be fetched since leaderboard ID not set in Leaderboard UI."
+		)
 		return
 
 	prev_button.disabled = score_offset == 0
@@ -64,7 +66,9 @@ func refresh_scores():
 	elif score_filter == Leaderboards.ScoreFilter.PLAYER:
 		score_data = await Leaderboards.get_player_scores(leaderboard_id, score_offset, score_limit)
 	elif score_filter == Leaderboards.ScoreFilter.NEARBY:
-		score_data = await Leaderboards.get_nearby_scores(leaderboard_id, nearby_count, nearby_anchor)
+		score_data = await Leaderboards.get_nearby_scores(
+			leaderboard_id, nearby_count, nearby_anchor
+		)
 	if score_data["scores"].size() > 0:
 		for score in score_data["scores"]:
 			var row: TreeItem = score_list.create_item(root)

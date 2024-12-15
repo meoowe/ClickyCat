@@ -1,7 +1,7 @@
 extends ParallaxBackground
 
-
 @export var scroll_speed: Vector2 = Vector2(50, 20)  # Adjust scrolling speed
+
 
 func _process(delta: float) -> void:
 	# Scroll the background continuously

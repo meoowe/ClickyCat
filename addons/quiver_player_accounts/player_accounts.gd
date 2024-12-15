@@ -11,7 +11,9 @@ const GUEST_REGISTRATION_PATH := "/player-accounts/register/"
 
 var auth_token := ProjectSettings.get_setting("quiver/general/auth_token", "")
 var config = ConfigFile.new()
-var config_file_path := ProjectSettings.get_setting("quiver/player_accounts/config_file_path", "user://account.cfg")
+var config_file_path := ProjectSettings.get_setting(
+	"quiver/player_accounts/config_file_path", "user://account.cfg"
+)
 var player_token := ""
 
 @onready var http_request := $HTTPRequest
@@ -35,10 +37,14 @@ func _ready() -> void:
 ## Returns true if the player was successfully registered as a guest and logged in.
 func register_guest() -> bool:
 	if not auth_token:
-		printerr("[Quiver Player Accounts] Auth token is not set. Please set this in Project Setting->Quiver->General.")
+		printerr(
+			"[Quiver Player Accounts] Auth token is not set. Please set this in Project Setting->Quiver->General."
+		)
 		return false
 	if player_token:
-		printerr("[Quiver Player Accounts] The player is already logged in. Please log out the current player before creating a new account.")
+		printerr(
+			"[Quiver Player Accounts] The player is already logged in. Please log out the current player before creating a new account."
+		)
 
 	var error = http_request.request(
 		SERVER_PATH + GUEST_REGISTRATION_PATH,
@@ -60,7 +66,12 @@ func register_guest() -> bool:
 				logged_in.emit()
 				return true
 		else:
-			printerr("[Quiver Player Accounts] There was an error registering as a guest (HTTP error code %d)" % response_code)
+			printerr(
+				(
+					"[Quiver Player Accounts] There was an error registering as a guest (HTTP error code %d)"
+					% response_code
+				)
+			)
 	return false
 
 

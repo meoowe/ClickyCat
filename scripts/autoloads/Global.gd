@@ -1,45 +1,53 @@
 extends Node
 
+var base_log = Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE)
+
 @onready var music: AudioStreamPlayer = $music
 @onready var bark: AudioStreamPlayer = $bark
 @onready var click: AudioStreamPlayer = $click
 
+@export var scoreIncrement: int = 10
+@export var playerName: String = "Nickname"
+@export var LEADERBOARD_ID: String = "clicky-cat-clickycat-njjy" #TODO: Refactor this to be lowercase
+@export var VERSION: String = ""
+
 var score: int = 0
 var highScore: int = 0
-@export var scoreIncrement: int = 10
 var balloonClicked: bool = false
-@export var playerName: String = "Nickname"
-@export var LEADERBOARD_ID: String = "clicky-cat-clickycat-njjy"
-@export var VERSION: String = "2.0.3-10.12.24"
 var platform: String = ""
 
+var platforms = {
+	"web": "web",
+	"android": "android",
+	"linux": "linux",
+	"windows": "windows"
+}
 
 func _ready() -> void:
+	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Ready!").color(Color.CHARTREUSE).info()
+	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Version: ", VERSION).info()
 	determine_platform()
 	music.play()
 
 
-func determine_platform():
-	if OS.has_feature("web_android"):
-		platform = "web-android"
-	if OS.has_feature("web_ios"):
-		platform = "web-ios"
-	if OS.has_feature("android"):
-		platform = "android"
-	if OS.has_feature("ios"):
-		platform = "ios"
-	if OS.has_feature("web_macos"):
-		platform = "web-macos"
-	if OS.has_feature("windows"):
-		platform = "windows"
+func determine_platform() -> String:
+	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Determining Platform...").info()
+	for feature in platforms.keys():
+		if OS.has_feature(feature):
+			platform = feature
+			Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Platform determined: ", platform).info()
+			return platforms[feature]
+	
+	platform = ""
+	return "" # Fallback if no platform matches
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func _bark():
 	bark.play()
 
-func PlayClick():
+
+func PlayClick(): #TODO: Refactor to be snake case
 	click.play()
+
+func wait(time: float):
+	await get_tree().create_timer(time).timeout

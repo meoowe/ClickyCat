@@ -1,5 +1,5 @@
 extends TextureButton
-var pos
+var pos = null
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,7 +20,7 @@ func randPos():
 
 
 func _on_pressed() -> void:
-	self.modulate = Color.SKY_BLUE
+	self.modulate = Color(1, 0.62, 0.02)
 	await get_tree().create_timer(0.3).timeout
 	self.modulate = Color.WHITE
 	if !Global.balloonClicked:

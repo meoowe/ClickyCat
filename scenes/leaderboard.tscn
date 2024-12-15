@@ -1,0 +1,128 @@
+[gd_scene load_steps=9 format=3 uid="uid://cl1yjyqc6700e"]
+
+[ext_resource type="Script" path="res://leaderboard.gd" id="1_pnj8b"]
+[ext_resource type="PackedScene" uid="uid://d1cxtfy37f8g6" path="res://scenes/blankBG.tscn" id="3_ewthe"]
+[ext_resource type="Texture2D" uid="uid://dmtxetv3vy6f7" path="res://assets/img/buttons/titleButton.png" id="3_t0lup"]
+[ext_resource type="Texture2D" uid="uid://6233fyevq60n" path="res://assets/img/balloon.png" id="4_shi7o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3oqi7"]
+bg_color = Color(1, 0.619608, 0.0196078, 0.827451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0mvvr"]
+bg_color = Color(1, 0.619608, 0.0196078, 0.827451)
+
+[sub_resource type="LabelSettings" id="LabelSettings_p0oj1"]
+font_size = 42
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_uadu0"]
+font_color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pnj8b")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 128.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("3_t0lup")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("3_ewthe")]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_top = 68.0
+offset_right = 1438.0
+offset_bottom = 798.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="items" type="ItemList" parent="ScrollContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(721, 4500)
+layout_mode = 2
+theme_override_colors/guide_color = Color(1, 0.619608, 0.0196078, 1)
+theme_override_colors/font_color = Color(0.0253638, 0.0253638, 0.0253638, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_3oqi7")
+item_count = 1
+
+[node name="ColorRect" type="ColorRect" parent="ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+color = Color(1, 0.619608, 0.0196078, 1)
+
+[node name="scores" type="ItemList" parent="ScrollContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(721, 0)
+layout_mode = 2
+theme_override_colors/guide_color = Color(1, 0.619608, 0.0196078, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_0mvvr")
+
+[node name="CheckButton" type="CheckButton" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -449.0
+offset_top = 29.0
+offset_right = -405.0
+offset_bottom = 53.0
+grow_horizontal = 2
+text = "Show Balloon Scores:"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -557.0
+offset_top = 34.0
+offset_right = 467.0
+offset_bottom = 1058.0
+grow_horizontal = 2
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("4_shi7o")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -122.0
+offset_top = 16.0
+offset_right = 138.0
+offset_bottom = 74.0
+grow_horizontal = 2
+text = "Leaderboard"
+label_settings = SubResource("LabelSettings_p0oj1")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+offset_left = 325.0
+offset_top = 57.0
+offset_right = 365.0
+offset_bottom = 80.0
+text = "Name"
+label_settings = SubResource("LabelSettings_uadu0")
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 1
+offset_left = 1043.0
+offset_top = 57.0
+offset_right = 1090.0
+offset_bottom = 80.0
+text = "Score"
+label_settings = SubResource("LabelSettings_uadu0")
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="toggled" from="CheckButton" to="." method="_on_check_button_toggled"]
