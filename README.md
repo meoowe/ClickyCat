@@ -23,11 +23,9 @@ Made for Game Off 2023(https://itch.io/jam/game-off-2023)
 
 # Credits
 **Meoowe** - Programming, Music,
-**LeoNunk** - Art, Name
-
+**LeoNunk** - Art, Name, Story
 This is a great game please try it :)
 
-**LeoNunk** - Art, Name, Story
 
 # Itch.io page
 <a href="https://meoowe.itch.io/clicky-cat">Clicky Cat by meoowe</a>
