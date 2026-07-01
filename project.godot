@@ -8,26 +8,31 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="Clicky Cat"
 config/tags=PackedStringArray("g")
 run/main_scene="res://scenes/title.tscn"
-config/features=PackedStringArray("4.4")
+config/features=PackedStringArray("4.7")
 config/icon="res://icon.PNG"
 
 [autoload]
 
 Loggie="*res://addons/loggie/loggie.gd"
 Global="*res://scenes/global.tscn"
-Leaderboards="*res://addons/quiver_leaderboards/leaderboards.tscn"
-PlayerAccounts="*res://addons/quiver_player_accounts/player_accounts.tscn"
+Leaderboards="*uid://dkkmsn60aqj0x"
+PlayerAccounts="*uid://bd8gp0vj5fd1j"
 Scenes="*res://scripts/autoloads/scenes.gd"
 
 [display]
 
 window/size/viewport_width=1440
 window/size/viewport_height=800
+window/stretch/mode="viewport"
 
 [editor_plugins]
 
@@ -69,4 +74,5 @@ general/auth_token="uNUn36UfxediUx2zplZppkOit4CGTgLojjgdA6GA"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 textures/vram_compression/import_etc2_astc=true

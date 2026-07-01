@@ -1,9 +1,10 @@
+VBoxContainer
+HBoxContainer
 Label
 ColorRect
 TextureRect
 CheckButton
 VSeparator
-HBoxContainer
 ScrollContainer
 ItemList
 Tree
@@ -11,4 +12,3 @@ AudioStreamPlayer
 TextureButton
 Control
 CenterContainer
-VBoxContainer

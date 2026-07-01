@@ -1,10 +1,2 @@
-res://scenes/global.tscn
-res://theme.tres
-res://scenes/game.tscn
 res://scenes/title.tscn
-res://scenes/lost.tscn
-res://scenes/win.tscn
-res://scenes/cat.tscn
-res://scenes/options.tscn
-res://addons/quiver_leaderboards/leaderboard_ui.tscn
-res://scenes/credits.tscn
+res://theme.tres
