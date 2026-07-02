@@ -5,9 +5,9 @@ on:
     branches: [ master ]
 
 env:
-  GODOT_VERSION: 4.3
+  GODOT_VERSION: 4.7
   EXPORT_NAME: ClickyCat
-  TAG: v2.2.0
+  TAG: v2.2.1
 
 
 
