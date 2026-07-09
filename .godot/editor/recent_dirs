@@ -1,9 +1,9 @@
-C:/Users/Aarav/Documents/games/ClickyCat2/builds/android
-res://scripts/autoloads
-res://assets/img
-C:/Users/Aarav/Documents/games/ClickyCat2/builds/linux
+/home/aarav/ClickyCat/builds/windows/
+/home/aarav/projectIndex/frontend/static/play/clicky-cat/
+res://scripts/
 res://
-C:/Users/Aarav/Documents/games/ClickyCat2/builds/web
-res://addons
-C:/Users/Aarav/Documents/games/ClickyCat2/builds/windows
-C:/Users/Aarav/Documents
+/home/aarav/ClickyCat/scripts/
+/bin/
+res://scripts/autoloads/
+res://assets/img/
+res://addons/

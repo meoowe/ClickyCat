@@ -1,11 +1,12 @@
-[gd_scene load_steps=18 format=3 uid="uid://cnv1rmmxmj0m4"]
+[gd_scene format=3 uid="uid://cnv1rmmxmj0m4"]
 
-[ext_resource type="Script" path="res://scripts/parallax_background.gd" id="1_86amu"]
+[ext_resource type="Script" uid="uid://judwxvprxfb8" path="res://scripts/background.gd" id="1_8a210"]
 [ext_resource type="Texture2D" uid="uid://d5bfhq8rs7g1" path="res://assets/img/clouds.png" id="1_mmp80"]
 [ext_resource type="Texture2D" uid="uid://b7yb2ayqtr74d" path="res://assets/img/grass1.png" id="2_vad0p"]
 [ext_resource type="Texture2D" uid="uid://85bsffvfh3gr" path="res://assets/img/house.PNG" id="3_n4bwl"]
 [ext_resource type="Texture2D" uid="uid://dvtvijybmd17u" path="res://assets/img/DogBark.png" id="4_lipg6"]
 [ext_resource type="Texture2D" uid="uid://c14sn4owrr1et" path="res://assets/img/cat.png" id="5_e14kp"]
+[ext_resource type="Texture2D" uid="uid://n85ydfhmpl3b" path="res://assets/img/luna.png" id="6_p62qg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ski2u"]
 atlas = ExtResource("4_lipg6")
@@ -80,63 +81,84 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_530x8")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 10.0
 }]
 
-[node name="ParallaxBackground" type="ParallaxBackground"]
-scroll_offset = Vector2(100, 0)
-script = ExtResource("1_86amu")
-scroll_speed = Vector2(10, 0)
+[node name="ParallaxBackground" type="Node2D" unique_id=1254942291]
+script = ExtResource("1_8a210")
 
-[node name="Clouds" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(1, 0)
-motion_mirroring = Vector2(800, 400)
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1129678839]
+layer = -10
+follow_viewport_enabled = true
 
-[node name="Clouds2" type="Sprite2D" parent="Clouds"]
+[node name="Clouds" type="Parallax2D" parent="CanvasLayer" unique_id=2116222954]
+scroll_scale = Vector2(-0.5, 0)
+repeat_size = Vector2(800, 400)
+repeat_times = 20
+
+[node name="Clouds2" type="Sprite2D" parent="CanvasLayer/Clouds" unique_id=236727978]
 position = Vector2(1, 13)
 texture = ExtResource("1_mmp80")
 centered = false
+region_rect = Rect2(98, 93.33333, 299.3333, 89.000015)
 
-[node name="Clouds3" type="Sprite2D" parent="Clouds"]
+[node name="Clouds3" type="Sprite2D" parent="CanvasLayer/Clouds" unique_id=908581090]
 position = Vector2(801, 13)
 texture = ExtResource("1_mmp80")
 centered = false
 
-[node name="House" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0, 0)
+[node name="House" type="Parallax2D" parent="CanvasLayer" unique_id=1380515934]
+scroll_scale = Vector2(0, 0)
 
-[node name="House" type="Sprite2D" parent="House"]
+[node name="House" type="Sprite2D" parent="CanvasLayer/House" unique_id=612937805]
 position = Vector2(1099, 666)
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("3_n4bwl")
 
-[node name="Dog" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0, 0)
+[node name="Dog" type="Parallax2D" parent="CanvasLayer" unique_id=1483836182]
+scroll_scale = Vector2(0, 0)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Dog"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Dog" unique_id=679896373]
 position = Vector2(151, 634)
 rotation = 0.467087
 scale = Vector2(0.148921, 0.155058)
 sprite_frames = SubResource("SpriteFrames_tkw5k")
 frame_progress = 0.827151
 
-[node name="Cat" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0, 0)
+[node name="Cat" type="Parallax2D" parent="CanvasLayer" unique_id=1871200892]
+scroll_scale = Vector2(0, 0)
 
-[node name="Cat" type="Sprite2D" parent="Cat"]
+[node name="Cat" type="Sprite2D" parent="CanvasLayer/Cat" unique_id=869352520]
 position = Vector2(399, 660)
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("5_e14kp")
 
-[node name="ground" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0, 0)
+[node name="ground" type="Parallax2D" parent="CanvasLayer" unique_id=184377754]
+scroll_scale = Vector2(0, 0)
 
-[node name="ground" type="Sprite2D" parent="ground"]
+[node name="ground" type="Sprite2D" parent="CanvasLayer/ground" unique_id=1720293746]
 position = Vector2(508, 598)
 texture = ExtResource("2_vad0p")
 
-[node name="ground2" type="Sprite2D" parent="ground"]
+[node name="ground2" type="Sprite2D" parent="CanvasLayer/ground" unique_id=1232491029]
 position = Vector2(1530, 598)
 texture = ExtResource("2_vad0p")
+
+[node name="ground3" type="Sprite2D" parent="CanvasLayer/ground" unique_id=1202586244]
+position = Vector2(1530, 598)
+texture = ExtResource("2_vad0p")
+
+[node name="Luna" type="Parallax2D" parent="CanvasLayer" unique_id=1164855987]
+scroll_scale = Vector2(0, 0)
+
+[node name="Luna" type="Sprite2D" parent="CanvasLayer/Luna" unique_id=58841700]
+position = Vector2(1235, 663)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("6_p62qg")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=116451592]
+energy = 16.0
+height = 0.18
+max_distance = 16384.0

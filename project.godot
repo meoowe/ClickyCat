@@ -8,24 +8,19 @@
 
 config_version=5
 
-[animation]
-
-compatibility/default_parent_skeleton_in_mesh_instance_3d=true
-
 [application]
 
 config/name="Clicky Cat"
 config/tags=PackedStringArray("g")
 run/main_scene="res://scenes/title.tscn"
-config/features=PackedStringArray("4.7")
+config/features=PackedStringArray("4.8")
+boot_splash/image="uid://conp4c7oq4m06"
 config/icon="res://icon.PNG"
 
 [autoload]
 
 Loggie="*res://addons/loggie/loggie.gd"
 Global="*res://scenes/global.tscn"
-Leaderboards="*uid://dkkmsn60aqj0x"
-PlayerAccounts="*uid://bd8gp0vj5fd1j"
 Scenes="*res://scripts/autoloads/scenes.gd"
 
 [display]
@@ -36,7 +31,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/gdLinter/plugin.cfg", "res://addons/loggie/plugin.cfg", "res://addons/quiver_leaderboards/plugin.cfg", "res://addons/quiver_player_accounts/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/gdLinter/plugin.cfg", "res://addons/loggie/plugin.cfg", "res://addons/rider-plugin/plugin.cfg")
 
 [file_customization]
 

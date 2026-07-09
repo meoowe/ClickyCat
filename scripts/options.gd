@@ -1,5 +1,5 @@
 extends Control
-@onready var cat: Area2D = $"../cat"
+@onready var cat: CharacterBody2D = $"../cat"
 
 
 func _on_title_pressed() -> void:

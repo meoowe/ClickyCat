@@ -1,2 +1,2 @@
-builds/* linguist-generated
+builds/* filter=lfs diff=lfs merge=lfs -text
 android/* linguist-generated

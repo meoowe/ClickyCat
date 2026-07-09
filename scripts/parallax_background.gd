@@ -1,7 +1,9 @@
-extends ParallaxBackground
-@onready var animated_sprite_2d: AnimatedSprite2D = $Dog/AnimatedSprite2D
 
-@export var scroll_speed: Vector2 = Vector2(50, 20)  # Adjust scrolling speed
+#NOT USED
+# TODO: Delete
+extends Node2D
+@onready var animated_sprite_2d: AnimatedSprite2D = $Dog/AnimatedSprite2D
+@export var scroll_speed: int = 100
 
 
 func _ready() -> void:
@@ -10,4 +12,4 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	# Scroll the background continuously
-	scroll_offset.x += scroll_speed.x * delta
+	pass

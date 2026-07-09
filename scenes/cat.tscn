@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://1c47bc06pikf"]
+[gd_scene format=3 uid="uid://1c47bc06pikf"]
 
 [ext_resource type="Texture2D" uid="uid://c14sn4owrr1et" path="res://assets/img/cat.png" id="1_65lj6"]
 
@@ -10,11 +10,11 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 "
 
-[node name="cat" type="CharacterBody2D"]
+[node name="cat" type="CharacterBody2D" unique_id=1757527185]
 script = SubResource("GDScript_okysp")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1961562924]
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("1_65lj6")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1696864369]

@@ -1,6 +1,6 @@
 extends Node
 
-var base_log = Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE)
+var base_log: LoggieMsg = Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE)
 
 @onready var music: AudioStreamPlayer = $music
 @onready var bark: AudioStreamPlayer = $bark
@@ -9,14 +9,14 @@ var base_log = Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE)
 @export var scoreIncrement: int = 10
 @export var playerName: String = "Nickname"
 @export var LEADERBOARD_ID: String = "clicky-cat-clickycat-njjy" #TODO: Refactor this to be lowercase
-@export var VERSION: String = ""
+@export var VERSION: String = "2.3.0-09.07.26-DEV"
 
 var score: int = 0
 var highScore: int = 0
 var balloonClicked: bool = false
 var platform: String = ""
 
-var platforms = {
+var platforms: Dictionary[Variant, Variant] = {
 	"web": "web",
 	"android": "android",
 	"linux": "linux",

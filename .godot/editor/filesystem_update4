@@ -1,2 +1,4 @@
-res://scenes/title.tscn
+res://scenes/global.tscn
 res://theme.tres
+res://scripts/autoloads/Global.gd
+res://scenes/title.tscn

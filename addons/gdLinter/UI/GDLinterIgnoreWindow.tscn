@@ -1,14 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://cgk7hjif0ujw1"]
+[gd_scene format=3 uid="uid://cgk7hjif0ujw1"]
 
-[ext_resource type="Script" path="res://addons/gdLinter/UI/GDLinterIgnoreWindow.gd" id="1_71hhq"]
-[ext_resource type="Script" path="res://addons/gdLinter/UI/Name.gd" id="2_35t2j"]
-[ext_resource type="Script" path="res://addons/gdLinter/UI/Basic.gd" id="3_ijjp7"]
-[ext_resource type="Script" path="res://addons/gdLinter/UI/Class.gd" id="4_s2mg3"]
-[ext_resource type="Script" path="res://addons/gdLinter/UI/Design.gd" id="5_2ncqt"]
-[ext_resource type="Script" path="res://addons/gdLinter/UI/Format.gd" id="6_5fvrg"]
-[ext_resource type="Script" path="res://addons/gdLinter/UI/Misc.gd" id="7_l8gkb"]
+[ext_resource type="Script" uid="uid://j20v4dj24flk" path="res://addons/gdLinter/UI/GDLinterIgnoreWindow.gd" id="1_71hhq"]
+[ext_resource type="Script" uid="uid://cq3hta7b3ydlo" path="res://addons/gdLinter/UI/Name.gd" id="2_35t2j"]
+[ext_resource type="Script" uid="uid://c1o3kri564xd7" path="res://addons/gdLinter/UI/Basic.gd" id="3_ijjp7"]
+[ext_resource type="Script" uid="uid://yl4vxrq4kskt" path="res://addons/gdLinter/UI/Class.gd" id="4_s2mg3"]
+[ext_resource type="Script" uid="uid://dkayrky0skjd1" path="res://addons/gdLinter/UI/Design.gd" id="5_2ncqt"]
+[ext_resource type="Script" uid="uid://dt4og75fsb111" path="res://addons/gdLinter/UI/Format.gd" id="6_5fvrg"]
+[ext_resource type="Script" uid="uid://cu7xwupbm52fy" path="res://addons/gdLinter/UI/Misc.gd" id="7_l8gkb"]
 
-[node name="GdLinterIgnoreWindow" type="AcceptDialog"]
+[node name="GdLinterIgnoreWindow" type="AcceptDialog" unique_id=518794749]
 disable_3d = true
 title = "GDLinter Ignore Settings"
 initial_position = 1
@@ -16,7 +16,7 @@ size = Vector2i(480, 539)
 dialog_text = "fghgfdfggfd"
 script = ExtResource("1_71hhq")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=869263615]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -27,208 +27,215 @@ offset_bottom = -34.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TabContainer" type="TabContainer" parent="PanelContainer"]
+[node name="TabContainer" type="TabContainer" parent="PanelContainer" unique_id=1756014820]
 layout_mode = 2
+current_tab = 0
 
-[node name="Name" type="MarginContainer" parent="PanelContainer/TabContainer"]
+[node name="Name" type="MarginContainer" parent="PanelContainer/TabContainer" unique_id=1557345479]
 unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("2_35t2j")
+metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Name"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Name" unique_id=904781662]
 layout_mode = 2
 
-[node name="FunctionName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer"]
+[node name="FunctionName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer" unique_id=1585420750]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Function Name"
 
-[node name="ClassName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer"]
+[node name="ClassName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer" unique_id=32503936]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Class Name"
 
-[node name="SubClassName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer"]
+[node name="SubClassName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer" unique_id=1273382978]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Sub Class Name"
 
-[node name="SignalName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer"]
+[node name="SignalName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer" unique_id=1108419754]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Signal Name"
 
-[node name="ClassVariableName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer"]
+[node name="ClassVariableName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer" unique_id=1857477787]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Class Variable Name"
 
-[node name="ClassLoadVariableName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer"]
+[node name="ClassLoadVariableName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer" unique_id=1286451628]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Class Load Variable Name"
 
-[node name="FunctionVariableName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer"]
+[node name="FunctionVariableName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer" unique_id=942718129]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Function Variable Name"
 
-[node name="FunctionPreloadVariableName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer"]
+[node name="FunctionPreloadVariableName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer" unique_id=460396178]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Function Preload Variable Name"
 
-[node name="FunctionArgumentName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer"]
+[node name="FunctionArgumentName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer" unique_id=491490403]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Function Argument Name"
 
-[node name="LoopVariableName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer"]
+[node name="LoopVariableName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer" unique_id=169875639]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Loop Variable Name"
 
-[node name="EnumName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer"]
+[node name="EnumName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer" unique_id=1256729383]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Enum Name"
 
-[node name="EnumElementName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer"]
+[node name="EnumElementName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer" unique_id=978249745]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Enum Element Name"
 
-[node name="ConstantName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer"]
+[node name="ConstantName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer" unique_id=1788617765]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Constant Name"
 
-[node name="LoadConstantName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer"]
+[node name="LoadConstantName" type="CheckBox" parent="PanelContainer/TabContainer/Name/VBoxContainer" unique_id=1055050145]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Load Constant Name"
 
-[node name="Basic" type="MarginContainer" parent="PanelContainer/TabContainer"]
+[node name="Basic" type="MarginContainer" parent="PanelContainer/TabContainer" unique_id=215658579]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 script = ExtResource("3_ijjp7")
+metadata/_tab_index = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Basic"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Basic" unique_id=1735827836]
 layout_mode = 2
 
-[node name="DuplicatedLoad" type="CheckBox" parent="PanelContainer/TabContainer/Basic/VBoxContainer"]
+[node name="DuplicatedLoad" type="CheckBox" parent="PanelContainer/TabContainer/Basic/VBoxContainer" unique_id=988796037]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Duplicated Load"
 
-[node name="ExpressionNotAssigned" type="CheckBox" parent="PanelContainer/TabContainer/Basic/VBoxContainer"]
+[node name="ExpressionNotAssigned" type="CheckBox" parent="PanelContainer/TabContainer/Basic/VBoxContainer" unique_id=1106773156]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Expression Not Assigned"
 
-[node name="UnnecessaryPass" type="CheckBox" parent="PanelContainer/TabContainer/Basic/VBoxContainer"]
+[node name="UnnecessaryPass" type="CheckBox" parent="PanelContainer/TabContainer/Basic/VBoxContainer" unique_id=1950317284]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Unnecessary Pass"
 
-[node name="UnusedArgument" type="CheckBox" parent="PanelContainer/TabContainer/Basic/VBoxContainer"]
+[node name="UnusedArgument" type="CheckBox" parent="PanelContainer/TabContainer/Basic/VBoxContainer" unique_id=702888481]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Unused Argument"
 
-[node name="ComparisionWithItself" type="CheckBox" parent="PanelContainer/TabContainer/Basic/VBoxContainer"]
+[node name="ComparisionWithItself" type="CheckBox" parent="PanelContainer/TabContainer/Basic/VBoxContainer" unique_id=950842533]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Comparision With Itself"
 
-[node name="Class" type="MarginContainer" parent="PanelContainer/TabContainer"]
+[node name="Class" type="MarginContainer" parent="PanelContainer/TabContainer" unique_id=1846323691]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 script = ExtResource("4_s2mg3")
+metadata/_tab_index = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Class"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Class" unique_id=556608122]
 layout_mode = 2
 
-[node name="PrivateMethodCall" type="CheckBox" parent="PanelContainer/TabContainer/Class/VBoxContainer"]
+[node name="PrivateMethodCall" type="CheckBox" parent="PanelContainer/TabContainer/Class/VBoxContainer" unique_id=593042479]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Private Method Call"
 
-[node name="ClassDefinitionOrder" type="CheckBox" parent="PanelContainer/TabContainer/Class/VBoxContainer"]
+[node name="ClassDefinitionOrder" type="CheckBox" parent="PanelContainer/TabContainer/Class/VBoxContainer" unique_id=2137162277]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Class Definition Order"
 
-[node name="Design" type="MarginContainer" parent="PanelContainer/TabContainer"]
+[node name="Design" type="MarginContainer" parent="PanelContainer/TabContainer" unique_id=1040913948]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 script = ExtResource("5_2ncqt")
+metadata/_tab_index = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Design"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Design" unique_id=1382142478]
 layout_mode = 2
 
-[node name="MaxPublicMethods" type="CheckBox" parent="PanelContainer/TabContainer/Design/VBoxContainer"]
+[node name="MaxPublicMethods" type="CheckBox" parent="PanelContainer/TabContainer/Design/VBoxContainer" unique_id=2059790888]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Max Public Methods"
 
-[node name="FunctionArgumentNumber" type="CheckBox" parent="PanelContainer/TabContainer/Design/VBoxContainer"]
+[node name="FunctionArgumentNumber" type="CheckBox" parent="PanelContainer/TabContainer/Design/VBoxContainer" unique_id=779550211]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Function Argument Number"
 
-[node name="MaxReturns" type="CheckBox" parent="PanelContainer/TabContainer/Design/VBoxContainer"]
+[node name="MaxReturns" type="CheckBox" parent="PanelContainer/TabContainer/Design/VBoxContainer" unique_id=2063384651]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Max Returns"
 
-[node name="Format" type="MarginContainer" parent="PanelContainer/TabContainer"]
+[node name="Format" type="MarginContainer" parent="PanelContainer/TabContainer" unique_id=1263783816]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 script = ExtResource("6_5fvrg")
+metadata/_tab_index = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Format"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Format" unique_id=135622995]
 layout_mode = 2
 
-[node name="MaxFileLines" type="CheckBox" parent="PanelContainer/TabContainer/Format/VBoxContainer"]
+[node name="MaxFileLines" type="CheckBox" parent="PanelContainer/TabContainer/Format/VBoxContainer" unique_id=1073670935]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Max File Lines"
 
-[node name="TrailingWhitespaceCheckBox" type="CheckBox" parent="PanelContainer/TabContainer/Format/VBoxContainer"]
+[node name="TrailingWhitespaceCheckBox" type="CheckBox" parent="PanelContainer/TabContainer/Format/VBoxContainer" unique_id=786215539]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Trailing Whitespace"
 
-[node name="MaxLineLength" type="CheckBox" parent="PanelContainer/TabContainer/Format/VBoxContainer"]
+[node name="MaxLineLength" type="CheckBox" parent="PanelContainer/TabContainer/Format/VBoxContainer" unique_id=2022037054]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Max Line Length"
 
-[node name="MixedTabsAndSpaces" type="CheckBox" parent="PanelContainer/TabContainer/Format/VBoxContainer"]
+[node name="MixedTabsAndSpaces" type="CheckBox" parent="PanelContainer/TabContainer/Format/VBoxContainer" unique_id=748790044]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Mixed Tabs And Spaces"
 
-[node name="Misc" type="MarginContainer" parent="PanelContainer/TabContainer"]
+[node name="Misc" type="MarginContainer" parent="PanelContainer/TabContainer" unique_id=428852462]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 script = ExtResource("7_l8gkb")
+metadata/_tab_index = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Misc"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Misc" unique_id=1661175034]
 layout_mode = 2
 
-[node name="NoElifReturn" type="CheckBox" parent="PanelContainer/TabContainer/Misc/VBoxContainer"]
+[node name="NoElifReturn" type="CheckBox" parent="PanelContainer/TabContainer/Misc/VBoxContainer" unique_id=1772717703]
 unique_name_in_owner = true
 layout_mode = 2
 text = "No Elif Return"
 
-[node name="NoElseReturn" type="CheckBox" parent="PanelContainer/TabContainer/Misc/VBoxContainer"]
+[node name="NoElseReturn" type="CheckBox" parent="PanelContainer/TabContainer/Misc/VBoxContainer" unique_id=680176527]
 unique_name_in_owner = true
 layout_mode = 2
 text = "No Else Return"

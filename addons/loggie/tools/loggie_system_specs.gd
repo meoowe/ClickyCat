@@ -130,7 +130,7 @@ func embed_display_specs() -> LoggieSystemSpecsMsg:
 	self.add(loggie.msg("Startup screen position:").bold(), DisplayServer.screen_get_position()).nl()
 	self.add(loggie.msg("Startup screen size:").bold(), DisplayServer.screen_get_size()).nl()
 	self.add(loggie.msg("Startup screen refresh rate:").bold(), ("%f Hz" % DisplayServer.screen_get_refresh_rate()) if DisplayServer.screen_get_refresh_rate() > 0.0 else "").nl()
-	self.add(loggie.msg("Usable (safe) area rectangle:").bold(), DisplayServer.get_display_safe_area()).nl()
+	#self.add(loggie.msg("Usable (safe) area rectangle:").bold(), DisplayServer.get_display_safe_area()).nl()
 	self.add(loggie.msg("Screen orientation:").bold(), screen_orientation_string).nl()
 	return self
 

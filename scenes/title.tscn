@@ -3,9 +3,23 @@
 [ext_resource type="Script" uid="uid://bfp8vhyuqv6aq" path="res://scripts/title.gd" id="1_gruo6"]
 [ext_resource type="PackedScene" uid="uid://cnv1rmmxmj0m4" path="res://scripts/background.tscn" id="2_21j0o"]
 [ext_resource type="Texture2D" uid="uid://bk6whxyanspb8" path="res://assets/img/buttons/playButton.png" id="3_pt2cc"]
-[ext_resource type="Texture2D" uid="uid://b5lkntqbmqbma" path="res://assets/img/buttons/creditsButton.png" id="4_l7dcj"]
 [ext_resource type="Texture2D" uid="uid://7wq6qjf0wd2m" path="res://assets/img/buttons/exitButton.png" id="5_72tt0"]
 [ext_resource type="Texture2D" uid="uid://c3pd7osh6hxqd" path="res://assets/img/trophy.png" id="6_cgsv8"]
+[ext_resource type="Theme" uid="uid://dxjovxyl7xvqv" path="res://theme.tres" id="6_yql1r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4rr2b"]
+bg_color = Color(0.6, 0.6431373, 0.6, 0.25490198)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_nvlaq"]
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_onpbh"]
 font_size = 100
@@ -14,10 +28,8 @@ font_color = Color(0.486275, 0.988235, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_nbey0"]
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_nvlaq"]
-font_color = Color(0, 0, 0, 1)
-
 [node name="Control" type="Control" unique_id=223564535]
+z_index = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,106 +39,77 @@ grow_vertical = 2
 script = ExtResource("1_gruo6")
 
 [node name="ParallaxBackground" parent="." unique_id=1496571066 instance=ExtResource("2_21j0o")]
+show_title_features = true
 
-[node name="Label" type="Label" parent="." unique_id=1380618328]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -233.0
-offset_top = -115.5
-offset_right = 233.0
-offset_bottom = 21.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Clicky Cat"
-label_settings = SubResource("LabelSettings_onpbh")
-
-[node name="Play" type="TextureButton" parent="." unique_id=2088595961]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -130.0
-offset_top = 32.0
-offset_right = 126.0
-offset_bottom = 160.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = ExtResource("3_pt2cc")
-
-[node name="Credits" type="TextureButton" parent="." unique_id=1351456156]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -262.0
-offset_top = -206.0
-offset_right = 762.0
-offset_bottom = 306.0
-grow_horizontal = 0
-grow_vertical = 0
-scale = Vector2(0.25, 0.25)
-texture_normal = ExtResource("4_l7dcj")
-
-[node name="Quit" type="TextureButton" parent="." unique_id=1674231930]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -128.0
-offset_top = -201.0
-offset_right = 128.0
-offset_bottom = -73.0
-grow_horizontal = 2
-grow_vertical = 0
-texture_normal = ExtResource("5_72tt0")
-
-[node name="vrsn" type="Label" parent="." unique_id=302334211]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -105.0
-offset_right = 40.0
-offset_bottom = -82.0
-grow_vertical = 0
-label_settings = SubResource("LabelSettings_nbey0")
-
-[node name="TextureButton" type="TextureButton" parent="." unique_id=134974668]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -132.0
-offset_top = 18.0
-offset_right = 892.0
-offset_bottom = 1042.0
-grow_horizontal = 0
-scale = Vector2(0.125, 0.125)
+[node name="Leaderboard" type="TextureButton" parent="." unique_id=134974668]
+visible = false
+layout_mode = 0
+offset_top = 288.0
+offset_right = 1024.0
+offset_bottom = 1312.0
 texture_normal = ExtResource("6_cgsv8")
 
-[node name="Label2" type="Label" parent="." unique_id=127655370]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1724429851]
+position = Vector2(720, 484)
+limit_enabled = false
+limit_left = 0
+limit_top = 0
+limit_right = 1440
+limit_bottom = 800
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=2020574731]
+
+[node name="CenterContainer" type="CenterContainer" parent="UI" unique_id=505603908]
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = -40.0
-offset_top = 160.0
-offset_bottom = 183.0
-grow_horizontal = 0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/CenterContainer" unique_id=581666511]
+layout_mode = 2
+theme = ExtResource("6_yql1r")
+theme_override_styles/panel = SubResource("StyleBoxFlat_4rr2b")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/CenterContainer/PanelContainer" unique_id=707413661]
+layout_mode = 2
+alignment = 1
+
+[node name="Label2" type="Label" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=127655370]
+visible = false
+layout_mode = 2
 text = "Leaderboard"
 label_settings = SubResource("LabelSettings_nvlaq")
 
-[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[node name="Label" type="Label" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=1380618328]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Clicky Cat"
+label_settings = SubResource("LabelSettings_onpbh")
+
+[node name="Play" type="TextureButton" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=2088595961]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("3_pt2cc")
+
+[node name="Quit" type="TextureButton" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=1674231930]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("5_72tt0")
+
+[node name="TextureButton" type="TextureButton" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=1037414643]
+layout_mode = 2
+
+[node name="vrsn" type="Label" parent="." unique_id=302334211]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 739.0
+offset_right = 123.0
+offset_bottom = 762.0
+label_settings = SubResource("LabelSettings_nbey0")
+
+[connection signal="pressed" from="Leaderboard" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="UI/CenterContainer/PanelContainer/VBoxContainer2/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="UI/CenterContainer/PanelContainer/VBoxContainer2/Quit" to="." method="_on_quit_pressed"]

@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwderxh2bn70g"]
+[gd_scene format=3 uid="uid://cwderxh2bn70g"]
 
-[ext_resource type="Script" path="res://scripts/win.gd" id="1_jsomg"]
+[ext_resource type="Script" uid="uid://daf0bq8ing6jl" path="res://scripts/win.gd" id="1_jsomg"]
 [ext_resource type="Texture2D" uid="uid://c3pd7osh6hxqd" path="res://assets/img/trophy.png" id="3_tcv51"]
 [ext_resource type="Texture2D" uid="uid://n85ydfhmpl3b" path="res://assets/img/luna.png" id="5_21kbb"]
 [ext_resource type="PackedScene" uid="uid://clw216irx0h74" path="res://scenes/winBG.tscn" id="5_w63as"]
@@ -17,7 +17,7 @@ font_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_upm63"]
 font_color = Color(0, 0, 0, 1)
 
-[node name="winScreen" type="Control"]
+[node name="winScreen" type="Control" unique_id=1841391901]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +26,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jsomg")
 
-[node name="Trophy" type="TextureRect" parent="."]
+[node name="Trophy" type="TextureRect" parent="." unique_id=564913895]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -39,7 +39,7 @@ grow_horizontal = 0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_tcv51")
 
-[node name="Luna" type="TextureRect" parent="."]
+[node name="Luna" type="TextureRect" parent="." unique_id=642800825]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -52,7 +52,7 @@ grow_vertical = 0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_21kbb")
 
-[node name="Cat" type="TextureRect" parent="."]
+[node name="Cat" type="TextureRect" parent="." unique_id=809280330]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -68,7 +68,7 @@ grow_vertical = 0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("6_r2ggq")
 
-[node name="title" type="TextureButton" parent="."]
+[node name="title" type="TextureButton" parent="." unique_id=1276610865]
 layout_mode = 0
 offset_left = 32.0
 offset_top = 34.0
@@ -76,7 +76,7 @@ offset_right = 288.0
 offset_bottom = 162.0
 texture_normal = ExtResource("5_yeeby")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=259773307]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -92,9 +92,10 @@ grow_vertical = 2
 text = "You won with a score of "
 label_settings = SubResource("LabelSettings_08j7k")
 
-[node name="ParallaxBackground" parent="." instance=ExtResource("5_w63as")]
+[node name="ParallaxBackground" parent="." unique_id=585532699 instance=ExtResource("5_w63as")]
 
-[node name="LineEdit" type="LineEdit" parent="."]
+[node name="LineEdit" type="LineEdit" parent="." unique_id=379357928]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -106,7 +107,8 @@ offset_bottom = 338.0
 grow_horizontal = 2
 placeholder_text = "Nickname"
 
-[node name="Label2" type="Label" parent="."]
+[node name="Label2" type="Label" parent="." unique_id=1501317270]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -119,7 +121,7 @@ grow_horizontal = 2
 text = "Enter Your Nickname Below:"
 label_settings = SubResource("LabelSettings_gi3gw")
 
-[node name="published" type="Label" parent="."]
+[node name="published" type="Label" parent="." unique_id=1848913830]
 visible = false
 layout_mode = 1
 anchors_preset = 5

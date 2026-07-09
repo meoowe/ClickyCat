@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1eqlqvotirg1"]
+[gd_scene format=3 uid="uid://d1eqlqvotirg1"]
 
-[ext_resource type="Script" path="res://addons/gdLinter/UI/Dock.gd" id="1_u5r3b"]
+[ext_resource type="Script" uid="uid://bww62cr3h38dm" path="res://addons/gdLinter/UI/Dock.gd" id="1_u5r3b"]
 [ext_resource type="PackedScene" uid="uid://cgk7hjif0ujw1" path="res://addons/gdLinter/UI/GDLinterIgnoreWindow.tscn" id="3_ib5aw"]
 
-[node name="Dock" type="Control"]
+[node name="Dock" type="Control" unique_id=1358753562]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_u5r3b")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=103104573]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,35 +20,35 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Header" type="PanelContainer" parent="VBoxContainer"]
+[node name="Header" type="PanelContainer" parent="VBoxContainer" unique_id=454531076]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Header"]
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/Header" unique_id=1301835794]
 layout_mode = 2
 bbcode_enabled = true
 text = "[center]GDLint Plugin 2.1.0[/center]"
 fit_content = true
 
-[node name="LintedFile" type="PanelContainer" parent="VBoxContainer"]
+[node name="LintedFile" type="PanelContainer" parent="VBoxContainer" unique_id=231357293]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/LintedFile"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/LintedFile" unique_id=39187307]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/LintedFile/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/LintedFile/HBoxContainer" unique_id=1973398267]
 layout_mode = 2
 text = "Currently linted file:"
 
-[node name="File" type="Label" parent="VBoxContainer/LintedFile/HBoxContainer"]
+[node name="File" type="Label" parent="VBoxContainer/LintedFile/HBoxContainer" unique_id=491400305]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="MiddleContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="MiddleContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1829965660]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 20.0
 
-[node name="Tree" type="Tree" parent="VBoxContainer/MiddleContainer"]
+[node name="Tree" type="Tree" parent="VBoxContainer/MiddleContainer" unique_id=76984004]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -62,50 +62,50 @@ hide_root = true
 select_mode = 1
 scroll_horizontal_enabled = false
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MiddleContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MiddleContainer" unique_id=475496960]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer/MiddleContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="VBoxContainer/MiddleContainer/VBoxContainer" unique_id=1976686667]
 layout_mode = 2
 text = "Ignore
 Settings"
 
-[node name="Statusbar" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Statusbar" type="HBoxContainer" parent="VBoxContainer" unique_id=850836336]
 layout_mode = 2
 size_flags_vertical = 10
 
-[node name="ProblemsContainer" type="HBoxContainer" parent="VBoxContainer/Statusbar"]
+[node name="ProblemsContainer" type="HBoxContainer" parent="VBoxContainer/Statusbar" unique_id=1129080834]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="ProblemsNum" type="Label" parent="VBoxContainer/Statusbar/ProblemsContainer"]
+[node name="ProblemsNum" type="Label" parent="VBoxContainer/Statusbar/ProblemsContainer" unique_id=46643420]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0"
 
-[node name="ProblemsLbl" type="Label" parent="VBoxContainer/Statusbar/ProblemsContainer"]
+[node name="ProblemsLbl" type="Label" parent="VBoxContainer/Statusbar/ProblemsContainer" unique_id=1006027124]
 layout_mode = 2
 text = "problems found"
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Statusbar/ProblemsContainer"]
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Statusbar/ProblemsContainer" unique_id=1517919949]
 layout_mode = 2
 
-[node name="IgnoredProblemsNum" type="Label" parent="VBoxContainer/Statusbar/ProblemsContainer"]
+[node name="IgnoredProblemsNum" type="Label" parent="VBoxContainer/Statusbar/ProblemsContainer" unique_id=122063439]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0"
 
-[node name="IgnoredProblemsLbl" type="Label" parent="VBoxContainer/Statusbar/ProblemsContainer"]
+[node name="IgnoredProblemsLbl" type="Label" parent="VBoxContainer/Statusbar/ProblemsContainer" unique_id=1742915486]
 layout_mode = 2
 text = "problems ignored"
 
-[node name="Version" type="Label" parent="VBoxContainer/Statusbar"]
+[node name="Version" type="Label" parent="VBoxContainer/Statusbar" unique_id=1071497462]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_alignment = 2
 
-[node name="GdLinterIgnoreWindow" parent="." instance=ExtResource("3_ib5aw")]
+[node name="GdLinterIgnoreWindow" parent="." unique_id=527706682 instance=ExtResource("3_ib5aw")]
 dialog_text = ""
 
 [connection signal="pressed" from="VBoxContainer/MiddleContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

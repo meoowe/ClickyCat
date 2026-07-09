@@ -39,17 +39,6 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 	Loggie.msg("[Win]").bold().color(Color.BLUE_VIOLET).add(" Player name:").msg(" ", Global.playerName).info()
 	Loggie.msg("[Win]").bold().color(Color.BLUE_VIOLET).add(" Score:").msg(" ", Global.highScore).info()
 	Loggie.msg("[Win]").bold().color(Color.BLUE_VIOLET).add(" Leaderboard ID:").msg(" ", Global.LEADERBOARD_ID).info()
-	var success = await Leaderboards.post_guest_score(
-		Global.LEADERBOARD_ID, Global.highScore, Global.playerName, metadata
-	)
-	if success:
-		published.text = "Your score was published to the leaderboard!"
-		Loggie.msg("[Win] Score was published sucessfully!").header().bold().color(Color.BLUE_VIOLET).info()
-		published.show()
-	else:
-		published.text = "Sorry! There was a problem in posting your score."
-		published.show()
-
 
 func start_delay():
 	await get_tree().create_timer(1.5).timeout

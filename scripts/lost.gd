@@ -21,4 +21,4 @@ func _on_quit_pressed() -> void:
 
 func _on_title_pressed() -> void:
 	Global.PlayClick()
-	get_tree().change_scene_to_file("res://title.tscn")
+	get_tree().change_scene_to_file("res://scenes/title.tscn")
