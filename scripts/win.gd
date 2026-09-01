@@ -1,8 +1,10 @@
 extends Control
-@onready var published: Label = $published
+@onready var published: Label = $CanvasLayer/published
 
-@onready var label: Label = $Label
-@onready var line_edit: LineEdit = $LineEdit
+@onready var label: Label = $CanvasLayer/Label
+@onready var line_edit: LineEdit = $CanvasLayer/LineEdit
+@export var camera: Camera2D
+@export var scroll_speed = 100
 var metadata = {
 	"won?": true,
 	"balloon used?": Global.balloonClicked,
@@ -24,7 +26,9 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	camera.position.x += scroll_speed * delta
+	camera.position.y += scroll_speed * delta
 	await start_delay()
 
 

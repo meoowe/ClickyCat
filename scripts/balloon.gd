@@ -25,8 +25,8 @@ func control_show_hide_loop():
 		await get_tree().create_timer(1).timeout
 		
 		# 4. Hide the balloon
-		self.visible = false
-		
+		if !Global.debug.hideBalloon: pass
+		fade_out_and_hide(0.5)
 		# 5. Wait 1 second while it's hidden before restarting the loop
 		await get_tree().create_timer(3).timeout
 
@@ -34,7 +34,29 @@ func _on_pressed() -> void:
 	self.modulate = Color(1, 0.62, 0.02)
 	await get_tree().create_timer(0.3).timeout
 	self.modulate = Color.WHITE
-	if !Global.balloonClicked and self.visible: 
-		Global.scoreIncrement = Global.scoreIncrement * 2
+	if self.visible and $"../../Game/path/follower".progress > 0: 
+		Global.scoreIncrement = 20
 		Global.balloonClicked = true 
 		Global.PlayClick()
+
+func fade_to(show: bool, duration: float = 0.5):
+	var tween = create_tween()
+
+	if show:
+		self.visible = true
+		self.modulate.a = 0.0
+		tween.tween_property(self, "modulate:a", 1.0, duration)
+	else:
+		tween.tween_property(self, "modulate:a", 0.0, duration)
+		tween.tween_callback(func(): self.visible = false)
+
+func fade_out_and_hide(duration: float = 0.5):
+	# Ensure the node is visible and ready to fade
+	visible = true
+	
+	var tween = create_tween()
+	# Animate modulate alpha property to 0 over the duration
+	tween.tween_property(self, "modulate:a", 0.0, duration)
+	
+	# Hide the node completely after the fade ends to save resources
+	tween.tween_callback(self.hide)

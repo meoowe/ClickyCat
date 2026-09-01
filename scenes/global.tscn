@@ -16,6 +16,7 @@ stream_1 = ExtResource("3_f41r1")
 script = ExtResource("1_6s87d")
 playerName = "Nickname :)"
 VERSION = "2.2.0-15.12.24"
+save_file_path = "user://clickycat.tres"
 
 [node name="music" type="AudioStreamPlayer" parent="." unique_id=1960430128]
 stream = SubResource("AudioStreamPlaylist_meubt")

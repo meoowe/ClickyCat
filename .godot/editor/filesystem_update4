@@ -1,4 +1,4 @@
-res://scenes/global.tscn
+res://scenes/game.tscn
 res://theme.tres
-res://scripts/autoloads/Global.gd
-res://scenes/title.tscn
+res://debuglabel.tres
+res://scripts/balloon.gd

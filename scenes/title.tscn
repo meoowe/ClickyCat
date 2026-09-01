@@ -4,8 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cnv1rmmxmj0m4" path="res://scripts/background.tscn" id="2_21j0o"]
 [ext_resource type="Texture2D" uid="uid://bk6whxyanspb8" path="res://assets/img/buttons/playButton.png" id="3_pt2cc"]
 [ext_resource type="Texture2D" uid="uid://7wq6qjf0wd2m" path="res://assets/img/buttons/exitButton.png" id="5_72tt0"]
-[ext_resource type="Texture2D" uid="uid://c3pd7osh6hxqd" path="res://assets/img/trophy.png" id="6_cgsv8"]
 [ext_resource type="Theme" uid="uid://dxjovxyl7xvqv" path="res://theme.tres" id="6_yql1r"]
+[ext_resource type="Script" uid="uid://5thom17hbifs" path="res://scripts/debug_menu.gd" id="7_ia1n6"]
+[ext_resource type="LabelSettings" uid="uid://by7nj0wx87x4a" path="res://debuglabel.tres" id="7_yql1r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4rr2b"]
 bg_color = Color(0.6, 0.6431373, 0.6, 0.25490198)
@@ -18,14 +19,25 @@ expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
-[sub_resource type="LabelSettings" id="LabelSettings_nvlaq"]
-font_color = Color(0, 0, 0, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_onpbh"]
 font_size = 100
 font_color = Color(0.486275, 0.988235, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_nbey0"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eobgq"]
+bg_color = Color(0.6, 0.6, 0.6, 0.46666667)
+
+[sub_resource type="SystemFont" id="SystemFont_bg6yy"]
+
+[sub_resource type="SystemFont" id="SystemFont_ia1n6"]
+fallbacks = Array[Font]([SubResource("SystemFont_bg6yy")])
+font_names = PackedStringArray("Hack Nerd Font", "Source Code Pro")
+
+[sub_resource type="LabelSettings" id="LabelSettings_hiwto"]
+font = SubResource("SystemFont_ia1n6")
+font_size = 24
 font_color = Color(0, 0, 0, 1)
 
 [node name="Control" type="Control" unique_id=223564535]
@@ -40,14 +52,6 @@ script = ExtResource("1_gruo6")
 
 [node name="ParallaxBackground" parent="." unique_id=1496571066 instance=ExtResource("2_21j0o")]
 show_title_features = true
-
-[node name="Leaderboard" type="TextureButton" parent="." unique_id=134974668]
-visible = false
-layout_mode = 0
-offset_top = 288.0
-offset_right = 1024.0
-offset_bottom = 1312.0
-texture_normal = ExtResource("6_cgsv8")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1724429851]
 position = Vector2(720, 484)
@@ -77,12 +81,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_4rr2b")
 layout_mode = 2
 alignment = 1
 
-[node name="Label2" type="Label" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=127655370]
-visible = false
-layout_mode = 2
-text = "Leaderboard"
-label_settings = SubResource("LabelSettings_nvlaq")
-
 [node name="Label" type="Label" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=1380618328]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -102,14 +100,88 @@ texture_normal = ExtResource("5_72tt0")
 [node name="TextureButton" type="TextureButton" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=1037414643]
 layout_mode = 2
 
-[node name="vrsn" type="Label" parent="." unique_id=302334211]
-layout_mode = 0
+[node name="vrsn" type="Label" parent="UI" unique_id=302334211]
 offset_left = 14.0
 offset_top = 739.0
 offset_right = 123.0
 offset_bottom = 762.0
 label_settings = SubResource("LabelSettings_nbey0")
 
-[connection signal="pressed" from="Leaderboard" to="." method="_on_texture_button_pressed"]
+[node name="DebugMenu" type="PanelContainer" parent="UI" unique_id=236007917]
+visible = false
+offset_right = 248.0
+offset_bottom = 167.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_eobgq")
+script = ExtResource("7_ia1n6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DebugMenu" unique_id=1211442868]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer" unique_id=1418229361]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Debug Menu (F3)"
+label_settings = SubResource("LabelSettings_hiwto")
+
+[node name="HSeparator" type="HSeparator" parent="UI/DebugMenu/VBoxContainer" unique_id=293461782]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=1294850263]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer" unique_id=1201538203]
+layout_mode = 2
+text = "Disable Loose"
+label_settings = ExtResource("7_yql1r")
+
+[node name="looseToggle" type="CheckButton" parent="UI/DebugMenu/VBoxContainer/HBoxContainer" unique_id=1076879858]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=1697291654]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer2" unique_id=2097869170]
+layout_mode = 2
+text = "Disable Win"
+label_settings = ExtResource("7_yql1r")
+
+[node name="winTogle" type="CheckButton" parent="UI/DebugMenu/VBoxContainer/HBoxContainer2" unique_id=101898136]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=1792914954]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer3" unique_id=1284264320]
+layout_mode = 2
+text = "Don't Do Balloon Hide"
+label_settings = ExtResource("7_yql1r")
+
+[node name="balloonToggle" type="CheckButton" parent="UI/DebugMenu/VBoxContainer/HBoxContainer3" unique_id=1215221360]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=1351001027]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer4" unique_id=887672204]
+layout_mode = 2
+text = "Disable Stamina"
+label_settings = ExtResource("7_yql1r")
+
+[node name="staminaToggle" type="CheckButton" parent="UI/DebugMenu/VBoxContainer/HBoxContainer4" unique_id=415165902]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 10
+
 [connection signal="pressed" from="UI/CenterContainer/PanelContainer/VBoxContainer2/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="UI/CenterContainer/PanelContainer/VBoxContainer2/Quit" to="." method="_on_quit_pressed"]
+[connection signal="toggled" from="UI/DebugMenu/VBoxContainer/HBoxContainer/looseToggle" to="UI/DebugMenu" method="_on_loose_toggle_toggled"]
+[connection signal="toggled" from="UI/DebugMenu/VBoxContainer/HBoxContainer2/winTogle" to="UI/DebugMenu" method="_on_win_togle_toggled"]
+[connection signal="toggled" from="UI/DebugMenu/VBoxContainer/HBoxContainer3/balloonToggle" to="UI/DebugMenu" method="_on_balloon_toggle_toggled"]
+[connection signal="toggled" from="UI/DebugMenu/VBoxContainer/HBoxContainer4/staminaToggle" to="UI/DebugMenu" method="_on_stamina_toggle_toggled"]

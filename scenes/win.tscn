@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://daf0bq8ing6jl" path="res://scripts/win.gd" id="1_jsomg"]
 [ext_resource type="Texture2D" uid="uid://c3pd7osh6hxqd" path="res://assets/img/trophy.png" id="3_tcv51"]
 [ext_resource type="Texture2D" uid="uid://n85ydfhmpl3b" path="res://assets/img/luna.png" id="5_21kbb"]
-[ext_resource type="PackedScene" uid="uid://clw216irx0h74" path="res://scenes/winBG.tscn" id="5_w63as"]
 [ext_resource type="Texture2D" uid="uid://dmtxetv3vy6f7" path="res://assets/img/buttons/titleButton.png" id="5_yeeby"]
+[ext_resource type="PackedScene" uid="uid://cnv1rmmxmj0m4" path="res://scripts/background.tscn" id="6_5vxan"]
 [ext_resource type="Texture2D" uid="uid://c14sn4owrr1et" path="res://assets/img/cat.png" id="6_r2ggq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_08j7k"]
@@ -17,7 +17,7 @@ font_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_upm63"]
 font_color = Color(0, 0, 0, 1)
 
-[node name="winScreen" type="Control" unique_id=1841391901]
+[node name="winScreen" type="Control" unique_id=1841391901 node_paths=PackedStringArray("camera")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,9 +25,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jsomg")
+camera = NodePath("Camera2D")
 
-[node name="Trophy" type="TextureRect" parent="." unique_id=564913895]
-layout_mode = 1
+[node name="ParallaxBackground" parent="." unique_id=1254942291 instance=ExtResource("6_5vxan")]
+show_confetti = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1640072542]
+
+[node name="Trophy" type="TextureRect" parent="CanvasLayer" unique_id=564913895]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -39,8 +44,7 @@ grow_horizontal = 0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_tcv51")
 
-[node name="Luna" type="TextureRect" parent="." unique_id=642800825]
-layout_mode = 1
+[node name="Luna" type="TextureRect" parent="CanvasLayer" unique_id=642800825]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -52,8 +56,7 @@ grow_vertical = 0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("5_21kbb")
 
-[node name="Cat" type="TextureRect" parent="." unique_id=809280330]
-layout_mode = 1
+[node name="Cat" type="TextureRect" parent="CanvasLayer" unique_id=809280330]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -68,35 +71,30 @@ grow_vertical = 0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("6_r2ggq")
 
-[node name="title" type="TextureButton" parent="." unique_id=1276610865]
-layout_mode = 0
+[node name="title" type="TextureButton" parent="CanvasLayer" unique_id=1276610865]
 offset_left = 32.0
 offset_top = 34.0
 offset_right = 288.0
 offset_bottom = 162.0
 texture_normal = ExtResource("5_yeeby")
 
-[node name="Label" type="Label" parent="." unique_id=259773307]
-layout_mode = 1
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=259773307]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = -280.5
+offset_top = -33.5
+offset_right = 280.5
+offset_bottom = 33.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "You won with a score of "
 label_settings = SubResource("LabelSettings_08j7k")
 
-[node name="ParallaxBackground" parent="." unique_id=585532699 instance=ExtResource("5_w63as")]
-
-[node name="LineEdit" type="LineEdit" parent="." unique_id=379357928]
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer" unique_id=379357928]
 visible = false
-layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -107,33 +105,33 @@ offset_bottom = 338.0
 grow_horizontal = 2
 placeholder_text = "Nickname"
 
-[node name="Label2" type="Label" parent="." unique_id=1501317270]
+[node name="Label2" type="Label" parent="CanvasLayer" unique_id=1501317270]
 visible = false
-layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.0
+offset_left = -110.0
 offset_top = 264.0
-offset_right = 20.0
+offset_right = 110.0
 offset_bottom = 287.0
 grow_horizontal = 2
 text = "Enter Your Nickname Below:"
 label_settings = SubResource("LabelSettings_gi3gw")
 
-[node name="published" type="Label" parent="." unique_id=1848913830]
+[node name="published" type="Label" parent="CanvasLayer" unique_id=1848913830]
 visible = false
-layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.0
+offset_left = -175.5
 offset_top = 221.0
-offset_right = 20.0
+offset_right = 175.5
 offset_bottom = 244.0
 grow_horizontal = 2
 text = "Your score was published to the leaderboard!"
 label_settings = SubResource("LabelSettings_upm63")
 
-[connection signal="pressed" from="title" to="." method="_on_title_pressed"]
-[connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=248566158]
+
+[connection signal="pressed" from="CanvasLayer/title" to="." method="_on_title_pressed"]
+[connection signal="text_submitted" from="CanvasLayer/LineEdit" to="." method="_on_line_edit_text_submitted"]

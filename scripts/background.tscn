@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dvtvijybmd17u" path="res://assets/img/DogBark.png" id="4_lipg6"]
 [ext_resource type="Texture2D" uid="uid://c14sn4owrr1et" path="res://assets/img/cat.png" id="5_e14kp"]
 [ext_resource type="Texture2D" uid="uid://n85ydfhmpl3b" path="res://assets/img/luna.png" id="6_p62qg"]
+[ext_resource type="Texture2D" uid="uid://bbfsx5i8yms2p" path="res://assets/img/confetti1.png" id="8_i0bun"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ski2u"]
 atlas = ExtResource("4_lipg6")
@@ -157,6 +158,17 @@ scroll_scale = Vector2(0, 0)
 position = Vector2(1235, 663)
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("6_p62qg")
+
+[node name="Confetti" type="Parallax2D" parent="CanvasLayer" unique_id=87899755]
+visible = false
+scroll_scale = Vector2(0, -1)
+repeat_size = Vector2(0, 1024)
+repeat_times = 10
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Confetti" unique_id=1887254296]
+position = Vector2(723.5, 544)
+scale = Vector2(1.4033203, 1.0585938)
+texture = ExtResource("8_i0bun")
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=116451592]
 energy = 16.0

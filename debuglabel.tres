@@ -1,0 +1,12 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://by7nj0wx87x4a"]
+
+[sub_resource type="SystemFont" id="SystemFont_bg6yy"]
+
+[sub_resource type="SystemFont" id="SystemFont_ia1n6"]
+fallbacks = Array[Font]([SubResource("SystemFont_bg6yy")])
+font_names = PackedStringArray("Hack Nerd Font", "Source Code Pro")
+
+[resource]
+font = SubResource("SystemFont_ia1n6")
+font_size = 18
+font_color = Color(0, 0, 0, 1)
