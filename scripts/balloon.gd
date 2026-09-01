@@ -18,15 +18,15 @@ func control_show_hide_loop():
 		self.position = pos
 		
 		# 2. Make it appear
-		self.visible = true
+		fade_out_and_hide(false,0.5)
 		print("show ballon!")
 		
 		# 3. Wait 3 seconds while it's on screen
 		await get_tree().create_timer(1).timeout
 		
 		# 4. Hide the balloon
-		if !Global.debug.hideBalloon: pass
-		fade_out_and_hide(0.5)
+		if Global.debug.hideBalloon: pass
+		fade_out_and_hide(true,0.5)
 		# 5. Wait 1 second while it's hidden before restarting the loop
 		await get_tree().create_timer(3).timeout
 
@@ -50,13 +50,18 @@ func fade_to(show: bool, duration: float = 0.5):
 		tween.tween_property(self, "modulate:a", 0.0, duration)
 		tween.tween_callback(func(): self.visible = false)
 
-func fade_out_and_hide(duration: float = 0.5):
+func fade_out_and_hide(show: bool,duration: float = 0.5):
 	# Ensure the node is visible and ready to fade
-	visible = true
-	
-	var tween = create_tween()
-	# Animate modulate alpha property to 0 over the duration
-	tween.tween_property(self, "modulate:a", 0.0, duration)
-	
-	# Hide the node completely after the fade ends to save resources
-	tween.tween_callback(self.hide)
+	if show == true:
+		visible = true
+		
+		var tween = create_tween()
+		# Animate modulate alpha property to 0 over the duration
+		tween.tween_property(self, "modulate:a", 0.0, duration)
+		
+		# Hide the node completely after the fade ends to save resources
+		tween.tween_callback(self.hide)
+
+	if show == false:
+		var tween = create_tween()
+		tween.tween_property(self,"modulate:a", 1, duration)

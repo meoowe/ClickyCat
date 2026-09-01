@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://n85ydfhmpl3b" path="res://assets/img/luna.png" id="7_ssvqc"]
 [ext_resource type="AudioStream" uid="uid://c4tvfxaxbe20j" path="res://assets/bark.mp3" id="7_vtaks"]
 [ext_resource type="PackedScene" uid="uid://b1fc8abfnvh06" path="res://scenes/options.tscn" id="8_5s45l"]
+[ext_resource type="FontFile" uid="uid://ttcckgioiomf" path="res://Poco.ttf" id="9_ir15t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ski2u"]
 atlas = ExtResource("3_kxon8")
@@ -94,7 +95,8 @@ animations = [{
 }]
 
 [sub_resource type="LabelSettings" id="LabelSettings_25a57"]
-font_size = 64
+font = ExtResource("9_ir15t")
+font_size = 113
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtaks"]
@@ -104,6 +106,8 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="LabelSettings" id="LabelSettings_2pejp"]
+font = ExtResource("9_ir15t")
+font_size = 25
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_bg6yy"]
@@ -117,7 +121,7 @@ size = Vector2(2604.5, 22)
 size = Vector2(119, 120)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_36uyj"]
-size = Vector2(244.75, 195)
+size = Vector2(178, 182)
 
 [sub_resource type="Curve2D" id="Curve2D_ii427"]
 _data = {
@@ -251,7 +255,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fkqua"]
-size = Vector2(146.495, 121.611)
+size = Vector2(126.03636, 125.03239)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_2pejp"]
 vertices = PackedVector2Array(2318.9688, 723.9922, 13.6015625, 718.03906, 311.20313, 72.77344, 3097.9531, 8.0234375, 3095.039, 698.3203, 305.9297, 13.96875)
@@ -347,10 +351,10 @@ layer = 2
 
 [node name="scoire" type="Label" parent="UI" unique_id=634741751]
 unique_name_in_owner = true
-offset_left = 21.0
-offset_top = 25.0
-offset_right = 226.0
-offset_bottom = 113.0
+offset_left = 6.0
+offset_top = -27.0
+offset_right = 468.0
+offset_bottom = 159.0
 text = "Score: "
 label_settings = SubResource("LabelSettings_25a57")
 
@@ -384,10 +388,10 @@ grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_vtaks")
 
 [node name="Label" type="Label" parent="UI" unique_id=1289940751]
-offset_left = 14.0
-offset_top = 111.0
-offset_right = 78.0
-offset_bottom = 134.0
+offset_left = 12.0
+offset_top = 100.0
+offset_right = 92.0
+offset_bottom = 131.0
 text = "Stamina"
 label_settings = SubResource("LabelSettings_2pejp")
 
@@ -454,7 +458,7 @@ polygon = PackedVector2Array(1435, 720, 438, 760, 514, 671, 550, 629, 578, 568, 
 script = ExtResource("5_0tnpc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Game/winZone" unique_id=1360256764]
-position = Vector2(1318.375, 113.5)
+position = Vector2(1469, 107)
 shape = SubResource("RectangleShape2D_36uyj")
 
 [node name="path" type="Path2D" parent="Game" unique_id=1170076129]
@@ -468,15 +472,16 @@ loop = false
 [node name="dog" type="RigidBody2D" parent="Game/path/follower" unique_id=2124982006]
 
 [node name="dog2" type="AnimatedSprite2D" parent="Game/path/follower/dog" unique_id=256854698]
-position = Vector2(-1.79993, -48.0073)
+position = Vector2(-1.7625122, -57.007324)
 rotation = 0.00416664
-scale = Vector2(0.12499999, 0.12499999)
+scale = Vector2(0.14, 0.14)
 sprite_frames = SubResource("SpriteFrames_6fwbv")
 animation = &"bark"
 frame_progress = 0.444723
 
 [node name="dogShapew" type="CollisionShape2D" parent="Game/path/follower/dog" unique_id=501360846]
-position = Vector2(-3.28122, -52.514)
+position = Vector2(7.2520294, -57.52057)
+scale = Vector2(1.0000008, 1.0000008)
 shape = SubResource("RectangleShape2D_fkqua")
 
 [node name="barkNoise" type="AudioStreamPlayer2D" parent="Game/path/follower/dog" unique_id=2139578762]
