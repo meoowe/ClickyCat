@@ -3,8 +3,10 @@
 [ext_resource type="Script" uid="uid://bfp8vhyuqv6aq" path="res://scripts/title.gd" id="1_gruo6"]
 [ext_resource type="PackedScene" uid="uid://cnv1rmmxmj0m4" path="res://scripts/background.tscn" id="2_21j0o"]
 [ext_resource type="Texture2D" uid="uid://bk6whxyanspb8" path="res://assets/img/buttons/playButton.png" id="3_pt2cc"]
+[ext_resource type="FontFile" uid="uid://dgq0iw7v6d7bj" path="res://ConnectionII.otf" id="4_ia1n6"]
 [ext_resource type="Texture2D" uid="uid://7wq6qjf0wd2m" path="res://assets/img/buttons/exitButton.png" id="5_72tt0"]
 [ext_resource type="Theme" uid="uid://dxjovxyl7xvqv" path="res://theme.tres" id="6_yql1r"]
+[ext_resource type="FontFile" uid="uid://ttcckgioiomf" path="res://Poco.ttf" id="7_hiwto"]
 [ext_resource type="Script" uid="uid://5thom17hbifs" path="res://scripts/debug_menu.gd" id="7_ia1n6"]
 [ext_resource type="LabelSettings" uid="uid://by7nj0wx87x4a" path="res://debuglabel.tres" id="7_yql1r"]
 
@@ -20,11 +22,18 @@ expand_margin_right = 4.0
 expand_margin_bottom = 4.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_onpbh"]
+font = ExtResource("4_ia1n6")
 font_size = 100
 font_color = Color(0.486275, 0.988235, 0, 1)
+outline_size = 21
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_nbey0"]
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qp7mu"]
+font = ExtResource("7_hiwto")
+font_size = 24
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eobgq"]
 bg_color = Color(0.6, 0.6, 0.6, 0.46666667)
@@ -106,6 +115,15 @@ offset_top = 739.0
 offset_right = 123.0
 offset_bottom = 762.0
 label_settings = SubResource("LabelSettings_nbey0")
+
+[node name="version" type="Label" parent="UI/vrsn" unique_id=599297341]
+layout_mode = 0
+offset_left = -11.0
+offset_top = 17.0
+offset_right = 258.0
+offset_bottom = 47.0
+text = "Correction: v2.3.1 1/9/2026"
+label_settings = SubResource("LabelSettings_qp7mu")
 
 [node name="DebugMenu" type="PanelContainer" parent="UI" unique_id=236007917]
 visible = false

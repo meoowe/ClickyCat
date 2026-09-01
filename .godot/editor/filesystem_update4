@@ -1,5 +1,4 @@
-res://scripts/balloon.gd
-res://scenes/game.tscn
+res://scenes/title.tscn
 res://theme.tres
 res://debuglabel.tres
-res://Poco.tres
+res://export_presets.cfg

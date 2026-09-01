@@ -1,3 +1,4 @@
+Label
 CanvasLayer
 NavigationRegion2D
 Camera2D
@@ -6,7 +7,6 @@ Parallax2D
 CollisionPolygon2D
 Control
 CheckButton
-Label
 HBoxContainer
 HSeparator
 VBoxContainer
