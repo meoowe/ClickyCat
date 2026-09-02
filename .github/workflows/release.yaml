@@ -93,7 +93,7 @@ jobs:
       - name: Export Linux
         run: |
           godot --headless --verbose \
-            --export-release "Linux/X11" \
+            --export-release "Linux" \
             build/linux/Game.x86_64
 
       # --------------------------------------------------------
