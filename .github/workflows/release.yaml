@@ -1,0 +1,296 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  GODOT_VERSION: "4.8-dev1"
+
+jobs:
+
+  # ============================================================
+  # JOB 1: Read version from scenes/global.tscn
+  # ============================================================
+
+  get-version:
+    name: Get Game Version
+    runs-on: ubuntu-latest
+
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
+    steps:
+
+      # --------------------------------------------------------
+      # Step 1: Checkout repository
+      # --------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # --------------------------------------------------------
+      # Step 2: Extract VERSION from scenes/global.tscn
+      # --------------------------------------------------------
+      - name: Extract VERSION
+        id: version
+        shell: bash
+        run: |
+          VERSION=$(grep -oP 'VERSION\s*=\s*"\K[^"]+' scenes/global.tscn)
+
+          if [ -z "$VERSION" ]; then
+            echo "ERROR: Could not find VERSION in scenes/global.tscn"
+            exit 1
+          fi
+
+          echo "Found version: $VERSION"
+
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+
+  # ============================================================
+  # JOB 2: Export Linux
+  # ============================================================
+
+  export-linux:
+    name: Export Linux
+    runs-on: ubuntu-latest
+    needs: get-version
+
+    container:
+      image: barichello/godot-ci:4.8
+
+    steps:
+
+      # --------------------------------------------------------
+      # Step 1: Checkout repository
+      # --------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # --------------------------------------------------------
+      # Step 2: Show version being built
+      # --------------------------------------------------------
+      - name: Display build version
+        run: |
+          echo "Building version: ${{ needs.get-version.outputs.version }}"
+
+      # --------------------------------------------------------
+      # Step 3: Create Linux export directory
+      # --------------------------------------------------------
+      - name: Create export directory
+        run: |
+          mkdir -p build/linux
+
+      # --------------------------------------------------------
+      # Step 4: Export Linux build
+      # --------------------------------------------------------
+      - name: Export Linux
+        run: |
+          godot --headless --verbose \
+            --export-release "Linux/X11" \
+            build/linux/Game.x86_64
+
+      # --------------------------------------------------------
+      # Step 5: Upload Linux artifact
+      # --------------------------------------------------------
+      - name: Upload Linux artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-build
+          path: build/linux/
+
+
+  # ============================================================
+  # JOB 3: Export Windows
+  # ============================================================
+
+  export-windows:
+    name: Export Windows
+    runs-on: ubuntu-latest
+    needs: get-version
+
+    container:
+      image: barichello/godot-ci:4.8
+
+    steps:
+
+      # --------------------------------------------------------
+      # Step 1: Checkout repository
+      # --------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # --------------------------------------------------------
+      # Step 2: Show version being built
+      # --------------------------------------------------------
+      - name: Display build version
+        run: |
+          echo "Building version: ${{ needs.get-version.outputs.version }}"
+
+      # --------------------------------------------------------
+      # Step 3: Create Windows export directory
+      # --------------------------------------------------------
+      - name: Create export directory
+        run: |
+          mkdir -p build/windows
+
+      # --------------------------------------------------------
+      # Step 4: Export Windows build
+      # --------------------------------------------------------
+      - name: Export Windows
+        run: |
+          godot --headless --verbose \
+            --export-release "Windows Desktop" \
+            build/windows/Game.exe
+
+      # --------------------------------------------------------
+      # Step 5: Upload Windows artifact
+      # --------------------------------------------------------
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: build/windows/
+
+
+  # ============================================================
+  # JOB 4: Export Web
+  # ============================================================
+
+  export-web:
+    name: Export Web
+    runs-on: ubuntu-latest
+    needs: get-version
+
+    container:
+      image: barichello/godot-ci:4.8
+
+    steps:
+
+      # --------------------------------------------------------
+      # Step 1: Checkout repository
+      # --------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # --------------------------------------------------------
+      # Step 2: Show version being built
+      # --------------------------------------------------------
+      - name: Display build version
+        run: |
+          echo "Building version: ${{ needs.get-version.outputs.version }}"
+
+      # --------------------------------------------------------
+      # Step 3: Create Web export directory
+      # --------------------------------------------------------
+      - name: Create export directory
+        run: |
+          mkdir -p build/web
+
+      # --------------------------------------------------------
+      # Step 4: Export Web build
+      # --------------------------------------------------------
+      - name: Export Web
+        run: |
+          godot --headless --verbose \
+            --export-release "Web" \
+            build/web/index.html
+
+      # --------------------------------------------------------
+      # Step 5: Upload Web artifact
+      # --------------------------------------------------------
+      - name: Upload Web artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: build/web/
+
+
+  # ============================================================
+  # JOB 5: Package builds and create GitHub Release
+  # ============================================================
+
+  release:
+    name: Create GitHub Release
+
+    runs-on: ubuntu-latest
+
+    needs:
+      - get-version
+      - export-linux
+      - export-windows
+      - export-web
+
+    steps:
+
+      # --------------------------------------------------------
+      # Step 1: Checkout repository
+      # --------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # --------------------------------------------------------
+      # Step 2: Download Linux artifact
+      # --------------------------------------------------------
+      - name: Download Linux build
+        uses: actions/download-artifact@v4
+        with:
+          name: linux-build
+          path: release/linux
+
+      # --------------------------------------------------------
+      # Step 3: Download Windows artifact
+      # --------------------------------------------------------
+      - name: Download Windows build
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-build
+          path: release/windows
+
+      # --------------------------------------------------------
+      # Step 4: Download Web artifact
+      # --------------------------------------------------------
+      - name: Download Web build
+        uses: actions/download-artifact@v4
+        with:
+          name: web-build
+          path: release/web
+
+      # --------------------------------------------------------
+      # Step 5: Create release archives
+      # --------------------------------------------------------
+      - name: Create ZIP archives
+        run: |
+          cd release
+
+          zip -r "../Game-Linux-${{ needs.get-version.outputs.version }}.zip" linux
+          zip -r "../Game-Windows-${{ needs.get-version.outputs.version }}.zip" windows
+          zip -r "../Game-Web-${{ needs.get-version.outputs.version }}.zip" web
+
+          cd ..
+
+          ls -lah *.zip
+
+      # --------------------------------------------------------
+      # Step 6: Create GitHub Release
+      # --------------------------------------------------------
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+
+        with:
+          tag_name: ${{ needs.get-version.outputs.version }}
+
+          name: ${{ needs.get-version.outputs.version }}
+
+          generate_release_notes: true
+
+          files: |
+            Game-Linux-${{ needs.get-version.outputs.version }}.zip
+            Game-Windows-${{ needs.get-version.outputs.version }}.zip
+            Game-Web-${{ needs.get-version.outputs.version }}.zip
