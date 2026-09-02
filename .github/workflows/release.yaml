@@ -568,4 +568,3 @@ jobs:
             release-assets/web/Game-${{ needs.extract-version.outputs.version }}-Web.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
