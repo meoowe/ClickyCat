@@ -355,20 +355,69 @@ jobs:
           chmod +x "$GODOT_BIN"
 
           echo "GODOT_BIN=${GODOT_BIN}" >> "$GITHUB_ENV"
-
       - name: Install official export templates
         shell: bash
         run: |
           set -euo pipefail
 
-          TEMPLATE_ROOT="$HOME/.local/share/godot/export_templates/${GODOT_VERSION//-/.}"
-          mkdir -p "$TEMPLATE_ROOT"
+          # Godot's internal template version identifier.
+          TEMPLATE_VERSION="4.8.dev1"
+          TEMPLATE_ROOT="$HOME/.local/share/godot/export_templates/${TEMPLATE_VERSION}"
 
+          rm -rf "$TEMPLATE_ROOT"
+          mkdir -p "$HOME/.local/share/godot/export_templates"
+
+          # Download the TPZ containing the official templates.
           curl --fail --location --retry 5 --retry-delay 2 \
             "${GODOT_BASE_URL}/Godot_v${GODOT_VERSION}_export_templates.tpz" \
             -o "$RUNNER_TEMP/templates.tpz"
 
-          unzip -q "$RUNNER_TEMP/templates.tpz" -d "$TEMPLATE_ROOT"
+          # A TPZ is a ZIP containing a "templates/" directory.
+          mkdir -p "$RUNNER_TEMP/template-extract"
+          unzip -q "$RUNNER_TEMP/templates.tpz" \
+            -d "$RUNNER_TEMP/template-extract"
+
+          # Move the actual template files into the exact directory
+          # Godot searches:
+          #
+          # ~/.local/share/godot/export_templates/4.8.dev1/
+          if [[ ! -d "$RUNNER_TEMP/template-extract/templates" ]]; then
+            echo "::error::TPZ did not contain the expected templates/ directory"
+            exit 1
+          fi
+
+          mv "$RUNNER_TEMP/template-extract/templates" "$TEMPLATE_ROOT"
+
+          # Godot uses version.txt to identify the installed template version.
+          # Verify that the archive's version agrees with the directory.
+          if [[ ! -f "$TEMPLATE_ROOT/version.txt" ]]; then
+            echo "::error::Export templates are missing version.txt"
+            exit 1
+          fi
+
+          TEMPLATE_FILE_VERSION="$(head -n 1 "$TEMPLATE_ROOT/version.txt" | tr -d '\r')"
+
+          if [[ "$TEMPLATE_FILE_VERSION" != "$TEMPLATE_VERSION" ]]; then
+            echo "::error::Template version mismatch"
+            echo "::error::Expected: $TEMPLATE_VERSION"
+            echo "::error::Found:    $TEMPLATE_FILE_VERSION"
+            exit 1
+          fi
+
+          # Check the actual files we need.
+          for template in \
+            "linux_release.x86_64" \
+            "windows_release_x86_64.exe" \
+            "web_release.zip"; do
+
+            if [[ ! -f "$TEMPLATE_ROOT/$template" ]]; then
+              echo "::error::Missing export template: $template"
+              exit 1
+            fi
+          done
+
+          echo "Installed templates:"
+          find "$TEMPLATE_ROOT" -maxdepth 1 -type f -printf '%f\n' | sort
 
       - name: Verify Godot version
         shell: bash
@@ -473,20 +522,69 @@ jobs:
           chmod +x "$GODOT_BIN"
 
           echo "GODOT_BIN=${GODOT_BIN}" >> "$GITHUB_ENV"
-
       - name: Install official export templates
         shell: bash
         run: |
           set -euo pipefail
 
-          TEMPLATE_ROOT="$HOME/.local/share/godot/export_templates/${GODOT_VERSION//-/.}"
-          mkdir -p "$TEMPLATE_ROOT"
+          # Godot's internal template version identifier.
+          TEMPLATE_VERSION="4.8.dev1"
+          TEMPLATE_ROOT="$HOME/.local/share/godot/export_templates/${TEMPLATE_VERSION}"
 
+          rm -rf "$TEMPLATE_ROOT"
+          mkdir -p "$HOME/.local/share/godot/export_templates"
+
+          # Download the TPZ containing the official templates.
           curl --fail --location --retry 5 --retry-delay 2 \
             "${GODOT_BASE_URL}/Godot_v${GODOT_VERSION}_export_templates.tpz" \
             -o "$RUNNER_TEMP/templates.tpz"
 
-          unzip -q "$RUNNER_TEMP/templates.tpz" -d "$TEMPLATE_ROOT"
+          # A TPZ is a ZIP containing a "templates/" directory.
+          mkdir -p "$RUNNER_TEMP/template-extract"
+          unzip -q "$RUNNER_TEMP/templates.tpz" \
+            -d "$RUNNER_TEMP/template-extract"
+
+          # Move the actual template files into the exact directory
+          # Godot searches:
+          #
+          # ~/.local/share/godot/export_templates/4.8.dev1/
+          if [[ ! -d "$RUNNER_TEMP/template-extract/templates" ]]; then
+            echo "::error::TPZ did not contain the expected templates/ directory"
+            exit 1
+          fi
+
+          mv "$RUNNER_TEMP/template-extract/templates" "$TEMPLATE_ROOT"
+
+          # Godot uses version.txt to identify the installed template version.
+          # Verify that the archive's version agrees with the directory.
+          if [[ ! -f "$TEMPLATE_ROOT/version.txt" ]]; then
+            echo "::error::Export templates are missing version.txt"
+            exit 1
+          fi
+
+          TEMPLATE_FILE_VERSION="$(head -n 1 "$TEMPLATE_ROOT/version.txt" | tr -d '\r')"
+
+          if [[ "$TEMPLATE_FILE_VERSION" != "$TEMPLATE_VERSION" ]]; then
+            echo "::error::Template version mismatch"
+            echo "::error::Expected: $TEMPLATE_VERSION"
+            echo "::error::Found:    $TEMPLATE_FILE_VERSION"
+            exit 1
+          fi
+
+          # Check the actual files we need.
+          for template in \
+            "linux_release.x86_64" \
+            "windows_release_x86_64.exe" \
+            "web_release.zip"; do
+
+            if [[ ! -f "$TEMPLATE_ROOT/$template" ]]; then
+              echo "::error::Missing export template: $template"
+              exit 1
+            fi
+          done
+
+          echo "Installed templates:"
+          find "$TEMPLATE_ROOT" -maxdepth 1 -type f -printf '%f\n' | sort
 
       - name: Verify Godot version
         shell: bash
