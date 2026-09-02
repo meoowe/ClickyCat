@@ -1,296 +1,571 @@
-name: Build and Release
+```yaml
+name: Build & Release Godot Game
 
 on:
-  push:
-    branches:
-      - main
-
   workflow_dispatch:
 
+  push:
+    tags:
+      - "v*"
+
+# The release job needs to create/update a GitHub Release and upload assets.
 permissions:
   contents: write
 
 env:
+  # Pin the exact Godot development snapshot.
   GODOT_VERSION: "4.8-dev1"
 
+  # Official Godot development builds.
+  GODOT_BASE_URL: "https://github.com/godotengine/godot-builds/releases/download/4.8-dev1"
+
+  # Change these only if your export_presets.cfg uses different preset names.
+  LINUX_PRESET: "Linux"
+  WINDOWS_PRESET: "Windows Desktop"
+  WEB_PRESET: "Web"
+
 jobs:
-
-  # ============================================================
-  # JOB 1: Read version from scenes/global.tscn
-  # ============================================================
-
-  get-version:
-    name: Get Game Version
+  # ---------------------------------------------------------------------------
+  # 1. Extract the project version BEFORE building anything.
+  # ---------------------------------------------------------------------------
+  extract-version:
+    name: "Extract VERSION"
     runs-on: ubuntu-latest
 
     outputs:
       version: ${{ steps.version.outputs.version }}
+      release_tag: ${{ steps.version.outputs.release_tag }}
 
     steps:
-
-      # --------------------------------------------------------
-      # Step 1: Checkout repository
-      # --------------------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
-      # --------------------------------------------------------
-      # Step 2: Extract VERSION from scenes/global.tscn
-      # --------------------------------------------------------
-      - name: Extract VERSION
-        id: version
+      - name: Verify global scene exists
         shell: bash
         run: |
-          VERSION=$(grep -oP 'VERSION\s*=\s*"\K[^"]+' scenes/global.tscn)
+          set -euo pipefail
 
-          if [ -z "$VERSION" ]; then
-            echo "ERROR: Could not find VERSION in scenes/global.tscn"
+          if [[ ! -f "scenes/global.tscn" ]]; then
+            echo "::error file=scenes/global.tscn::scenes/global.tscn was not found"
             exit 1
           fi
 
-          echo "Found version: $VERSION"
+      - name: Extract VERSION from scenes/global.tscn
+        id: version
+        shell: python
+        run: |
+          import re
+          import os
+          from pathlib import Path
 
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          scene = Path("scenes/global.tscn")
 
+          # Only accept a standalone Godot property assignment such as:
+          #
+          # VERSION = "1.2.3"
+          #
+          # This deliberately does NOT evaluate the file as code.
+          text = scene.read_text(encoding="utf-8")
 
-  # ============================================================
-  # JOB 2: Export Linux
-  # ============================================================
+          matches = re.findall(
+              r'^[ \t]*VERSION[ \t]*=[ \t]*"([^"\r\n]+)"[ \t]*$',
+              text,
+              flags=re.MULTILINE,
+          )
 
-  export-linux:
-    name: Export Linux
+          if not matches:
+              raise SystemExit(
+                  "::error file=scenes/global.tscn::"
+                  "Could not find a standalone VERSION = \"...\" assignment"
+              )
+
+          if len(matches) > 1:
+              raise SystemExit(
+                  "::error file=scenes/global.tscn::"
+                  "Found multiple VERSION assignments; expected exactly one"
+              )
+
+          version = matches[0].strip()
+
+          # Keep the value suitable for a Git tag.
+          #
+          # This permits common versions such as:
+          #   1.0.0
+          #   1.2.3-beta1
+          #   2026.09.02
+          #
+          # It rejects whitespace and characters that are awkward/unsafe
+          # inside a GitHub tag.
+          if not re.fullmatch(r"[0-9A-Za-z._+-]+", version):
+              raise SystemExit(
+                  f"::error::Invalid VERSION value: {version!r}"
+              )
+
+          if version.startswith(".") or version.endswith("."):
+              raise SystemExit(
+                  f"::error::Invalid VERSION value: {version!r}"
+              )
+
+          release_tag = f"v{version}"
+
+          # GitHub Actions outputs are written through the environment file,
+          # not by interpolating arbitrary text into shell source.
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+              f.write(f"version={version}\n")
+              f.write(f"release_tag={release_tag}\n")
+
+          print(f"Project VERSION: {version}")
+          print(f"Release tag:     {release_tag}")
+
+      - name: Validate pushed tag matches VERSION
+        if: github.event_name == 'push'
+        shell: bash
+        env:
+          EXPECTED_TAG: ${{ steps.version.outputs.release_tag }}
+          ACTUAL_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+
+          echo "Expected tag: ${EXPECTED_TAG}"
+          echo "Actual tag:   ${ACTUAL_TAG}"
+
+          if [[ "${EXPECTED_TAG}" != "${ACTUAL_TAG}" ]]; then
+            echo "::error::Pushed tag does not match scenes/global.tscn VERSION"
+            echo "::error::Expected: ${EXPECTED_TAG}"
+            echo "::error::Received: ${ACTUAL_TAG}"
+            exit 1
+          fi
+
+  # ---------------------------------------------------------------------------
+  # 2. Linux build
+  # ---------------------------------------------------------------------------
+  build-linux:
+    name: "Build Linux (X11)"
+    needs: extract-version
     runs-on: ubuntu-latest
-    needs: get-version
-
-    container:
-      image: barichello/godot-ci:4.8
 
     steps:
-
-      # --------------------------------------------------------
-      # Step 1: Checkout repository
-      # --------------------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # --------------------------------------------------------
-      # Step 2: Show version being built
-      # --------------------------------------------------------
-      - name: Display build version
+      - name: Install build dependencies
+        shell: bash
         run: |
-          echo "Building version: ${{ needs.get-version.outputs.version }}"
+          set -euo pipefail
 
-      # --------------------------------------------------------
-      # Step 3: Create Linux export directory
-      # --------------------------------------------------------
-      - name: Create export directory
+          sudo apt-get update
+          sudo apt-get install -y \
+            curl \
+            unzip \
+            p7zip-full \
+            ca-certificates
+
+      - name: Download Godot 4.8-dev1
+        shell: bash
         run: |
-          mkdir -p build/linux
+          set -euo pipefail
 
-      # --------------------------------------------------------
-      # Step 4: Export Linux build
-      # --------------------------------------------------------
-      - name: Export Linux
+          mkdir -p "$HOME/godot"
+
+          curl --fail --location --retry 5 --retry-delay 2 \
+            "${GODOT_BASE_URL}/Godot_v${GODOT_VERSION}_linux.x86_64.zip" \
+            -o "$RUNNER_TEMP/godot.zip"
+
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$HOME/godot"
+
+          GODOT_BIN="$(find "$HOME/godot" -type f -name 'Godot_v*linux.x86_64' | head -n 1)"
+
+          if [[ -z "${GODOT_BIN}" ]]; then
+            echo "::error::Could not locate the downloaded Godot executable"
+            exit 1
+          fi
+
+          chmod +x "$GODOT_BIN"
+
+          echo "GODOT_BIN=${GODOT_BIN}" >> "$GITHUB_ENV"
+
+      - name: Install official export templates
+        shell: bash
         run: |
-          godot --headless --verbose \
-            --export-release "Linux" \
-            build/linux/Game.x86_64
+          set -euo pipefail
 
-      # --------------------------------------------------------
-      # Step 5: Upload Linux artifact
-      # --------------------------------------------------------
+          TEMPLATE_ROOT="$HOME/.local/share/godot/export_templates/${GODOT_VERSION//-/.}"
+          mkdir -p "$TEMPLATE_ROOT"
+
+          curl --fail --location --retry 5 --retry-delay 2 \
+            "${GODOT_BASE_URL}/Godot_v${GODOT_VERSION}_export_templates.tpz" \
+            -o "$RUNNER_TEMP/templates.tpz"
+
+          unzip -q "$RUNNER_TEMP/templates.tpz" -d "$TEMPLATE_ROOT"
+
+      - name: Verify Godot version
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT_BIN" --headless --version
+
+      - name: Import project
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT_BIN" --headless --path . --editor --quit
+
+      - name: Create Linux output directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf dist/linux
+          mkdir -p dist/linux
+
+      - name: Export Linux build
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          "$GODOT_BIN" \
+            --headless \
+            --path . \
+            --export-release "${LINUX_PRESET}" \
+            "dist/linux/Game.x86_64"
+
+      - name: Verify Linux export
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ ! -f "dist/linux/Game.x86_64" ]]; then
+            echo "::error::Linux executable was not created"
+            exit 1
+          fi
+
+          chmod +x "dist/linux/Game.x86_64"
+
+      - name: Compress Linux build
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          cd dist/linux
+          zip -q -r "../../Game-${{ needs.extract-version.outputs.version }}-Linux-X11.zip" .
+
       - name: Upload Linux artifact
         uses: actions/upload-artifact@v4
         with:
-          name: linux-build
-          path: build/linux/
+          name: linux-x11
+          path: Game-${{ needs.extract-version.outputs.version }}-Linux-X11.zip
+          if-no-files-found: error
+          retention-days: 7
 
-
-  # ============================================================
-  # JOB 3: Export Windows
-  # ============================================================
-
-  export-windows:
-    name: Export Windows
+  # ---------------------------------------------------------------------------
+  # 3. Windows build
+  # ---------------------------------------------------------------------------
+  build-windows:
+    name: "Build Windows (Desktop)"
+    needs: extract-version
     runs-on: ubuntu-latest
-    needs: get-version
-
-    container:
-      image: barichello/godot-ci:4.8
 
     steps:
-
-      # --------------------------------------------------------
-      # Step 1: Checkout repository
-      # --------------------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # --------------------------------------------------------
-      # Step 2: Show version being built
-      # --------------------------------------------------------
-      - name: Display build version
+      - name: Install build dependencies
+        shell: bash
         run: |
-          echo "Building version: ${{ needs.get-version.outputs.version }}"
+          set -euo pipefail
 
-      # --------------------------------------------------------
-      # Step 3: Create Windows export directory
-      # --------------------------------------------------------
-      - name: Create export directory
+          sudo apt-get update
+          sudo apt-get install -y \
+            curl \
+            unzip \
+            p7zip-full \
+            ca-certificates
+
+      - name: Download Godot 4.8-dev1
+        shell: bash
         run: |
-          mkdir -p build/windows
+          set -euo pipefail
 
-      # --------------------------------------------------------
-      # Step 4: Export Windows build
-      # --------------------------------------------------------
-      - name: Export Windows
+          mkdir -p "$HOME/godot"
+
+          curl --fail --location --retry 5 --retry-delay 2 \
+            "${GODOT_BASE_URL}/Godot_v${GODOT_VERSION}_linux.x86_64.zip" \
+            -o "$RUNNER_TEMP/godot.zip"
+
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$HOME/godot"
+
+          GODOT_BIN="$(find "$HOME/godot" -type f -name 'Godot_v*linux.x86_64' | head -n 1)"
+
+          if [[ -z "${GODOT_BIN}" ]]; then
+            echo "::error::Could not locate the downloaded Godot executable"
+            exit 1
+          fi
+
+          chmod +x "$GODOT_BIN"
+
+          echo "GODOT_BIN=${GODOT_BIN}" >> "$GITHUB_ENV"
+
+      - name: Install official export templates
+        shell: bash
         run: |
-          godot --headless --verbose \
-            --export-release "Windows Desktop" \
-            build/windows/Game.exe
+          set -euo pipefail
 
-      # --------------------------------------------------------
-      # Step 5: Upload Windows artifact
-      # --------------------------------------------------------
+          TEMPLATE_ROOT="$HOME/.local/share/godot/export_templates/${GODOT_VERSION//-/.}"
+          mkdir -p "$TEMPLATE_ROOT"
+
+          curl --fail --location --retry 5 --retry-delay 2 \
+            "${GODOT_BASE_URL}/Godot_v${GODOT_VERSION}_export_templates.tpz" \
+            -o "$RUNNER_TEMP/templates.tpz"
+
+          unzip -q "$RUNNER_TEMP/templates.tpz" -d "$TEMPLATE_ROOT"
+
+      - name: Verify Godot version
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT_BIN" --headless --version
+
+      - name: Import project
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT_BIN" --headless --path . --editor --quit
+
+      - name: Create Windows output directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf dist/windows
+          mkdir -p dist/windows
+
+      - name: Export Windows build
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          "$GODOT_BIN" \
+            --headless \
+            --path . \
+            --export-release "${WINDOWS_PRESET}" \
+            "dist/windows/Game.exe"
+
+      - name: Verify Windows export
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ ! -f "dist/windows/Game.exe" ]]; then
+            echo "::error::Windows executable was not created"
+            exit 1
+          fi
+
+      - name: Compress Windows build
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          cd dist/windows
+          zip -q -r "../../Game-${{ needs.extract-version.outputs.version }}-Windows.zip" .
+
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
-          name: windows-build
-          path: build/windows/
+          name: windows-desktop
+          path: Game-${{ needs.extract-version.outputs.version }}-Windows.zip
+          if-no-files-found: error
+          retention-days: 7
 
-
-  # ============================================================
-  # JOB 4: Export Web
-  # ============================================================
-
-  export-web:
-    name: Export Web
+  # ---------------------------------------------------------------------------
+  # 4. Web build
+  # ---------------------------------------------------------------------------
+  build-web:
+    name: "Build Web (HTML5)"
+    needs: extract-version
     runs-on: ubuntu-latest
-    needs: get-version
-
-    container:
-      image: barichello/godot-ci:4.8
 
     steps:
-
-      # --------------------------------------------------------
-      # Step 1: Checkout repository
-      # --------------------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # --------------------------------------------------------
-      # Step 2: Show version being built
-      # --------------------------------------------------------
-      - name: Display build version
+      - name: Install build dependencies
+        shell: bash
         run: |
-          echo "Building version: ${{ needs.get-version.outputs.version }}"
+          set -euo pipefail
 
-      # --------------------------------------------------------
-      # Step 3: Create Web export directory
-      # --------------------------------------------------------
-      - name: Create export directory
+          sudo apt-get update
+          sudo apt-get install -y \
+            curl \
+            unzip \
+            p7zip-full \
+            ca-certificates
+
+      - name: Download Godot 4.8-dev1
+        shell: bash
         run: |
-          mkdir -p build/web
+          set -euo pipefail
 
-      # --------------------------------------------------------
-      # Step 4: Export Web build
-      # --------------------------------------------------------
-      - name: Export Web
+          mkdir -p "$HOME/godot"
+
+          curl --fail --location --retry 5 --retry-delay 2 \
+            "${GODOT_BASE_URL}/Godot_v${GODOT_VERSION}_linux.x86_64.zip" \
+            -o "$RUNNER_TEMP/godot.zip"
+
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$HOME/godot"
+
+          GODOT_BIN="$(find "$HOME/godot" -type f -name 'Godot_v*linux.x86_64' | head -n 1)"
+
+          if [[ -z "${GODOT_BIN}" ]]; then
+            echo "::error::Could not locate the downloaded Godot executable"
+            exit 1
+          fi
+
+          chmod +x "$GODOT_BIN"
+
+          echo "GODOT_BIN=${GODOT_BIN}" >> "$GITHUB_ENV"
+
+      - name: Install official export templates
+        shell: bash
         run: |
-          godot --headless --verbose \
-            --export-release "Web" \
-            build/web/index.html
+          set -euo pipefail
 
-      # --------------------------------------------------------
-      # Step 5: Upload Web artifact
-      # --------------------------------------------------------
+          TEMPLATE_ROOT="$HOME/.local/share/godot/export_templates/${GODOT_VERSION//-/.}"
+          mkdir -p "$TEMPLATE_ROOT"
+
+          curl --fail --location --retry 5 --retry-delay 2 \
+            "${GODOT_BASE_URL}/Godot_v${GODOT_VERSION}_export_templates.tpz" \
+            -o "$RUNNER_TEMP/templates.tpz"
+
+          unzip -q "$RUNNER_TEMP/templates.tpz" -d "$TEMPLATE_ROOT"
+
+      - name: Verify Godot version
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT_BIN" --headless --version
+
+      - name: Import project
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GODOT_BIN" --headless --path . --editor --quit
+
+      - name: Create Web output directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf dist/web
+          mkdir -p dist/web
+
+      - name: Export Web build
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          "$GODOT_BIN" \
+            --headless \
+            --path . \
+            --export-release "${WEB_PRESET}" \
+            "dist/web/index.html"
+
+      - name: Verify Web export
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ ! -f "dist/web/index.html" ]]; then
+            echo "::error::Web index.html was not created"
+            exit 1
+          fi
+
+      - name: Compress Web build
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          cd dist/web
+          zip -q -r "../../Game-${{ needs.extract-version.outputs.version }}-Web.zip" .
+
       - name: Upload Web artifact
         uses: actions/upload-artifact@v4
         with:
-          name: web-build
-          path: build/web/
+          name: web-html5
+          path: Game-${{ needs.extract-version.outputs.version }}-Web.zip
+          if-no-files-found: error
+          retention-days: 7
 
-
-  # ============================================================
-  # JOB 5: Package builds and create GitHub Release
-  # ============================================================
-
+  # ---------------------------------------------------------------------------
+  # 5. Final release/deployment job
+  # ---------------------------------------------------------------------------
   release:
-    name: Create GitHub Release
+    name: "Publish GitHub Release"
+    needs:
+      - extract-version
+      - build-linux
+      - build-windows
+      - build-web
+
+    # This is deliberately explicit: publishing cannot happen if ANY build failed.
+    if: ${{ success() }}
 
     runs-on: ubuntu-latest
 
-    needs:
-      - get-version
-      - export-linux
-      - export-windows
-      - export-web
-
     steps:
-
-      # --------------------------------------------------------
-      # Step 1: Checkout repository
-      # --------------------------------------------------------
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # --------------------------------------------------------
-      # Step 2: Download Linux artifact
-      # --------------------------------------------------------
-      - name: Download Linux build
+      - name: Download Linux artifact
         uses: actions/download-artifact@v4
         with:
-          name: linux-build
-          path: release/linux
+          name: linux-x11
+          path: release-assets/linux
 
-      # --------------------------------------------------------
-      # Step 3: Download Windows artifact
-      # --------------------------------------------------------
-      - name: Download Windows build
+      - name: Download Windows artifact
         uses: actions/download-artifact@v4
         with:
-          name: windows-build
-          path: release/windows
+          name: windows-desktop
+          path: release-assets/windows
 
-      # --------------------------------------------------------
-      # Step 4: Download Web artifact
-      # --------------------------------------------------------
-      - name: Download Web build
+      - name: Download Web artifact
         uses: actions/download-artifact@v4
         with:
-          name: web-build
-          path: release/web
+          name: web-html5
+          path: release-assets/web
 
-      # --------------------------------------------------------
-      # Step 5: Create release archives
-      # --------------------------------------------------------
-      - name: Create ZIP archives
+      - name: List release assets
+        shell: bash
         run: |
-          cd release
+          set -euo pipefail
 
-          zip -r "../Game-Linux-${{ needs.get-version.outputs.version }}.zip" linux
-          zip -r "../Game-Windows-${{ needs.get-version.outputs.version }}.zip" windows
-          zip -r "../Game-Web-${{ needs.get-version.outputs.version }}.zip" web
+          find release-assets -type f -print
 
-          cd ..
+      - name: Verify release assets
+        shell: bash
+        run: |
+          set -euo pipefail
 
-          ls -lah *.zip
+          expected=(
+            "release-assets/linux/Game-${{ needs.extract-version.outputs.version }}-Linux-X11.zip"
+            "release-assets/windows/Game-${{ needs.extract-version.outputs.version }}-Windows.zip"
+            "release-assets/web/Game-${{ needs.extract-version.outputs.version }}-Web.zip"
+          )
 
-      # --------------------------------------------------------
-      # Step 6: Create GitHub Release
-      # --------------------------------------------------------
+          for file in "${expected[@]}"; do
+            if [[ ! -f "$file" ]]; then
+              echo "::error::Missing release asset: $file"
+              exit 1
+            fi
+          done
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
-
         with:
-          tag_name: ${{ needs.get-version.outputs.version }}
-
-          name: ${{ needs.get-version.outputs.version }}
-
+          tag_name: ${{ needs.extract-version.outputs.release_tag }}
+          name: ${{ needs.extract-version.outputs.release_tag }}
           generate_release_notes: true
-
+          prerelease: false
+          draft: false
           files: |
-            Game-Linux-${{ needs.get-version.outputs.version }}.zip
-            Game-Windows-${{ needs.get-version.outputs.version }}.zip
-            Game-Web-${{ needs.get-version.outputs.version }}.zip
+            release-assets/linux/Game-${{ needs.extract-version.outputs.version }}-Linux-X11.zip
+            release-assets/windows/Game-${{ needs.extract-version.outputs.version }}-Windows.zip
+            release-assets/web/Game-${{ needs.extract-version.outputs.version }}-Web.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
