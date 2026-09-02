@@ -1,4 +1,4 @@
-```yaml
+
 name: Build & Release Godot Game
 
 on:
