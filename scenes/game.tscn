@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://llio8lombjqw"]
 
+[ext_resource type="Script" uid="uid://bambpoy6p2hxe" path="res://scripts/game.gd" id="1_ca42v"]
 [ext_resource type="Script" uid="uid://judwxvprxfb8" path="res://scripts/background.gd" id="1_trtic"]
 [ext_resource type="Texture2D" uid="uid://d5bfhq8rs7g1" path="res://assets/img/clouds.png" id="2_ir15t"]
 [ext_resource type="Texture2D" uid="uid://85bsffvfh3gr" path="res://assets/img/house.PNG" id="3_ca42v"]
@@ -15,6 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://c4tvfxaxbe20j" path="res://assets/bark.mp3" id="7_vtaks"]
 [ext_resource type="PackedScene" uid="uid://b1fc8abfnvh06" path="res://scenes/options.tscn" id="8_5s45l"]
 [ext_resource type="FontFile" uid="uid://ttcckgioiomf" path="res://Poco.ttf" id="9_ir15t"]
+[ext_resource type="Script" uid="uid://c5k0l26u6ooky" path="res://scripts/game_ui.gd" id="9_rysoc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ski2u"]
 atlas = ExtResource("3_kxon8")
@@ -263,6 +265,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32
 outlines = Array[PackedVector2Array]([PackedVector2Array(301, 71, 295, 4, 3108, -2, 3105, 708, 2319, 734, -2, 728)])
 
 [node name="game" type="Node2D" unique_id=384593348]
+script = ExtResource("1_ca42v")
 
 [node name="ParallaxBackground" type="Node2D" parent="." unique_id=1254942291]
 script = ExtResource("1_trtic")
@@ -338,16 +341,9 @@ energy = 16.0
 height = 0.18
 max_distance = 16384.0
 
-[node name="options" parent="." unique_id=1793119669 instance=ExtResource("8_5s45l")]
-process_mode = 1
-visible = false
-offset_left = 779.0
-offset_top = 384.0
-offset_right = 779.0
-offset_bottom = 384.0
-
 [node name="UI" type="CanvasLayer" parent="." unique_id=1559817989]
 layer = 2
+script = ExtResource("9_rysoc")
 
 [node name="scoire" type="Label" parent="UI" unique_id=634741751]
 unique_name_in_owner = true
@@ -413,65 +409,81 @@ layout_mode = 2
 text = "Out of stamina!"
 label_settings = SubResource("LabelSettings_bg6yy")
 
-[node name="Game" type="CanvasLayer" parent="." unique_id=241191871]
+[node name="options" parent="UI" unique_id=1793119669 instance=ExtResource("8_5s45l")]
+process_mode = 1
+visible = false
+top_level = true
+visibility_layer = 66057
+z_index = 7
+offset_left = 170.99998
+offset_top = 31.999996
+offset_right = 171.0
+offset_bottom = 32.0
+scale = Vector2(0.835, 0.835)
 
-[node name="ground" type="StaticBody2D" parent="Game" unique_id=1961551759]
+[node name="GameLayer" type="CanvasLayer" parent="." unique_id=241191871]
+
+[node name="ground" type="StaticBody2D" parent="GameLayer" unique_id=1961551759]
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/ground" unique_id=1044750340]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameLayer/ground" unique_id=1044750340]
 position = Vector2(1301.75, 738)
 shape = SubResource("RectangleShape2D_qidma")
 
-[node name="cat" type="CharacterBody2D" parent="Game" unique_id=1428571110]
+[node name="cat" type="CharacterBody2D" parent="GameLayer" unique_id=1428571110]
 script = ExtResource("4_w173p")
 
-[node name="Sprite2D" type="Sprite2D" parent="Game/cat" unique_id=1099336991]
+[node name="Camera2D" type="Camera2D" parent="GameLayer/cat" unique_id=1601415112]
+position = Vector2(720, 398)
+limit_enabled = false
+
+[node name="Sprite2D" type="Sprite2D" parent="GameLayer/cat" unique_id=1099336991]
 position = Vector2(330, 662)
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("4_uhgcr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/cat" unique_id=607703658]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameLayer/cat" unique_id=607703658]
 position = Vector2(325.5, 666)
 shape = SubResource("RectangleShape2D_trtic")
 debug_color = Color(0.622924, 0.533121, 0, 0.42)
 
-[node name="AudioListener2D" type="AudioListener2D" parent="Game/cat" unique_id=576455060]
+[node name="AudioListener2D" type="AudioListener2D" parent="GameLayer/cat" unique_id=576455060]
 current = true
 
-[node name="mountain" type="StaticBody2D" parent="Game" unique_id=1820348813]
+[node name="mountain" type="StaticBody2D" parent="GameLayer" unique_id=1820348813]
 unique_name_in_owner = true
 position = Vector2(2, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Game/mountain" unique_id=132572779]
+[node name="Sprite2D" type="Sprite2D" parent="GameLayer/mountain" unique_id=132572779]
 position = Vector2(926, 220)
 texture = ExtResource("5_dnohc")
 
-[node name="Sprite2D2" type="Sprite2D" parent="Game/mountain" unique_id=1236676396]
+[node name="Sprite2D2" type="Sprite2D" parent="GameLayer/mountain" unique_id=1236676396]
 position = Vector2(1950, 220)
 scale = Vector2(-1, 1)
 texture = ExtResource("5_dnohc")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Game/mountain" unique_id=2022303486]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameLayer/mountain" unique_id=2022303486]
 polygon = PackedVector2Array(1435, 720, 438, 760, 514, 671, 550, 629, 578, 568, 646, 502, 707, 477, 743, 440, 822, 405, 877, 375, 904, 342, 1010, 316, 1029, 283, 1137, 173, 1431, 70)
 
-[node name="winZone" type="Area2D" parent="Game" unique_id=1385403986]
+[node name="winZone" type="Area2D" parent="GameLayer" unique_id=1385403986]
 script = ExtResource("5_0tnpc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Game/winZone" unique_id=1360256764]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameLayer/winZone" unique_id=1360256764]
 position = Vector2(1469, 107)
 shape = SubResource("RectangleShape2D_36uyj")
 
-[node name="path" type="Path2D" parent="Game" unique_id=1170076129]
+[node name="path" type="Path2D" parent="GameLayer" unique_id=1170076129]
 curve = SubResource("Curve2D_ii427")
 
-[node name="follower" type="PathFollow2D" parent="Game/path" unique_id=19062723]
+[node name="follower" type="PathFollow2D" parent="GameLayer/path" unique_id=19062723]
 position = Vector2(157, 724)
 rotation = -0.004166643
 loop = false
 
-[node name="dog" type="RigidBody2D" parent="Game/path/follower" unique_id=2124982006]
+[node name="dog" type="RigidBody2D" parent="GameLayer/path/follower" unique_id=2124982006]
 
-[node name="dog2" type="AnimatedSprite2D" parent="Game/path/follower/dog" unique_id=256854698]
+[node name="dog2" type="AnimatedSprite2D" parent="GameLayer/path/follower/dog" unique_id=256854698]
 position = Vector2(-1.7625122, -57.007324)
 rotation = 0.00416664
 scale = Vector2(0.14, 0.14)
@@ -479,12 +491,12 @@ sprite_frames = SubResource("SpriteFrames_6fwbv")
 animation = &"bark"
 frame_progress = 0.444723
 
-[node name="dogShapew" type="CollisionShape2D" parent="Game/path/follower/dog" unique_id=501360846]
+[node name="dogShapew" type="CollisionShape2D" parent="GameLayer/path/follower/dog" unique_id=501360846]
 position = Vector2(7.2520294, -57.52057)
 scale = Vector2(1.0000008, 1.0000008)
 shape = SubResource("RectangleShape2D_fkqua")
 
-[node name="barkNoise" type="AudioStreamPlayer2D" parent="Game/path/follower/dog" unique_id=2139578762]
+[node name="barkNoise" type="AudioStreamPlayer2D" parent="GameLayer/path/follower/dog" unique_id=2139578762]
 position = Vector2(-153.98201, -724.64795)
 rotation = 0.004166643
 scale = Vector2(1.0000001, 1.0000001)
@@ -495,15 +507,13 @@ attenuation = 16.353928
 bus = &"sfx"
 parameters/looping = true
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1601415112]
-position = Vector2(720, 398)
-limit_enabled = false
-
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=860298636]
 navigation_polygon = SubResource("NavigationPolygon_2pejp")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=756581977]
 
-[connection signal="pressed" from="UI/moveArea" to="Game/cat" method="_on_move_pressed"]
+[connection signal="score_changed" from="." to="UI" method="_on_game_score_changed"]
+[connection signal="pressed" from="UI/moveArea" to="GameLayer/cat" method="_on_move_pressed"]
 [connection signal="pressed" from="UI/balloon" to="UI/balloon" method="_on_pressed"]
-[connection signal="body_entered" from="Game/winZone" to="Game/winZone" method="_on_body_entered"]
+[connection signal="update_score" from="GameLayer/cat" to="." method="_on_update_score"]
+[connection signal="body_entered" from="GameLayer/winZone" to="GameLayer/winZone" method="_on_body_entered"]

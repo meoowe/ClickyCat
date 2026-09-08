@@ -4,11 +4,11 @@ var base_log: LoggieMsg = Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_B
 
 @onready var music: AudioStreamPlayer = $music
 @onready var click: AudioStreamPlayer = $click
-
+var h = 6
 @export var scoreIncrement: int = 10
 @export var playerName: String = "Nickname"
 @export var LEADERBOARD_ID: String = "clicky-cat-clickycat-njjy" #TODO: Refactor this to be lowercase
-@export var VERSION: String = "2.3.0-11.07.26-DEV" # NOTE: Do NOT Edit this variabe. Edit through global.tscn instead.!
+@export var VERSION: String = "READ-THE-NOTE" # NOTE: Do NOT Edit this variabe. Edit through global.tscn instead.!
 @export var save_file_path: String = ""
 var score: int = 0
 var highScore: int = 0
