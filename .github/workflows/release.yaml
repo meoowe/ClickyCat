@@ -46,7 +46,7 @@ jobs:
 
       - name: 📋 Validate export presets
         run: |
-          grep -q 'Linux/X11' export_presets.cfg
+          grep -q 'Linux' export_presets.cfg
           grep -q 'Windows Desktop' export_presets.cfg
           grep -q 'Web' export_presets.cfg
 
