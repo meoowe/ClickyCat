@@ -192,7 +192,7 @@ jobs:
           set -euo pipefail
 
           # Godot's internal template version identifier.
-          TEMPLATE_VERSION="4.8.dev1"
+          TEMPLATE_VERSION="4.8.dev4"
           TEMPLATE_ROOT="$HOME/.local/share/godot/export_templates/${TEMPLATE_VERSION}"
 
           rm -rf "$TEMPLATE_ROOT"
@@ -361,7 +361,7 @@ jobs:
           set -euo pipefail
 
           # Godot's internal template version identifier.
-          TEMPLATE_VERSION="4.8.dev1"
+          TEMPLATE_VERSION="4.8.dev4"
           TEMPLATE_ROOT="$HOME/.local/share/godot/export_templates/${TEMPLATE_VERSION}"
 
           rm -rf "$TEMPLATE_ROOT"
@@ -528,7 +528,7 @@ jobs:
           set -euo pipefail
 
           # Godot's internal template version identifier.
-          TEMPLATE_VERSION="4.8.dev1"
+          TEMPLATE_VERSION="4.8.dev4"
           TEMPLATE_ROOT="$HOME/.local/share/godot/export_templates/${TEMPLATE_VERSION}"
 
           rm -rf "$TEMPLATE_ROOT"
