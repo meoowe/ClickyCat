@@ -11,6 +11,7 @@ env:
   GODOT_DIR: "${{ github.workspace }}/godot"
   GODOT_BIN: "${{ github.workspace }}/godot/godot"
   EXPORT_TEMPLATES_DIR: "${{ github.workspace }}/godot/export_templates/4.8.dev4"
+  GODOT_BASE_URL: "https://downloads.godotengine.org/4.8-dev4"
 
 jobs:
 
@@ -79,40 +80,33 @@ jobs:
           mkdir -p "$GODOT_DIR"
           mkdir -p "$EXPORT_TEMPLATES_DIR"
 
-      - name: ⬇️ Download Godot
+      - name: ⬇️ Download Godot 4.8-dev4
+        shell: bash
         run: |
-          wget -q \
-            "https://downloads.godotengine.org/4.8-dev4/Godot_v4.8-dev4_linux.x86_64.zip" \
-            -O godot.zip
+          set -euo pipefail
       
-      - name: 🔎 Inspect Godot archive
-        run: |
-          echo "📦 Archive contents:"
-          unzip -l godot.zip
+          mkdir -p "$HOME/godot"
       
-      - name: 📦 Extract Godot
-        run: |
-          mkdir -p "$GODOT_DIR"
+          curl --fail --location --retry 5 --retry-delay 2 \
+            "${GODOT_BASE_URL}/Godot_v${GODOT_VERSION}_linux.x86_64.zip" \
+            -o "$RUNNER_TEMP/godot.zip"
       
-          unzip -q godot.zip -d "$GODOT_DIR"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$HOME/godot"
       
-          GODOT_EXE=$(find "$GODOT_DIR" \
+          GODOT_BIN="$(find "$HOME/godot" \
             -type f \
-            -name 'Godot*linux*x86_64' \
-            -print \
-            -quit)
+            -name 'Godot_v*linux.x86_64' \
+            | head -n 1)"
       
-          if [ -z "$GODOT_EXE" ]; then
-            echo "❌ Godot executable not found"
-            echo "📂 Extracted contents:"
-            find "$GODOT_DIR" -type f
+          if [[ -z "${GODOT_BIN}" ]]; then
+            echo "::error::Could not locate the downloaded Godot executable"
             exit 1
           fi
       
-          echo "🎮 Found: $GODOT_EXE"
-      
-          mv "$GODOT_EXE" "$GODOT_BIN"
           chmod +x "$GODOT_BIN"
+      
+          echo "🎮 Godot executable: $GODOT_BIN"
+          echo "GODOT_BIN=${GODOT_BIN}" >> "$GITHUB_ENV"
       
       - name: 🧪 Verify Godot
         run: |
