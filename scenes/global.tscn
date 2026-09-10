@@ -2,20 +2,19 @@
 
 [ext_resource type="Script" uid="uid://bkonqwnqqi2wc" path="res://scripts/autoloads/Global.gd" id="1_6s87d"]
 [ext_resource type="AudioStream" uid="uid://cas3diym2lyfa" path="res://assets/music2.mp3" id="2_rgcte"]
-[ext_resource type="AudioStream" uid="uid://doyscnoadhdpr" path="res://assets/otherTrack.mp3" id="3_f41r1"]
+[ext_resource type="AudioStream" uid="uid://dt0cv8y63srrx" path="res://assets/Track.mp3" id="4_nelfd"]
 [ext_resource type="AudioStream" uid="uid://durf8lom5yr6v" path="res://assets/click.mp3" id="5_dg76f"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_meubt"]
 shuffle = true
 fade_time = 1.0
-stream_count = 2
+stream_count = 1
 stream_0 = ExtResource("2_rgcte")
-stream_1 = ExtResource("3_f41r1")
 
 [node name="Global" type="Node" unique_id=49738788]
 script = ExtResource("1_6s87d")
 playerName = "Nickname :)"
-VERSION = "2.3.2-8.09.26"
+VERSION = "2.3.2-10.09.26"
 save_file_path = "user://clickycat.tres"
 
 [node name="music" type="AudioStreamPlayer" parent="." unique_id=1960430128]
@@ -23,3 +22,8 @@ stream = SubResource("AudioStreamPlaylist_meubt")
 
 [node name="click" type="AudioStreamPlayer" parent="." unique_id=585416142]
 stream = ExtResource("5_dg76f")
+
+[node name="title_music" type="AudioStreamPlayer" parent="." unique_id=765921691]
+stream = ExtResource("4_nelfd")
+bus = &"music"
+parameters/looping = true

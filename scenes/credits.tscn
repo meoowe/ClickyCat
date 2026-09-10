@@ -3,37 +3,137 @@
 [ext_resource type="Texture2D" uid="uid://c4f3f4o1dmt6d" path="res://assets/img/credits.png" id="1_g40ww"]
 [ext_resource type="Script" uid="uid://cb403meigs0g6" path="res://scripts/credits.gd" id="1_qlyjt"]
 [ext_resource type="PackedScene" uid="uid://cnv1rmmxmj0m4" path="res://scripts/background.tscn" id="2_hdwxe"]
-[ext_resource type="Theme" uid="uid://dxjovxyl7xvqv" path="res://theme.tres" id="3_oe87b"]
+[ext_resource type="FontFile" uid="uid://ttcckgioiomf" path="res://Poco.ttf" id="4_2fbfq"]
+[ext_resource type="Texture2D" uid="uid://dmtxetv3vy6f7" path="res://assets/img/buttons/titleButton.png" id="5_8gwij"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_75sj4"]
-font_size = 60
+font = ExtResource("4_2fbfq")
+font_size = 31
 font_color = Color(0, 0, 0, 1)
 
-[node name="Credits" type="Node2D" unique_id=208725730]
+[sub_resource type="LabelSettings" id="LabelSettings_xbx7a"]
+font_size = 31
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2pejp"]
+font = ExtResource("4_2fbfq")
+font_size = 31
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2fbfq"]
+font = ExtResource("4_2fbfq")
+font_size = 22
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8gwij"]
+font = ExtResource("4_2fbfq")
+font_size = 19
+font_color = Color(0, 0, 0, 1)
+
+[node name="Credits" type="Control" unique_id=623044145]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_qlyjt")
 
-[node name="Credits" type="Sprite2D" parent="." unique_id=161406570]
-position = Vector2(647, 409)
+[node name="ParallaxBackground" parent="." unique_id=1254942291 instance=ExtResource("2_hdwxe")]
+position = Vector2(5, -2)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1908876058]
+position = Vector2(720, 400)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=42149413]
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" unique_id=622263571]
+custom_minimum_size = Vector2(5, 5)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -512.0
+offset_right = 512.0
+offset_bottom = 512.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/CenterContainer" unique_id=12955671]
+layout_mode = 2
 texture = ExtResource("1_g40ww")
 
-[node name="ParallaxBackground" parent="." unique_id=795090930 instance=ExtResource("2_hdwxe")]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer" unique_id=1367538471]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="." unique_id=1798122833]
-offset_left = 328.0
-offset_top = 282.0
-offset_right = 1024.0
-offset_bottom = 451.0
-text = "Programming - meoowe
-Art - LeoNunk"
+[node name="Control" type="Control" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=40633969]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1798122833]
+layout_mode = 2
+text = "Programming - Aarav Kataria
+Art & Core Idea - Leo Nunkoo"
 label_settings = SubResource("LabelSettings_75sj4")
+horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="." unique_id=1003514387]
-offset_left = 581.0
-offset_top = 523.0
-offset_right = 705.0
-offset_bottom = 563.0
-theme = ExtResource("3_oe87b")
-text = "Return to Title."
-expand_icon = true
+[node name="Label2" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=456290363]
+layout_mode = 2
+text = "Attributions:"
+label_settings = SubResource("LabelSettings_xbx7a")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="Label3" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=2065909049]
+layout_mode = 2
+text = "Poco.ttf - jeti - used under CC BY 4.0"
+label_settings = SubResource("LabelSettings_2pejp")
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=289762165]
+layout_mode = 2
+text = "Thanks to:"
+label_settings = SubResource("LabelSettings_xbx7a")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label5" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1399163530]
+layout_mode = 2
+text = "The Godot Engine and its contributors"
+label_settings = SubResource("LabelSettings_2pejp")
+horizontal_alignment = 1
+
+[node name="Label7" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1109168325]
+layout_mode = 2
+text = "KorGE, the original engine for this game"
+label_settings = SubResource("LabelSettings_2pejp")
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1479087578]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(10, 0)
+text = "Everyone at our primary school, who played the game in its early stages"
+label_settings = SubResource("LabelSettings_2fbfq")
+horizontal_alignment = 1
+
+[node name="Label8" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=338871390]
+layout_mode = 2
+text = "The organisers of Game off 2023, the reason we started this project in the first place"
+label_settings = SubResource("LabelSettings_8gwij")
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CenterContainer/VBoxContainer" unique_id=1871446626]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=2027374403]
+layout_mode = 2
+texture_normal = ExtResource("5_8gwij")
+
+[node name="TextureButton2" type="TextureButton" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=2085150225]
+layout_mode = 2
+texture_normal = ExtResource("5_8gwij")
+
+[node name="TextureButton3" type="TextureButton" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=524032464]
+layout_mode = 2
+texture_normal = ExtResource("5_8gwij")
+
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer/TextureButton" to="." method="_on_button_pressed"]

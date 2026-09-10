@@ -3,17 +3,25 @@ extends Node
 var base_log: LoggieMsg = Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE)
 
 @onready var music: AudioStreamPlayer = $music
+@onready var title_music: AudioStreamPlayer = $title_music
+
 @onready var click: AudioStreamPlayer = $click
-var h = 6
-@export var scoreIncrement: int = 10
 @export var playerName: String = "Nickname"
 @export var LEADERBOARD_ID: String = "clicky-cat-clickycat-njjy" #TODO: Refactor this to be lowercase
-@export var VERSION: String = "READ-THE-NOTE" # NOTE: Do NOT Edit this variabe. Edit through global.tscn instead.!
+@export var VERSION: String = "READ-THE-NOTE-SILLY" # NOTE: Do NOT Edit this variabe. Edit through global.tscn instead.!
 @export var save_file_path: String = ""
+
+@export_category("Game Settings")
+@export var scoreIncrement: int = 10
+@export var dog_speed: float = 70.0
+@export var camera_scroll_speed = 100
+
 var score: int = 0
 var highScore: int = 0
 var balloonClicked: bool = false
 var platform: String = ""
+var new_high_score: bool = false
+var game_has_started: bool = false
 
 var platforms: Dictionary[Variant, Variant] = {
 	"web": "web",
@@ -31,7 +39,7 @@ func _ready() -> void:
 	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Ready!").color(Color.CHARTREUSE).info()
 	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Version: ", VERSION).info()
 	determine_platform()
-	music.play()
+	title_music.play()
 	load_from_save()
 
 
@@ -86,3 +94,16 @@ func _notification(what: int) -> void:
 			JavaScriptBridge.eval("window.close()")
 		else:
 			get_tree().quit()
+
+func toggle_music():
+	if music.playing:
+		music.stop()
+	else: music.play()
+
+func start_title_music():
+	music.stop()
+	title_music.play()
+
+func start_game_music():
+	title_music.stop()
+	music.play()

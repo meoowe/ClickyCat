@@ -3,7 +3,6 @@ extends CharacterBody2D
 var paused: bool = false
 var on_floor: bool = false
 var first: bool = false
-var cat_first: bool = true
 var moveAllowed: bool = true
 
 @export var gravity: int = 2500
@@ -14,7 +13,7 @@ var moveAllowed: bool = true
 @export var dogSpeed: int = 70
 @export var catSpeed: int = 325
 @export var scroll_speed: int = 100
-@export var slope_rotation_speed: float = 5.0 # Speed of smooth sprite rotation
+@export var slope_rotation_speed: float = 10.0 # Speed of smooth sprite rotation
 
 @onready var ground: StaticBody2D = $"../ground"
 @onready var dog: RigidBody2D = $"../path/follower/dog"
@@ -22,7 +21,6 @@ var moveAllowed: bool = true
 @onready var dog_2: AnimatedSprite2D = $"../path/follower/dog/dog2"
 @onready var follower: PathFollow2D = $"../path/follower"
 @onready var options: Control = $"../../UI/options"
-@onready var camera: Camera2D = $Camera2D
 @onready var stamina_warning: PanelContainer = $"../../UI/PanelContainer"
 
 # Reference to your specific AnimatedSprite2D or Sprite2D node
@@ -30,32 +28,17 @@ var moveAllowed: bool = true
 
 signal update_score
 
-func _ready() -> void:
-	Global.score = 0
-	dog_2.play()
-	%stamina.value = 100.0
-
-func _process(delta: float) -> void:
-	if first:
-		follower.progress += dogSpeed * delta
-
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("move"):
 		trigger_move_action()
 
 	if not Input.is_action_pressed("move"):
 		%stamina.value += staminaIncrement
-	
-	if self.position.x > dog.position.x:
-		cat_first = true
-	else:
-		cat_first = false
-	camera.position.x += scroll_speed * delta
 
 func trigger_move_action() -> void:
 	if paused:
 		return
-
-	first = true
+	Global.game_has_started = true
 	if %stamina.value >= staminaMin and moveAllowed:
 		update_score.emit()
 		%stamina.value -= staminaDecrement

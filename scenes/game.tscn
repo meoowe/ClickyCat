@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://b1fc8abfnvh06" path="res://scenes/options.tscn" id="8_5s45l"]
 [ext_resource type="FontFile" uid="uid://ttcckgioiomf" path="res://Poco.ttf" id="9_ir15t"]
 [ext_resource type="Script" uid="uid://c5k0l26u6ooky" path="res://scripts/game_ui.gd" id="9_rysoc"]
+[ext_resource type="Script" uid="uid://bbk31scqyihdh" path="res://scripts/dog.gd" id="17_ssvqc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ski2u"]
 atlas = ExtResource("3_kxon8")
@@ -264,8 +265,9 @@ vertices = PackedVector2Array(2318.9688, 723.9922, 13.6015625, 718.03906, 311.20
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(2, 5, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(301, 71, 295, 4, 3108, -2, 3105, 708, 2319, 734, -2, 728)])
 
-[node name="game" type="Node2D" unique_id=384593348]
+[node name="game" type="Node2D" unique_id=384593348 node_paths=PackedStringArray("camera")]
 script = ExtResource("1_ca42v")
+camera = NodePath("GameLayer/Camera2D")
 
 [node name="ParallaxBackground" type="Node2D" parent="." unique_id=1254942291]
 script = ExtResource("1_trtic")
@@ -382,6 +384,7 @@ offset_right = -1116.0
 offset_bottom = 135.0
 grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_vtaks")
+value = 100.0
 
 [node name="Label" type="Label" parent="UI" unique_id=1289940751]
 offset_left = 12.0
@@ -423,6 +426,10 @@ scale = Vector2(0.835, 0.835)
 
 [node name="GameLayer" type="CanvasLayer" parent="." unique_id=241191871]
 
+[node name="Camera2D" type="Camera2D" parent="GameLayer" unique_id=1601415112]
+position = Vector2(720, 398)
+limit_enabled = false
+
 [node name="ground" type="StaticBody2D" parent="GameLayer" unique_id=1961551759]
 metadata/_edit_group_ = true
 
@@ -432,10 +439,6 @@ shape = SubResource("RectangleShape2D_qidma")
 
 [node name="cat" type="CharacterBody2D" parent="GameLayer" unique_id=1428571110]
 script = ExtResource("4_w173p")
-
-[node name="Camera2D" type="Camera2D" parent="GameLayer/cat" unique_id=1601415112]
-position = Vector2(720, 398)
-limit_enabled = false
 
 [node name="Sprite2D" type="Sprite2D" parent="GameLayer/cat" unique_id=1099336991]
 position = Vector2(330, 662)
@@ -481,7 +484,9 @@ position = Vector2(157, 724)
 rotation = -0.004166643
 loop = false
 
-[node name="dog" type="RigidBody2D" parent="GameLayer/path/follower" unique_id=2124982006]
+[node name="dog" type="RigidBody2D" parent="GameLayer/path/follower" unique_id=2124982006 node_paths=PackedStringArray("follower")]
+script = ExtResource("17_ssvqc")
+follower = NodePath("..")
 
 [node name="dog2" type="AnimatedSprite2D" parent="GameLayer/path/follower/dog" unique_id=256854698]
 position = Vector2(-1.7625122, -57.007324)
@@ -512,6 +517,7 @@ navigation_polygon = SubResource("NavigationPolygon_2pejp")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=756581977]
 
+[connection signal="paused" from="." to="GameLayer/path/follower/dog" method="_on_game_paused"]
 [connection signal="score_changed" from="." to="UI" method="_on_game_score_changed"]
 [connection signal="pressed" from="UI/moveArea" to="GameLayer/cat" method="_on_move_pressed"]
 [connection signal="pressed" from="UI/balloon" to="UI/balloon" method="_on_pressed"]
