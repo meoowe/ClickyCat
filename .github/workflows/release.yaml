@@ -79,35 +79,41 @@ jobs:
           mkdir -p "$GODOT_DIR"
           mkdir -p "$EXPORT_TEMPLATES_DIR"
 
-      - name: ⬇️ Download Godot ${{ env.GODOT_VERSION }}
+      - name: ⬇️ Download Godot
         run: |
           wget -q \
-            "https://downloads.godotengine.org/4.8-dev4/Godot_v${GODOT_VERSION}_linux.x86_64.zip" \
+            "https://downloads.godotengine.org/4.8-dev4/Godot_v4.8-dev4_linux.x86_64.zip" \
             -O godot.zip
-
+      
+      - name: 🔎 Inspect Godot archive
+        run: |
+          echo "📦 Archive contents:"
+          unzip -l godot.zip
+      
       - name: 📦 Extract Godot
         run: |
-          unzip -q Godot_v${GODOT_VERSION}_linux.x86_64.zip -d "$GODOT_DIR"
-
-          mv "$GODOT_DIR"/Godot_v${GODOT_VERSION}_linux.x86_64 \
-             "$GODOT_BIN"
-
+          mkdir -p "$GODOT_DIR"
+      
+          unzip -q godot.zip -d "$GODOT_DIR"
+      
+          GODOT_EXE=$(find "$GODOT_DIR" \
+            -type f \
+            -name 'Godot*linux*x86_64' \
+            -print \
+            -quit)
+      
+          if [ -z "$GODOT_EXE" ]; then
+            echo "❌ Godot executable not found"
+            echo "📂 Extracted contents:"
+            find "$GODOT_DIR" -type f
+            exit 1
+          fi
+      
+          echo "🎮 Found: $GODOT_EXE"
+      
+          mv "$GODOT_EXE" "$GODOT_BIN"
           chmod +x "$GODOT_BIN"
-
-      - name: ⬇️ Download export templates
-        run: |
-          wget -q \
-            "https://downloads.godotengine.org/4.8-dev4/Godot_v${GODOT_VERSION}_export_templates.tpz" \
-            -O templates.tpz
-
-      - name: 📦 Extract export templates
-        run: |
-          unzip -q templates.tpz -d templates
-
-          mkdir -p "$EXPORT_TEMPLATES_DIR"
-
-          cp -r templates/templates/* "$EXPORT_TEMPLATES_DIR/"
-
+      
       - name: 🧪 Verify Godot
         run: |
           "$GODOT_BIN" --version
