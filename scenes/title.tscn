@@ -115,6 +115,7 @@ offset_bottom = 762.0
 label_settings = SubResource("LabelSettings_nbey0")
 
 [node name="DebugMenu" type="PanelContainer" parent="UI" unique_id=236007917]
+visible = false
 offset_right = 276.0
 offset_bottom = 283.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_eobgq")
@@ -228,6 +229,53 @@ offset_transform_position = Vector2(18.77, 0)
 max_value = 1000.0
 alignment = 2
 
+[node name="HBoxContainer8" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=77991196]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer8" unique_id=766136855]
+layout_mode = 2
+text = "Current High Score"
+label_settings = ExtResource("7_yql1r")
+
+[node name="high_score" type="SpinBox" parent="UI/DebugMenu/VBoxContainer/HBoxContainer8" unique_id=225067655]
+layout_mode = 2
+size_flags_horizontal = 10
+offset_transform_position = Vector2(18.77, 0)
+max_value = 1000.0
+alignment = 2
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=758242577]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer9" unique_id=426131628]
+layout_mode = 2
+text = "Trigger Save"
+label_settings = ExtResource("7_yql1r")
+
+[node name="save" type="Button" parent="UI/DebugMenu/VBoxContainer/HBoxContainer9" unique_id=171781256]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_position = Vector2(-3.945, 0)
+text = "Trigger"
+
+[node name="HBoxContainer10" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=172732325]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer10" unique_id=1202004359]
+layout_mode = 2
+text = "Trigger Load"
+label_settings = ExtResource("7_yql1r")
+
+[node name="load" type="Button" parent="UI/DebugMenu/VBoxContainer/HBoxContainer10" unique_id=2143395179]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_position = Vector2(-3.945, 0)
+text = "Trigger"
+
 [node name="Credits" type="TextureButton" parent="UI" unique_id=2124749204]
 anchors_preset = 1
 anchor_left = 1.0
@@ -249,4 +297,7 @@ texture_normal = ExtResource("9_hiwto")
 [connection signal="value_changed" from="UI/DebugMenu/VBoxContainer/HBoxContainer5/score_increment" to="UI/DebugMenu" method="_on_score_increment_value_changed"]
 [connection signal="value_changed" from="UI/DebugMenu/VBoxContainer/HBoxContainer6/dog_speed" to="UI/DebugMenu" method="_on_dog_speed_value_changed"]
 [connection signal="value_changed" from="UI/DebugMenu/VBoxContainer/HBoxContainer7/cam_speed" to="UI/DebugMenu" method="_on_cam_speed_value_changed"]
+[connection signal="value_changed" from="UI/DebugMenu/VBoxContainer/HBoxContainer8/high_score" to="UI/DebugMenu" method="_on_high_score_value_changed"]
+[connection signal="pressed" from="UI/DebugMenu/VBoxContainer/HBoxContainer9/save" to="UI/DebugMenu" method="_on_save_pressed"]
+[connection signal="pressed" from="UI/DebugMenu/VBoxContainer/HBoxContainer10/load" to="UI/DebugMenu" method="_on_load_pressed"]
 [connection signal="pressed" from="UI/Credits" to="." method="_on_credits_pressed"]
