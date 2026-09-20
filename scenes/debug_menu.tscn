@@ -1,0 +1,244 @@
+[gd_scene format=3 uid="uid://cmbvvty6e2igv"]
+
+[ext_resource type="Script" uid="uid://5thom17hbifs" path="res://scripts/debug_menu.gd" id="1_03so6"]
+[ext_resource type="LabelSettings" uid="uid://by7nj0wx87x4a" path="res://debuglabel.tres" id="2_7bace"]
+[ext_resource type="Script" uid="uid://bycwndilauvb" path="res://scenes/dbg_label_2.gd" id="3_7bace"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eobgq"]
+bg_color = Color(0.6, 0.6, 0.6, 0.46666667)
+
+[sub_resource type="SystemFont" id="SystemFont_bg6yy"]
+subpixel_positioning = 0
+
+[sub_resource type="SystemFont" id="SystemFont_ia1n6"]
+fallbacks = Array[Font]([SubResource("SystemFont_bg6yy")])
+font_names = PackedStringArray("Hack Nerd Font", "Source Code Pro")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_hiwto"]
+font = SubResource("SystemFont_ia1n6")
+font_size = 24
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_wb117"]
+
+[sub_resource type="SystemFont" id="SystemFont_unqbv"]
+fallbacks = Array[Font]([SubResource("SystemFont_wb117")])
+font_names = PackedStringArray("Hack Nerd Font", "Source Code Pro")
+
+[sub_resource type="LabelSettings" id="LabelSettings_25fq2"]
+font = SubResource("SystemFont_unqbv")
+font_size = 11
+font_color = Color(0, 0, 0, 1)
+
+[node name="DebugMenu" type="PanelContainer" unique_id=1166719206]
+offset_right = 276.0
+offset_bottom = 283.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_eobgq")
+script = ExtResource("1_03so6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1313134205]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1048521824]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Debug Menu (F3)"
+label_settings = SubResource("LabelSettings_hiwto")
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=1436778695]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=511362211]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1774939094]
+layout_mode = 2
+text = "Disable Loose"
+label_settings = ExtResource("2_7bace")
+
+[node name="looseToggle" type="CheckButton" parent="VBoxContainer/HBoxContainer" unique_id=1703671700]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1186667581]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=1008400730]
+layout_mode = 2
+text = "Disable Win"
+label_settings = ExtResource("2_7bace")
+
+[node name="winTogle" type="CheckButton" parent="VBoxContainer/HBoxContainer2" unique_id=105520712]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer" unique_id=1916347703]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer3" unique_id=2050149976]
+layout_mode = 2
+text = "Don't Do Balloon Hide"
+label_settings = ExtResource("2_7bace")
+
+[node name="balloonToggle" type="CheckButton" parent="VBoxContainer/HBoxContainer3" unique_id=1771921172]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer" unique_id=1465049388]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer4" unique_id=899039425]
+layout_mode = 2
+text = "Disable Stamina"
+label_settings = ExtResource("2_7bace")
+
+[node name="staminaToggle" type="CheckButton" parent="VBoxContainer/HBoxContainer4" unique_id=505118984]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HBoxContainer12" type="HBoxContainer" parent="VBoxContainer" unique_id=42630001]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer12" unique_id=1827383394]
+layout_mode = 2
+text = "Rotate Sprites to Mountain"
+label_settings = ExtResource("2_7bace")
+
+[node name="rotateToggle" type="CheckButton" parent="VBoxContainer/HBoxContainer12" unique_id=1189469615]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer" unique_id=1397183494]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer5" unique_id=827347642]
+layout_mode = 2
+text = "Score Increment"
+label_settings = ExtResource("2_7bace")
+
+[node name="score_increment" type="SpinBox" parent="VBoxContainer/HBoxContainer5" unique_id=1652382585]
+layout_mode = 2
+size_flags_horizontal = 10
+offset_transform_position = Vector2(18.77, 0)
+alignment = 2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer" unique_id=2063431350]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer6" unique_id=622114857]
+layout_mode = 2
+text = "Dog Speed"
+label_settings = ExtResource("2_7bace")
+
+[node name="dog_speed" type="SpinBox" parent="VBoxContainer/HBoxContainer6" unique_id=2047694665]
+layout_mode = 2
+size_flags_horizontal = 10
+offset_transform_position = Vector2(18.77, 0)
+alignment = 2
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="VBoxContainer" unique_id=389789963]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer7" unique_id=869623108]
+layout_mode = 2
+text = "Camera Scroll Spd."
+label_settings = ExtResource("2_7bace")
+
+[node name="cam_speed" type="SpinBox" parent="VBoxContainer/HBoxContainer7" unique_id=1258277374]
+layout_mode = 2
+size_flags_horizontal = 10
+offset_transform_position = Vector2(18.77, 0)
+max_value = 1000.0
+alignment = 2
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="VBoxContainer" unique_id=898425237]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer8" unique_id=2067349950]
+layout_mode = 2
+text = "Current High Score"
+label_settings = ExtResource("2_7bace")
+
+[node name="high_score" type="SpinBox" parent="VBoxContainer/HBoxContainer8" unique_id=802056527]
+layout_mode = 2
+size_flags_horizontal = 10
+offset_transform_position = Vector2(18.77, 0)
+max_value = 1000.0
+alignment = 2
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="VBoxContainer" unique_id=45035212]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer9" unique_id=977974125]
+layout_mode = 2
+text = "Trigger Save"
+label_settings = ExtResource("2_7bace")
+
+[node name="save" type="Button" parent="VBoxContainer/HBoxContainer9" unique_id=1011749015]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_position = Vector2(-3.945, 0)
+text = "Trigger"
+
+[node name="HBoxContainer10" type="HBoxContainer" parent="VBoxContainer" unique_id=660768305]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer10" unique_id=526071115]
+layout_mode = 2
+text = "Trigger Load"
+label_settings = ExtResource("2_7bace")
+
+[node name="load" type="Button" parent="VBoxContainer/HBoxContainer10" unique_id=758223360]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_position = Vector2(-3.945, 0)
+text = "Trigger"
+
+[node name="HBoxContainer11" type="HBoxContainer" parent="VBoxContainer" unique_id=2062814134]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer11" unique_id=835953250]
+layout_mode = 2
+text = "DELETE Save"
+label_settings = ExtResource("2_7bace")
+
+[node name="clear_save" type="Button" parent="VBoxContainer/HBoxContainer11" unique_id=191663277]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_position = Vector2(-3.945, 0)
+text = "DELETE!"
+
+[node name="HBoxContainer13" type="HBoxContainer" parent="VBoxContainer" unique_id=970928205]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer13" unique_id=1122581579]
+layout_mode = 2
+text = "DBG: Time elapsed since Global.game_has_started = true: "
+label_settings = SubResource("LabelSettings_25fq2")
+script = ExtResource("3_7bace")
+
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/looseToggle" to="." method="_on_loose_toggle_toggled"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer2/winTogle" to="." method="_on_win_togle_toggled"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer3/balloonToggle" to="." method="_on_balloon_toggle_toggled"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer4/staminaToggle" to="." method="_on_stamina_toggle_toggled"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer12/rotateToggle" to="." method="_on_rotate_toggle_toggled"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer5/score_increment" to="." method="_on_score_increment_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer6/dog_speed" to="." method="_on_dog_speed_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer7/cam_speed" to="." method="_on_cam_speed_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer8/high_score" to="." method="_on_high_score_value_changed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer9/save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer10/load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer11/clear_save" to="." method="_on_clear_save_pressed"]

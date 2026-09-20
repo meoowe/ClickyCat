@@ -14,7 +14,15 @@ stream_0 = ExtResource("2_rgcte")
 [node name="Global" type="Node" unique_id=49738788]
 script = ExtResource("1_6s87d")
 playerName = "Nickname :)"
-VERSION = "2.3.2-11.09.26"
+VERSION = "2.4.0-19.09.26-Really-super-dev-buggy-af"
+dog_speed = 170.0
+debug = Dictionary[String, bool]({
+"disableLoose": false,
+"disableStamina": false,
+"disableWin": false,
+"doSpriteRotation": true,
+"hideBalloon": false
+})
 
 [node name="music" type="AudioStreamPlayer" parent="." unique_id=1960430128]
 stream = SubResource("AudioStreamPlaylist_meubt")

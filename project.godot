@@ -28,15 +28,28 @@ Loggie="*res://addons/loggie/loggie.gd"
 Global="*res://scenes/global.tscn"
 Scenes="*res://scripts/autoloads/scenes.gd"
 
+[blazium]
+
+justamcp/tools/project_tools=true
+
+[debug]
+
+file_logging/enable_file_logging=true
+
 [display]
 
 window/size/viewport_width=1440
 window/size/viewport_height=800
 window/stretch/mode="viewport"
 
+[editor]
+
+movie_writer/speaker_mode=3
+movie_writer/movie_file="/projects/ClickyCat/uwu.ogv"
+
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/gdLinter/plugin.cfg", "res://addons/loggie/plugin.cfg")
+enabled=PackedStringArray("res://addons/godotsteam/plugin.cfg", "res://addons/loggie/plugin.cfg")
 
 [file_customization]
 
@@ -121,6 +134,12 @@ general/show_system_specs=false
 general/show_loggie_specs=0
 timestamps/output_timestamps=true
 
+[physics]
+
+2d/run_on_separate_thread=true
+common/physics_ticks_per_second=120
+2d/physics_engine="GodotPhysics2D"
+
 [quiver]
 
 general/auth_token="uNUn36UfxediUx2zplZppkOit4CGTgLojjgdA6GA"
@@ -129,3 +148,8 @@ general/auth_token="uNUn36UfxediUx2zplZppkOit4CGTgLojjgdA6GA"
 
 textures/canvas_textures/default_texture_filter=0
 textures/vram_compression/import_etc2_astc=true
+
+[steam]
+
+initialization/app_data/app_id=480
+initialization/processes/embed_callbacks=true

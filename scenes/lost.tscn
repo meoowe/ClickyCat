@@ -17,6 +17,11 @@ font = ExtResource("3_mwexj")
 font_size = 56
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_ssvqc"]
+font = ExtResource("3_mwexj")
+font_size = 42
+font_color = Color(0, 0, 0, 1)
+
 [node name="lost" type="Control" unique_id=164078955 node_paths=PackedStringArray("label_2", "camera")]
 layout_mode = 3
 anchors_preset = 0
@@ -66,6 +71,7 @@ horizontal_alignment = 1
 [node name="Label2" type="Label" parent="UI/Panel/VBoxContainer" unique_id=923975746]
 layout_mode = 2
 size_flags_horizontal = 4
+label_settings = SubResource("LabelSettings_ssvqc")
 
 [node name="Control" type="Control" parent="UI/Panel/VBoxContainer" unique_id=881475328]
 custom_minimum_size = Vector2(0, 50)
@@ -88,6 +94,14 @@ layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("4_87lk7")
 
+[node name="TextureRect" type="TextureRect" parent="UI" unique_id=928556522]
+offset_left = 1258.0
+offset_top = 598.0
+offset_right = 2282.0
+offset_bottom = 1622.0
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("7_qr6ht")
+
 [node name="TextureRect2" type="TextureRect" parent="UI" unique_id=2052157323]
 offset_left = 271.0
 offset_top = 629.0
@@ -96,14 +110,6 @@ offset_bottom = 1653.0
 rotation = -0.4834347
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("6_jhsh6")
-
-[node name="TextureRect" type="TextureRect" parent="UI" unique_id=928556522]
-offset_left = 1258.0
-offset_top = 598.0
-offset_right = 2282.0
-offset_bottom = 1622.0
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("7_qr6ht")
 
 [node name="TextureRect3" type="TextureRect" parent="UI" unique_id=542352410]
 offset_left = 228.0

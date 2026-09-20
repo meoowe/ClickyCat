@@ -1,6 +1,13 @@
 extends Node2D
 
 @export var camera: Camera2D
+@export var cat: CharacterBody2D
+@export var clouds: Parallax2D
+
+@export var decay := 0.8          # How quickly the shake stops (0 to 1)
+@export var max_offset := Vector2(100, 75)  # Maximum horizontal/vertical shake in pixels
+var trauma := 0.0                 # Current trauma level (0 to 1)
+var trauma_power := 2             # Trauma exponent for non-linear decay
 
 var is_paused: bool = false
 
@@ -36,6 +43,15 @@ func _ready() -> void:
 	if Global.new_high_score:
 		Global.highScore = Global.score
 	Global.new_high_score = false
+	Global.game_has_started = false
+	Global.score = 0
+	Global.dog_speed = 200
+	clouds.autoscroll.x = Global.camera_scroll_speed
+
 	
-func _process(delta: float) -> void:
-	camera.position.x += Global.camera_scroll_speed * delta
+
+
+func _on_losezone_body_entered(body: Node2D) -> void:
+	if body == cat:
+		await Global.wait(0.3)
+		Scenes.lost()

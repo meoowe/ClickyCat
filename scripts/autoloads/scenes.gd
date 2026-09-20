@@ -12,26 +12,31 @@ func _ready() -> void:
 
 func title():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("📻 Changing scene to Title.").info()
-	get_tree().change_scene_to_file("res://scenes/title.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/title.tscn")
 	title_screen_switch.emit()
 
 func won():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("🏆 Game Won! Changing to Win.").info()
-	get_tree().change_scene_to_file("res://scenes/win.tscn")
+	if !Global.debug.disable_win:
+		get_tree().call_deferred("change_scene_to_file", "res://scenes/win.tscn")
+	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("Debug option disallows win scene").info()
 func lost():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("☹️ Game Lost! Changing to Lost.").info()
-	get_tree().change_scene_to_file("res://scenes/lost.tscn")
+	if Global.debug.disableLoose:
+		Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("Debug option disallows lose scene").info()
+		return
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/lost.tscn")
 func quit():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("🎮 Game Quit! Goodbye :)").info()
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 
 func leaderboard():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("🥇 Changing scene to Leaderboard").info()
-	get_tree().change_scene_to_file("res://scenes/leaderboard.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/leaderboard.tscn")
 func credits():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("📜 Changing scene to Credits").info()
-	get_tree().change_scene_to_file("res://scenes/credits.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/credits.tscn")
 func play():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("🕹️ Starting Game scene!").info()
-	get_tree().change_scene_to_file("res://scenes/game.tscn")
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/game.tscn")
 	game_scene_start.emit()
