@@ -2,29 +2,24 @@
 
 [ext_resource type="Script" uid="uid://5thom17hbifs" path="res://scripts/debug_menu.gd" id="1_03so6"]
 [ext_resource type="LabelSettings" uid="uid://by7nj0wx87x4a" path="res://debuglabel.tres" id="2_7bace"]
+[ext_resource type="FontFile" uid="uid://dgq0iw7v6d7bj" path="res://ConnectionII.otf" id="2_wb117"]
 [ext_resource type="Script" uid="uid://bycwndilauvb" path="res://scenes/dbg_label_2.gd" id="3_7bace"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eobgq"]
 bg_color = Color(0.6, 0.6, 0.6, 0.46666667)
 
-[sub_resource type="SystemFont" id="SystemFont_bg6yy"]
-subpixel_positioning = 0
-
-[sub_resource type="SystemFont" id="SystemFont_ia1n6"]
-fallbacks = Array[Font]([SubResource("SystemFont_bg6yy")])
-font_names = PackedStringArray("Hack Nerd Font", "Source Code Pro")
-subpixel_positioning = 0
-
 [sub_resource type="LabelSettings" id="LabelSettings_hiwto"]
-font = SubResource("SystemFont_ia1n6")
-font_size = 24
+font = ExtResource("2_wb117")
+font_size = 25
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="SystemFont" id="SystemFont_wb117"]
+subpixel_positioning = 0
 
 [sub_resource type="SystemFont" id="SystemFont_unqbv"]
 fallbacks = Array[Font]([SubResource("SystemFont_wb117")])
 font_names = PackedStringArray("Hack Nerd Font", "Source Code Pro")
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_25fq2"]
 font = SubResource("SystemFont_unqbv")

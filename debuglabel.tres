@@ -1,12 +1,8 @@
 [gd_resource type="LabelSettings" format=3 uid="uid://by7nj0wx87x4a"]
 
-[sub_resource type="SystemFont" id="SystemFont_wb117"]
-
-[sub_resource type="SystemFont" id="SystemFont_unqbv"]
-fallbacks = Array[Font]([SubResource("SystemFont_wb117")])
-font_names = PackedStringArray("Hack Nerd Font", "Source Code Pro")
+[ext_resource type="FontFile" uid="uid://ttcckgioiomf" path="res://Poco.ttf" id="1_po8bc"]
 
 [resource]
-font = SubResource("SystemFont_unqbv")
-font_size = 14
+font = ExtResource("1_po8bc")
+font_size = 20
 font_color = Color(0, 0, 0, 1)
