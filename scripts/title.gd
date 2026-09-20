@@ -6,7 +6,7 @@ extends Control
 func _process(delta: float) -> void:
 	# Move the camera constantly to the right to drive the parallax effect
 	camera.position.x += Global.camera_scroll_speed * delta
-	camera.position.y += Global.camera_scroll_speed * delta
+	#camera.position.y += Global.camera_scroll_speed * delta
 
 func _ready() -> void:
 	vrsn.text = Global.VERSION

@@ -22,3 +22,7 @@ func _on_game_score_changed(new_score: int) -> void:
 func _update_label_text(value: int) -> void:
 	current_display_value = value
 	%scoire.text = "Score: " + str(value)  # Converts the interpolated integer into text
+
+
+func _on_cat_update_score() -> void:
+	%stamina.value -= Global.stamina_decrement

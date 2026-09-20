@@ -6,8 +6,7 @@
 [ext_resource type="FontFile" uid="uid://ttcckgioiomf" path="res://Poco.ttf" id="4_ia1n6"]
 [ext_resource type="Texture2D" uid="uid://7wq6qjf0wd2m" path="res://assets/img/buttons/exitButton.png" id="5_72tt0"]
 [ext_resource type="Theme" uid="uid://dxjovxyl7xvqv" path="res://theme.tres" id="6_yql1r"]
-[ext_resource type="Script" uid="uid://5thom17hbifs" path="res://scripts/debug_menu.gd" id="7_ia1n6"]
-[ext_resource type="LabelSettings" uid="uid://by7nj0wx87x4a" path="res://debuglabel.tres" id="7_yql1r"]
+[ext_resource type="PackedScene" uid="uid://cmbvvty6e2igv" path="res://scenes/debug_menu.tscn" id="7_ia1n6"]
 [ext_resource type="Texture2D" uid="uid://b5lkntqbmqbma" path="res://assets/img/buttons/creditsButton.png" id="9_hiwto"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4rr2b"]
@@ -31,21 +30,7 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_nbey0"]
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eobgq"]
-bg_color = Color(0.6, 0.6, 0.6, 0.46666667)
-
-[sub_resource type="SystemFont" id="SystemFont_bg6yy"]
-
-[sub_resource type="SystemFont" id="SystemFont_ia1n6"]
-fallbacks = Array[Font]([SubResource("SystemFont_bg6yy")])
-font_names = PackedStringArray("Hack Nerd Font", "Source Code Pro")
-
-[sub_resource type="LabelSettings" id="LabelSettings_hiwto"]
-font = SubResource("SystemFont_ia1n6")
-font_size = 24
-font_color = Color(0, 0, 0, 1)
-
-[node name="Control" type="Control" unique_id=223564535 node_paths=PackedStringArray("camera")]
+[node name="Control" type="Control" unique_id=1905827395 node_paths=PackedStringArray("camera")]
 z_index = 1
 layout_mode = 3
 anchors_preset = 15
@@ -56,20 +41,19 @@ grow_vertical = 2
 script = ExtResource("1_gruo6")
 camera = NodePath("Camera2D")
 
-[node name="ParallaxBackground" parent="." unique_id=1496571066 instance=ExtResource("2_21j0o")]
+[node name="ParallaxBackground" parent="." unique_id=1703603096 instance=ExtResource("2_21j0o")]
 show_title_features = true
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1724429851]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1651536655]
 position = Vector2(720, 484)
-limit_enabled = false
 limit_left = 0
 limit_top = 0
 limit_right = 1440
 limit_bottom = 800
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=2020574731]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1233177592]
 
-[node name="CenterContainer" type="CenterContainer" parent="UI" unique_id=505603908]
+[node name="CenterContainer" type="CenterContainer" parent="UI" unique_id=1587293993]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -78,205 +62,56 @@ grow_vertical = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/CenterContainer" unique_id=581666511]
+[node name="PanelContainer" type="PanelContainer" parent="UI/CenterContainer" unique_id=380132020]
 layout_mode = 2
 theme = ExtResource("6_yql1r")
 theme_override_styles/panel = SubResource("StyleBoxFlat_4rr2b")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="UI/CenterContainer/PanelContainer" unique_id=707413661]
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/CenterContainer/PanelContainer" unique_id=172841356]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=1380618328]
+[node name="Label" type="Label" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=1231501897]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Clicky Cat"
 label_settings = SubResource("LabelSettings_onpbh")
 
-[node name="Play" type="TextureButton" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=2088595961]
+[node name="Play" type="TextureButton" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=1236734510]
 layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("3_pt2cc")
 
-[node name="Options" type="TextureButton" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=1752099772]
+[node name="Options" type="TextureButton" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=1549670739]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 
-[node name="Quit" type="TextureButton" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=1674231930]
+[node name="Quit" type="TextureButton" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=235604088]
 layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("5_72tt0")
 
-[node name="vrsn" type="Label" parent="UI" unique_id=302334211]
+[node name="vrsn" type="Label" parent="UI" unique_id=349540847]
 offset_left = 14.0
 offset_top = 739.0
 offset_right = 123.0
 offset_bottom = 762.0
 label_settings = SubResource("LabelSettings_nbey0")
 
-[node name="DebugMenu" type="PanelContainer" parent="UI" unique_id=236007917]
-visible = false
-offset_right = 276.0
-offset_bottom = 283.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_eobgq")
-script = ExtResource("7_ia1n6")
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="UI" unique_id=1358781185]
+oversampling_override = 1.0
+mode = 3
+title = "Delete?"
+initial_position = 1
+size = Vector2i(931, 106)
+ok_button_text = "OH MY GOD WHEN I CLICK THE BUTTON, THAT MEANS I WANT TO DELETE IT FOR GOODNESS SAKE"
+dialog_text = "Are you sure you want to DELETE your beautiful save into which you've put so much time into. It will be gone forever :(
+A little message from your save: \"NOOO PWEASE DOWNT DEWETE ME UwU\""
+cancel_button_text = "Nah"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/DebugMenu" unique_id=1211442868]
-layout_mode = 2
+[node name="DebugMenu" parent="UI" unique_id=233039935 instance=ExtResource("7_ia1n6")]
 
-[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer" unique_id=1418229361]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Debug Menu (F3)"
-label_settings = SubResource("LabelSettings_hiwto")
-
-[node name="HSeparator" type="HSeparator" parent="UI/DebugMenu/VBoxContainer" unique_id=293461782]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=1294850263]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer" unique_id=1201538203]
-layout_mode = 2
-text = "Disable Loose"
-label_settings = ExtResource("7_yql1r")
-
-[node name="looseToggle" type="CheckButton" parent="UI/DebugMenu/VBoxContainer/HBoxContainer" unique_id=1076879858]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=1697291654]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer2" unique_id=2097869170]
-layout_mode = 2
-text = "Disable Win"
-label_settings = ExtResource("7_yql1r")
-
-[node name="winTogle" type="CheckButton" parent="UI/DebugMenu/VBoxContainer/HBoxContainer2" unique_id=101898136]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=1792914954]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer3" unique_id=1284264320]
-layout_mode = 2
-text = "Don't Do Balloon Hide"
-label_settings = ExtResource("7_yql1r")
-
-[node name="balloonToggle" type="CheckButton" parent="UI/DebugMenu/VBoxContainer/HBoxContainer3" unique_id=1215221360]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=1351001027]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer4" unique_id=887672204]
-layout_mode = 2
-text = "Disable Stamina"
-label_settings = ExtResource("7_yql1r")
-
-[node name="staminaToggle" type="CheckButton" parent="UI/DebugMenu/VBoxContainer/HBoxContainer4" unique_id=415165902]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="HBoxContainer5" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=1872771408]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer5" unique_id=1234642773]
-layout_mode = 2
-text = "Score Increment"
-label_settings = ExtResource("7_yql1r")
-
-[node name="score_increment" type="SpinBox" parent="UI/DebugMenu/VBoxContainer/HBoxContainer5" unique_id=673192439]
-layout_mode = 2
-size_flags_horizontal = 10
-offset_transform_position = Vector2(18.77, 0)
-alignment = 2
-
-[node name="HBoxContainer6" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=66887102]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer6" unique_id=998583280]
-layout_mode = 2
-text = "Dog Speed"
-label_settings = ExtResource("7_yql1r")
-
-[node name="dog_speed" type="SpinBox" parent="UI/DebugMenu/VBoxContainer/HBoxContainer6" unique_id=1225328176]
-layout_mode = 2
-size_flags_horizontal = 10
-offset_transform_position = Vector2(18.77, 0)
-alignment = 2
-
-[node name="HBoxContainer7" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=1006979440]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer7" unique_id=413185691]
-layout_mode = 2
-text = "Camera Scroll Spd."
-label_settings = ExtResource("7_yql1r")
-
-[node name="cam_speed" type="SpinBox" parent="UI/DebugMenu/VBoxContainer/HBoxContainer7" unique_id=1282760566]
-layout_mode = 2
-size_flags_horizontal = 10
-offset_transform_position = Vector2(18.77, 0)
-max_value = 1000.0
-alignment = 2
-
-[node name="HBoxContainer8" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=77991196]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer8" unique_id=766136855]
-layout_mode = 2
-text = "Current High Score"
-label_settings = ExtResource("7_yql1r")
-
-[node name="high_score" type="SpinBox" parent="UI/DebugMenu/VBoxContainer/HBoxContainer8" unique_id=225067655]
-layout_mode = 2
-size_flags_horizontal = 10
-offset_transform_position = Vector2(18.77, 0)
-max_value = 1000.0
-alignment = 2
-
-[node name="HBoxContainer9" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=758242577]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer9" unique_id=426131628]
-layout_mode = 2
-text = "Trigger Save"
-label_settings = ExtResource("7_yql1r")
-
-[node name="save" type="Button" parent="UI/DebugMenu/VBoxContainer/HBoxContainer9" unique_id=171781256]
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 4
-offset_transform_enabled = true
-offset_transform_position = Vector2(-3.945, 0)
-text = "Trigger"
-
-[node name="HBoxContainer10" type="HBoxContainer" parent="UI/DebugMenu/VBoxContainer" unique_id=172732325]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="UI/DebugMenu/VBoxContainer/HBoxContainer10" unique_id=1202004359]
-layout_mode = 2
-text = "Trigger Load"
-label_settings = ExtResource("7_yql1r")
-
-[node name="load" type="Button" parent="UI/DebugMenu/VBoxContainer/HBoxContainer10" unique_id=2143395179]
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 4
-offset_transform_enabled = true
-offset_transform_position = Vector2(-3.945, 0)
-text = "Trigger"
-
-[node name="Credits" type="TextureButton" parent="UI" unique_id=2124749204]
+[node name="Credits" type="TextureButton" parent="UI" unique_id=2060503712]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -288,16 +123,14 @@ grow_horizontal = 0
 scale = Vector2(0.25, 0.25)
 texture_normal = ExtResource("9_hiwto")
 
+[node name="AcceptDialog" type="AcceptDialog" parent="." unique_id=927105492]
+oversampling_override = 1.0
+title = ":("
+initial_position = 1
+size = Vector2i(621, 100)
+ok_button_text = "I feel extreme regret for my mistake, and solemly swear never to do it again."
+dialog_text = "YOU BUFFOON! You deleted your save and made it sad."
+
 [connection signal="pressed" from="UI/CenterContainer/PanelContainer/VBoxContainer2/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="UI/CenterContainer/PanelContainer/VBoxContainer2/Quit" to="." method="_on_quit_pressed"]
-[connection signal="toggled" from="UI/DebugMenu/VBoxContainer/HBoxContainer/looseToggle" to="UI/DebugMenu" method="_on_loose_toggle_toggled"]
-[connection signal="toggled" from="UI/DebugMenu/VBoxContainer/HBoxContainer2/winTogle" to="UI/DebugMenu" method="_on_win_togle_toggled"]
-[connection signal="toggled" from="UI/DebugMenu/VBoxContainer/HBoxContainer3/balloonToggle" to="UI/DebugMenu" method="_on_balloon_toggle_toggled"]
-[connection signal="toggled" from="UI/DebugMenu/VBoxContainer/HBoxContainer4/staminaToggle" to="UI/DebugMenu" method="_on_stamina_toggle_toggled"]
-[connection signal="value_changed" from="UI/DebugMenu/VBoxContainer/HBoxContainer5/score_increment" to="UI/DebugMenu" method="_on_score_increment_value_changed"]
-[connection signal="value_changed" from="UI/DebugMenu/VBoxContainer/HBoxContainer6/dog_speed" to="UI/DebugMenu" method="_on_dog_speed_value_changed"]
-[connection signal="value_changed" from="UI/DebugMenu/VBoxContainer/HBoxContainer7/cam_speed" to="UI/DebugMenu" method="_on_cam_speed_value_changed"]
-[connection signal="value_changed" from="UI/DebugMenu/VBoxContainer/HBoxContainer8/high_score" to="UI/DebugMenu" method="_on_high_score_value_changed"]
-[connection signal="pressed" from="UI/DebugMenu/VBoxContainer/HBoxContainer9/save" to="UI/DebugMenu" method="_on_save_pressed"]
-[connection signal="pressed" from="UI/DebugMenu/VBoxContainer/HBoxContainer10/load" to="UI/DebugMenu" method="_on_load_pressed"]
 [connection signal="pressed" from="UI/Credits" to="." method="_on_credits_pressed"]

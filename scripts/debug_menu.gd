@@ -53,6 +53,20 @@ func _on_high_score_value_changed(value: float) -> void:
 func _on_load_pressed() -> void:
 	Global.load_from_save()
 
-
+pass # Replace with function body.
 func _on_save_pressed() -> void:
 	Global.save()
+
+
+func _on_clear_save_pressed() -> void:
+	$"../ConfirmationDialog".show()
+
+
+func _on_confirmation_dialog_confirmed() -> void:
+	Global.save(Global.VERSION, "", 0, false)
+	$"../../AcceptDialog".show()
+	
+
+
+func _on_rotate_toggle_toggled(_toggled_on: bool) -> void:
+	Global.debug.doSpriteRotation = !Global.debug.doSpriteRotation

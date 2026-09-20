@@ -12,9 +12,11 @@ var base_log: LoggieMsg = Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_B
 @export var save_file_path: String = "user://clickycat.tres"
 
 @export_category("Game Settings")
-@export var scoreIncrement: int = 10
+@export var scoreIncrement: int = 40
 @export var dog_speed: float = 70.0
 @export var camera_scroll_speed = 100
+@export var stamina_decrement: int = 25
+@export var stamina_increment: float = 0.25
 
 var score: int = 0
 var highScore: int = 0
@@ -32,11 +34,12 @@ var platforms: Dictionary[Variant, Variant] = {
 	"linux": "linux",
 	"windows": "windows"
 }
-var debug: Dictionary[String, bool] = {
+@export var debug: Dictionary[String, bool] = {
 	"disableLoose": false,
 	"disableWin": false,
 	"hideBalloon": false,
-	"disableStamina": false
+	"disableStamina": true,
+	"doSpriteRotation": true
 }
 func _ready() -> void:
 	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Ready!").color(Color.CHARTREUSE).info()
@@ -46,6 +49,8 @@ func _ready() -> void:
 	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Load_from_save()").debug()
 	load_from_save()
 	print(OS.get_user_data_dir())
+	print(ProjectSettings.get_setting("application/config/version"))
+	ProjectSettings.set_setting("application/config/version", VERSION)
 
 
 func determine_platform() -> String:
@@ -54,15 +59,9 @@ func determine_platform() -> String:
 		if OS.has_feature(feature):
 			platform = feature
 			Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Platform determined: ", platform).info()
-			return platforms[feature]
-	
+			return platforms[feature] 
 	platform = ""
 	return "" # Fallback if no platform matches
-
-
-func _bark():
-	pass
-
 
 func PlayClick(): #TODO: Refactor to be snake case
 	click.play()
@@ -70,13 +69,13 @@ func PlayClick(): #TODO: Refactor to be snake case
 func wait(time: float):
 	await get_tree().create_timer(time).timeout
 	
-func save():
+func save(config_version: String = VERSION, player_name: String = playerName, high_score: int = highScore, custom_cheats_used: bool = self.cheats_used):
 	print("Save() was called!")
 	var data = SaveData.new()
-	data.config_version = VERSION
-	data.name = playerName
-	data.high_score = highScore
-	data.cheats_used = cheats_used
+	data.config_version = config_version
+	data.name = player_name
+	data.high_score = high_score
+	data.cheats_used = custom_cheats_used
 	print("got to save call")
 	var error = ResourceSaver.save(data, save_file_path)
 	if error != OK:

@@ -138,6 +138,8 @@ texture = ExtResource("5_e14kp")
 
 [node name="ground" type="Parallax2D" parent="CanvasLayer" unique_id=184377754]
 scroll_scale = Vector2(0, 0)
+repeat_size = Vector2(1024, 0)
+repeat_times = 10
 
 [node name="ground" type="Sprite2D" parent="CanvasLayer/ground" unique_id=1720293746]
 position = Vector2(508, 598)

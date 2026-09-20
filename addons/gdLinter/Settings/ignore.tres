@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="GDLinterIgnore" format=3 uid="uid://6ip8eigu30by"]
-
-[ext_resource type="Script" uid="uid://d3wca8n7som53" path="res://addons/gdLinter/Settings/ignore.gd" id="1_8j37n"]
-
-[resource]
-script = ExtResource("1_8j37n")
-_max_line_length = true
