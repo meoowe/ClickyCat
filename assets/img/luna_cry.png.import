@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cll5n48ryvrw2"
-path="res://.godot/imported/cat.jpg-014a50db2ab3e7c3d57213c4a729796f.ctex"
+uid="uid://c6cbh0mxrsxca"
+path="res://.godot/imported/luna_cry.png-b6fd8167609c405d7c8141148c062795.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/img/alternateArt/realistic/cat.jpg"
-dest_files=["res://.godot/imported/cat.jpg-014a50db2ab3e7c3d57213c4a729796f.ctex"]
+source_file="res://assets/img/luna_cry.png"
+dest_files=["res://.godot/imported/luna_cry.png-b6fd8167609c405d7c8141148c062795.ctex"]
 
 [params]
 

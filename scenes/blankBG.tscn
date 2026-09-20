@@ -1,11 +1,9 @@
-[gd_scene format=3 uid="uid://d1cxtfy37f8g6"]
+[gd_scene format=3 uid="uid://ijsxnen6id1y"]
 
-[ext_resource type="Script" uid="uid://cqm7ometutgma" path="res://parallax_background.gd" id="1_mwmae"]
 [ext_resource type="Texture2D" uid="uid://d5bfhq8rs7g1" path="res://assets/img/clouds.png" id="2_7qhdl"]
 [ext_resource type="Texture2D" uid="uid://b7yb2ayqtr74d" path="res://assets/img/grass1.png" id="3_g4w6h"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" unique_id=1970107393]
-script = ExtResource("1_mwmae")
 
 [node name="Clouds" type="ParallaxLayer" parent="." unique_id=705652464]
 motion_scale = Vector2(1, 0)

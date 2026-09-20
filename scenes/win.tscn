@@ -48,12 +48,12 @@ texture = ExtResource("3_tcv51")
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -1.0
-offset_top = -327.0
-offset_right = 1023.0
-offset_bottom = 697.0
+offset_left = 336.0
+offset_top = -202.0
+offset_right = 1360.0
+offset_bottom = 822.0
 grow_vertical = 0
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.125, 0.125)
 texture = ExtResource("5_21kbb")
 
 [node name="Cat" type="TextureRect" parent="CanvasLayer" unique_id=809280330]
@@ -62,13 +62,13 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -261.0
-offset_top = -326.0
-offset_right = 763.0
-offset_bottom = 698.0
+offset_left = -260.0
+offset_top = -201.0
+offset_right = 764.0
+offset_bottom = 823.0
 grow_horizontal = 0
 grow_vertical = 0
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.125, 0.125)
 texture = ExtResource("6_r2ggq")
 
 [node name="title" type="TextureButton" parent="CanvasLayer" unique_id=1276610865]

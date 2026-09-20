@@ -13,7 +13,7 @@ motion_mirroring = Vector2(0, 1024)
 
 [node name="Confetti1" type="Sprite2D" parent="confetti" unique_id=703724607]
 position = Vector2(674, 409)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(1.25, 1.5)
 texture = ExtResource("4_n3yc8")
 
 [node name="Clouds" type="ParallaxLayer" parent="." unique_id=2039303949]

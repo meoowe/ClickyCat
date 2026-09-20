@@ -1,13 +1,14 @@
 extends Control
-@onready var cat: CharacterBody2D = $"../cat"
+@onready var game: Node2D = $"../.."
+
 
 
 func _on_title_pressed() -> void:
 	Engine.time_scale = 1
-	get_tree().change_scene_to_file("res://title.tscn")
+	Scenes.title()
 
 
 func _on_play_pressed() -> void:
 	Global.PlayClick()
-	cat.pause()
+	game.pause_game()
 	print("press")

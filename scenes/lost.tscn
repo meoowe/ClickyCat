@@ -1,44 +1,48 @@
 [gd_scene format=3 uid="uid://cl2yue7rhynf7"]
 
 [ext_resource type="Script" uid="uid://cmjrpv3sbwr05" path="res://scripts/lost.gd" id="1_wpjs0"]
-[ext_resource type="Texture2D" uid="uid://dux2id3ro3uwp" path="res://assets/img/Lost.png" id="2_k71ci"]
+[ext_resource type="FontFile" uid="uid://ttcckgioiomf" path="res://Poco.ttf" id="3_mwexj"]
 [ext_resource type="Texture2D" uid="uid://7wq6qjf0wd2m" path="res://assets/img/buttons/exitButton.png" id="3_ve67p"]
 [ext_resource type="Texture2D" uid="uid://dmtxetv3vy6f7" path="res://assets/img/buttons/titleButton.png" id="4_87lk7"]
+[ext_resource type="Texture2D" uid="uid://ngig4dr12jgt" path="res://assets/img/dead_cat.png" id="6_jhsh6"]
+[ext_resource type="PackedScene" uid="uid://cnv1rmmxmj0m4" path="res://scripts/background.tscn" id="6_lujtq"]
+[ext_resource type="Texture2D" uid="uid://c6cbh0mxrsxca" path="res://assets/img/luna_cry.png" id="7_qr6ht"]
+[ext_resource type="Texture2D" uid="uid://lx34gnsnox6x" path="res://assets/img/dog.PNG" id="8_peb8x"]
+[ext_resource type="LabelSettings" uid="uid://by7nj0wx87x4a" path="res://debuglabel.tres" id="9_qr6ht"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1hoyf"]
-bg_color = Color(0.6, 0.643137, 0.6, 0.254902)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hiwto"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_v6w5r"]
-font_size = 32
+font = ExtResource("3_mwexj")
+font_size = 56
+font_color = Color(0, 0, 0, 1)
 
-[node name="lost" type="Control" unique_id=164078955]
+[node name="lost" type="Control" unique_id=164078955 node_paths=PackedStringArray("label_2", "camera")]
 layout_mode = 3
 anchors_preset = 0
+offset_top = 1.0
+offset_bottom = 1.0
 script = ExtResource("1_wpjs0")
+label_2 = NodePath("UI/Panel/VBoxContainer/Label2")
+camera = NodePath("Camera2D")
 
-[node name="LostiMG" type="TextureRect" parent="." unique_id=1506524872]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1.0
-offset_top = -278.0
-offset_right = 1028.0
-offset_bottom = 746.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.4, 1.4)
-texture = ExtResource("2_k71ci")
+[node name="ParallaxBackground" parent="." unique_id=1254942291 instance=ExtResource("6_lujtq")]
+visible = false
 
-[node name="Panel" type="Panel" parent="." unique_id=368511753]
-layout_mode = 0
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1707191168]
+position = Vector2(719, 400)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1107367424]
+
+[node name="Panel" type="Panel" parent="UI" unique_id=368511753]
+z_index = 2
 offset_left = 448.0
 offset_top = 92.0
 offset_right = 977.0
 offset_bottom = 581.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_1hoyf")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_hiwto")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1808778844]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Panel" unique_id=1808778844]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -52,31 +56,79 @@ offset_bottom = 209.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer" unique_id=1805073435]
+[node name="Label" type="Label" parent="UI/Panel/VBoxContainer" unique_id=1805073435]
 layout_mode = 2
-text = "Sowwy! You lost :("
+size_flags_horizontal = 4
+text = "Sorry! You lost :("
 label_settings = SubResource("LabelSettings_v6w5r")
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="Panel/VBoxContainer" unique_id=923975746]
+[node name="Label2" type="Label" parent="UI/Panel/VBoxContainer" unique_id=923975746]
 layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="Control" type="Control" parent="Panel/VBoxContainer" unique_id=881475328]
+[node name="Control" type="Control" parent="UI/Panel/VBoxContainer" unique_id=881475328]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="Button" type="TextureButton" parent="Panel/VBoxContainer" unique_id=1991609368]
+[node name="Button" type="TextureButton" parent="UI/Panel/VBoxContainer" unique_id=1991609368]
 layout_mode = 2
+size_flags_horizontal = 4
 texture_normal = ExtResource("3_ve67p")
 stretch_mode = 4
 
-[node name="Control2" type="Control" parent="Panel/VBoxContainer" unique_id=1675827898]
+[node name="Control2" type="Control" parent="UI/Panel/VBoxContainer" unique_id=1675827898]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="Button2" type="TextureButton" parent="Panel/VBoxContainer" unique_id=22330969]
+[node name="Button2" type="TextureButton" parent="UI/Panel/VBoxContainer" unique_id=22330969]
 layout_mode = 2
+size_flags_horizontal = 4
 texture_normal = ExtResource("4_87lk7")
 
-[connection signal="pressed" from="Panel/VBoxContainer/Button" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/Button2" to="." method="_on_title_pressed"]
+[node name="TextureRect2" type="TextureRect" parent="UI" unique_id=2052157323]
+offset_left = 271.0
+offset_top = 629.0
+offset_right = 1295.0
+offset_bottom = 1653.0
+rotation = -0.4834347
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("6_jhsh6")
+
+[node name="TextureRect" type="TextureRect" parent="UI" unique_id=928556522]
+offset_left = 1258.0
+offset_top = 598.0
+offset_right = 2282.0
+offset_bottom = 1622.0
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("7_qr6ht")
+
+[node name="TextureRect3" type="TextureRect" parent="UI" unique_id=542352410]
+offset_left = 228.0
+offset_top = 643.0
+offset_right = 1252.0
+offset_bottom = 1667.0
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("8_peb8x")
+
+[node name="ColorRect" type="ColorRect" parent="UI" unique_id=1115667688]
+offset_left = 1003.0
+offset_top = 520.0
+offset_right = 1266.0
+offset_bottom = 620.0
+
+[node name="Label" type="Label" parent="UI/ColorRect" unique_id=1031490963]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "NOOO! Clicky! He's dead!
+"
+label_settings = ExtResource("9_qr6ht")
+
+[connection signal="pressed" from="UI/Panel/VBoxContainer/Button" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="UI/Panel/VBoxContainer/Button2" to="." method="_on_title_pressed"]
