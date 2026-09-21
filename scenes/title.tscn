@@ -39,17 +39,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gruo6")
-camera = NodePath("Camera2D")
-
-[node name="ParallaxBackground" parent="." unique_id=1703603096 instance=ExtResource("2_21j0o")]
-show_title_features = true
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1651536655]
-position = Vector2(720, 484)
-limit_left = 0
-limit_top = 0
-limit_right = 1440
-limit_bottom = 800
+camera = NodePath("UI/Camera2D")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1233177592]
 
@@ -123,6 +113,13 @@ grow_horizontal = 0
 scale = Vector2(0.25, 0.25)
 texture_normal = ExtResource("9_hiwto")
 
+[node name="Camera2D" type="Camera2D" parent="UI" unique_id=1651536655]
+position = Vector2(720, 484)
+limit_left = 0
+limit_top = 0
+limit_right = 1440
+limit_bottom = 800
+
 [node name="AcceptDialog" type="AcceptDialog" parent="." unique_id=927105492]
 oversampling_override = 1.0
 title = ":("
@@ -130,6 +127,9 @@ initial_position = 1
 size = Vector2i(621, 100)
 ok_button_text = "I feel extreme regret for my mistake, and solemly swear never to do it again."
 dialog_text = "YOU BUFFOON! You deleted your save and made it sad."
+
+[node name="ParallaxBackground" parent="." unique_id=1254942291 instance=ExtResource("2_21j0o")]
+show_title_features = true
 
 [connection signal="pressed" from="UI/CenterContainer/PanelContainer/VBoxContainer2/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="UI/CenterContainer/PanelContainer/VBoxContainer2/Quit" to="." method="_on_quit_pressed"]

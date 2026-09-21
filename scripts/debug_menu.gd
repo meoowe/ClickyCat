@@ -1,12 +1,25 @@
 extends PanelContainer
 
-
-# Called when the node enters the scene tree for the first time.
+@onready var nameMap = {
+	"looseToggle": Global.debug.disableLoose,
+	"winToggle": Global.debug.disableWin,
+	"balloonToggle": Global.debug.hideBalloon,
+	"staminaToggle": Global.debug.disableStamina,
+	"rotateToggle": Global.debug.doSpriteRotation,
+	"score_increment": Global.scoreIncrement,
+	"dog_speed": Global.dog_speed,
+	"cam_speed": Global.camera_scroll_speed,
+	"high_score": Global.highScore
+}
+# alled when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$VBoxContainer/HBoxContainer5/score_increment.value = Global.scoreIncrement
-	$VBoxContainer/HBoxContainer6/dog_speed.value = Global.dog_speed
-	$VBoxContainer/HBoxContainer7/cam_speed.value = Global.camera_scroll_speed	
-	$VBoxContainer/HBoxContainer8/high_score.value = Global.highScore
+	var all_descendants = find_children("*", "", true)
+	for node in all_descendants:
+		if !(node.name in nameMap): continue
+		if node is CheckButton:
+			node.button_pressed = nameMap[node.name]
+		if node is SpinBox:
+			node.value = nameMap[node.name]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

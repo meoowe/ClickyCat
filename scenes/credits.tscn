@@ -38,9 +38,6 @@ script = ExtResource("1_qlyjt")
 [node name="ParallaxBackground" parent="." unique_id=1254942291 instance=ExtResource("2_hdwxe")]
 position = Vector2(5, -2)
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1908876058]
-position = Vector2(720, 400)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=42149413]
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer" unique_id=622263571]

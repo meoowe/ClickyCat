@@ -17,3 +17,4 @@ func _ready() -> void:
 		luna.visible = false
 	if show_confetti:
 		confetti.show()
+	$CanvasLayer/Clouds.autoscroll.x = Global.camera_scroll_speed
