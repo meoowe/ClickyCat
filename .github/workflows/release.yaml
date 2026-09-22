@@ -14,10 +14,10 @@ permissions:
 
 env:
   # Pin the exact Godot development snapshot.
-  GODOT_VERSION: "4.8-dev4"
+  GODOT_VERSION: "4.8-dev6"
 
   # Official Godot development builds.
-  GODOT_BASE_URL: "https://github.com/godotengine/godot-builds/releases/download/4.8-dev4"
+  GODOT_BASE_URL: "https://github.com/godotengine/godot-builds/releases/download/4.8-dev6"
 
   # Change these only if your export_presets.cfg uses different preset names.
   LINUX_PRESET: "Linux"
@@ -192,7 +192,7 @@ jobs:
           set -euo pipefail
 
           # Godot's internal template version identifier.
-          TEMPLATE_VERSION="4.8.dev4"
+          TEMPLATE_VERSION="4.8.dev6"
           TEMPLATE_ROOT="$HOME/.local/share/godot/export_templates/${TEMPLATE_VERSION}"
 
           rm -rf "$TEMPLATE_ROOT"
@@ -211,7 +211,7 @@ jobs:
           # Move the actual template files into the exact directory
           # Godot searches:
           #
-          # ~/.local/share/godot/export_templates/4.8.dev1/
+          # ~/.local/share/godot/export_templates/4.8.dev6/
           if [[ ! -d "$RUNNER_TEMP/template-extract/templates" ]]; then
             echo "::error::TPZ did not contain the expected templates/ directory"
             exit 1
@@ -361,7 +361,7 @@ jobs:
           set -euo pipefail
 
           # Godot's internal template version identifier.
-          TEMPLATE_VERSION="4.8.dev4"
+          TEMPLATE_VERSION="4.8.dev6"
           TEMPLATE_ROOT="$HOME/.local/share/godot/export_templates/${TEMPLATE_VERSION}"
 
           rm -rf "$TEMPLATE_ROOT"
@@ -380,7 +380,7 @@ jobs:
           # Move the actual template files into the exact directory
           # Godot searches:
           #
-          # ~/.local/share/godot/export_templates/4.8.dev1/
+          # ~/.local/share/godot/export_templates/4.8.dev6/
           if [[ ! -d "$RUNNER_TEMP/template-extract/templates" ]]; then
             echo "::error::TPZ did not contain the expected templates/ directory"
             exit 1
@@ -528,7 +528,7 @@ jobs:
           set -euo pipefail
 
           # Godot's internal template version identifier.
-          TEMPLATE_VERSION="4.8.dev4"
+          TEMPLATE_VERSION="4.8.dev6"
           TEMPLATE_ROOT="$HOME/.local/share/godot/export_templates/${TEMPLATE_VERSION}"
 
           rm -rf "$TEMPLATE_ROOT"
@@ -547,7 +547,7 @@ jobs:
           # Move the actual template files into the exact directory
           # Godot searches:
           #
-          # ~/.local/share/godot/export_templates/4.8.dev1/
+          # ~/.local/share/godot/export_templates/4.8.dev6/
           if [[ ! -d "$RUNNER_TEMP/template-extract/templates" ]]; then
             echo "::error::TPZ did not contain the expected templates/ directory"
             exit 1
