@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-@export var follower: PathFollow2D
 @export var navigation_agent: NavigationAgent2D
 @export var cat: CharacterBody2D
 @export var sprite: AnimatedSprite2D

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://n85ydfhmpl3b" path="res://assets/img/luna.png" id="5_21kbb"]
 [ext_resource type="Texture2D" uid="uid://dmtxetv3vy6f7" path="res://assets/img/buttons/titleButton.png" id="5_yeeby"]
 [ext_resource type="PackedScene" uid="uid://cnv1rmmxmj0m4" path="res://scripts/background.tscn" id="6_5vxan"]
-[ext_resource type="Texture2D" uid="uid://c14sn4owrr1et" path="res://assets/img/cat.png" id="6_r2ggq"]
+[ext_resource type="Texture2D" uid="uid://c14sn4owrr1et" path="res://assets/img/cat/original/cat.png" id="6_r2ggq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_08j7k"]
 font_size = 48

@@ -25,10 +25,10 @@ var platform: String = ""
 var new_high_score: bool = false
 var game_has_started: bool = false
 var cheats_used: bool = false
-
+var games_won: int = 0
 signal save_discarded
 
-var platforms: Dictionary[Variant, Variant] = {
+var platforms: Dictionary[String, String] = {
 	"web": "web",
 	"android": "android",
 	"linux": "linux",
@@ -41,6 +41,8 @@ var platforms: Dictionary[Variant, Variant] = {
 	"disableStamina": true,
 	"doSpriteRotation": true
 }
+var unlocked_skins: Array[CatSkin]
+
 func _ready() -> void:
 	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Ready!").color(Color.CHARTREUSE).info()
 	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Version: ", VERSION).info()
@@ -69,13 +71,21 @@ func PlayClick(): #TODO: Refactor to be snake case
 func wait(time: float):
 	await get_tree().create_timer(time).timeout
 	
-func save(config_version: String = VERSION, player_name: String = playerName, high_score: int = highScore, custom_cheats_used: bool = self.cheats_used):
+func save(
+	config_version: String = VERSION,
+	player_name: String = playerName, 
+	high_score: int = highScore, 
+	custom_cheats_used: bool = self.cheats_used, 
+	games_wonl: int = self.games_won, 
+	skins_unlocked: Array[CatSkin] = self.unlocked_skins):
 	print("Save() was called!")
 	var data = SaveData.new()
 	data.config_version = config_version
 	data.name = player_name
 	data.high_score = high_score
 	data.cheats_used = custom_cheats_used
+	data.games_won = games_wonl
+	data.unlocked_skins = skins_unlocked
 	print("got to save call")
 	var error = ResourceSaver.save(data, save_file_path)
 	if error != OK:
@@ -107,6 +117,8 @@ func load_from_save():
 		base_log.add(" Previous log used cheats, tut tut tut").info()
 	highScore = data.high_score
 	playerName = data.name
+	games_won = data.games_won
+	unlocked_skins = data.unlocked_skins
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

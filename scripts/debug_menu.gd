@@ -1,5 +1,7 @@
 extends PanelContainer
 
+@export var accept_dialog: AcceptDialog
+@export var confirm_dialog: ConfirmationDialog
 @onready var nameMap = {
 	"looseToggle": Global.debug.disableLoose,
 	"winToggle": Global.debug.disableWin,
@@ -20,6 +22,7 @@ func _ready() -> void:
 			node.button_pressed = nameMap[node.name]
 		if node is SpinBox:
 			node.value = nameMap[node.name]
+	confirm_dialog.connect("confirmed", _on_confirmation_dialog_confirmed)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -66,18 +69,17 @@ func _on_high_score_value_changed(value: float) -> void:
 func _on_load_pressed() -> void:
 	Global.load_from_save()
 
-pass # Replace with function body.
 func _on_save_pressed() -> void:
 	Global.save()
 
 
 func _on_clear_save_pressed() -> void:
-	$"../ConfirmationDialog".show()
+	confirm_dialog.show()
 
 
 func _on_confirmation_dialog_confirmed() -> void:
 	Global.save(Global.VERSION, "", 0, false)
-	$"../../AcceptDialog".show()
+	accept_dialog.show()
 	
 
 

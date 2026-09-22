@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CatSkin" format=3 uid="uid://ckxstt20pfdny"]
+
+[ext_resource type="Texture2D" uid="uid://ngig4dr12jgt" path="res://assets/img/dead_cat.png" id="1_y0rg4"]
+[ext_resource type="Texture2D" uid="uid://b828cgavsrqdk" path="res://assets/img/cat/test/testcat.png" id="2_fm0t7"]
+[ext_resource type="Script" uid="uid://cfsosia7tm4td" path="res://scripts/standalone/Skin.gd" id="3_lgqbd"]
+[ext_resource type="Texture2D" uid="uid://e833fhxufmkm" path="res://assets/img/cat/original/catwalk.png" id="4_hybxn"]
+
+[resource]
+script = ExtResource("3_lgqbd")
+id = 68
+name = "g"
+unlocked = true
+normal_image = ExtResource("2_fm0t7")
+walk_anim = ExtResource("4_hybxn")
+dead_image = ExtResource("1_y0rg4")
+metadata/_custom_type_script = "uid://cfsosia7tm4td"

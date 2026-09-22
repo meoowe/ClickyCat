@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b7yb2ayqtr74d" path="res://assets/img/grass1.png" id="2_vad0p"]
 [ext_resource type="Texture2D" uid="uid://85bsffvfh3gr" path="res://assets/img/house.PNG" id="3_n4bwl"]
 [ext_resource type="Texture2D" uid="uid://dvtvijybmd17u" path="res://assets/img/DogBark.png" id="4_lipg6"]
-[ext_resource type="Texture2D" uid="uid://c14sn4owrr1et" path="res://assets/img/cat.png" id="5_e14kp"]
+[ext_resource type="Texture2D" uid="uid://c14sn4owrr1et" path="res://assets/img/cat/original/cat.png" id="5_e14kp"]
 [ext_resource type="Texture2D" uid="uid://n85ydfhmpl3b" path="res://assets/img/luna.png" id="6_p62qg"]
 [ext_resource type="Texture2D" uid="uid://bbfsx5i8yms2p" path="res://assets/img/confetti1.png" id="8_i0bun"]
 

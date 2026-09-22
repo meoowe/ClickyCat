@@ -11,6 +11,11 @@ var trauma_power := 2             # Trauma exponent for non-linear decay
 
 var is_paused: bool = false
 
+enum GameState {
+	PAUSED,
+	GAME_STARTED,
+	GAME_READY
+}
 signal paused(paused: bool)
 signal score_changed(new_score: int)
 
@@ -48,10 +53,11 @@ func _ready() -> void:
 	Global.dog_speed = 200
 	clouds.autoscroll.x = Global.camera_scroll_speed
 
-	
-
-
 func _on_losezone_body_entered(body: Node2D) -> void:
 	if body == cat:
 		await Global.wait(0.3)
 		Scenes.lost()
+
+
+func _on_move_area_pressed() -> void:
+	cat.trigger_move_action()

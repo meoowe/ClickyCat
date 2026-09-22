@@ -14,7 +14,7 @@ stream_0 = ExtResource("2_rgcte")
 [node name="Global" type="Node" unique_id=49738788]
 script = ExtResource("1_6s87d")
 playerName = "Nickname :)"
-VERSION = "2.4.0-19.09.26-Really-super-dev-buggy-af"
+VERSION = "2.4.0-22.09.26-Really-super-dev-buggy-af"
 dog_speed = 170.0
 debug = Dictionary[String, bool]({
 "disableLoose": false,

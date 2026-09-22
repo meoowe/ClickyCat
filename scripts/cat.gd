@@ -16,9 +16,7 @@ var moveAllowed: bool = true
 @export var slope_rotation_speed: float = 10.0 # Speed of smooth sprite rotation
 @export var high_stamina_speed_buff: float = 1.7
 @export var high_stamina_threshold: int = 70
-@onready var ground: StaticBody2D = $"../ground"
-@onready var options: Control = $"../../UI/options"
-@onready var stamina_warning: PanelContainer = $"../../UI/PanelContainer"
+@export var stamina_warning: PanelContainer
 
 # Reference to your specific AnimatedSprite2D or Sprite2D node
 @export var sprite: AnimatedSprite2D
@@ -51,10 +49,6 @@ func show_hide_stamina_warning() -> void:
 	stamina_warning.show()
 	await get_tree().create_timer(1).timeout
 	stamina_warning.hide()
-
-func _on_move_pressed() -> void:
-	Global.PlayClick()
-	trigger_move_action()
 
 func handleCollision(collision: KinematicCollision2D) -> void:
 	collision.get_collider()

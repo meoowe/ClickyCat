@@ -17,7 +17,7 @@ func title():
 
 func won():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("🏆 Game Won! Changing to Win.").info()
-	if !Global.debug.disable_win:
+	if !Global.debug.disableWin:
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/win.tscn")
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("Debug option disallows win scene").info()
 func lost():

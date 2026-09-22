@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://5thom17hbifs" path="res://scripts/debug_menu.gd" id="1_03so6"]
 [ext_resource type="LabelSettings" uid="uid://by7nj0wx87x4a" path="res://debuglabel.tres" id="2_7bace"]
 [ext_resource type="FontFile" uid="uid://dgq0iw7v6d7bj" path="res://ConnectionII.otf" id="2_wb117"]
-[ext_resource type="Script" uid="uid://bycwndilauvb" path="res://scenes/dbg_label_2.gd" id="3_7bace"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eobgq"]
 bg_color = Color(0.6, 0.6, 0.6, 0.46666667)
@@ -11,19 +10,6 @@ bg_color = Color(0.6, 0.6, 0.6, 0.46666667)
 [sub_resource type="LabelSettings" id="LabelSettings_hiwto"]
 font = ExtResource("2_wb117")
 font_size = 25
-font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="SystemFont" id="SystemFont_wb117"]
-subpixel_positioning = 0
-
-[sub_resource type="SystemFont" id="SystemFont_unqbv"]
-fallbacks = Array[Font]([SubResource("SystemFont_wb117")])
-font_names = PackedStringArray("Hack Nerd Font", "Source Code Pro")
-subpixel_positioning = 0
-
-[sub_resource type="LabelSettings" id="LabelSettings_25fq2"]
-font = SubResource("SystemFont_unqbv")
-font_size = 11
 font_color = Color(0, 0, 0, 1)
 
 [node name="DebugMenu" type="PanelContainer" unique_id=1166719206]
@@ -215,15 +201,6 @@ size_flags_vertical = 4
 offset_transform_enabled = true
 offset_transform_position = Vector2(-3.945, 0)
 text = "DELETE!"
-
-[node name="HBoxContainer13" type="HBoxContainer" parent="VBoxContainer" unique_id=970928205]
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer13" unique_id=1122581579]
-layout_mode = 2
-text = "DBG: Time elapsed since Global.game_has_started = true: "
-label_settings = SubResource("LabelSettings_25fq2")
-script = ExtResource("3_7bace")
 
 [connection signal="toggled" from="VBoxContainer/HBoxContainer/looseToggle" to="." method="_on_loose_toggle_toggled"]
 [connection signal="toggled" from="VBoxContainer/HBoxContainer2/winTogle" to="." method="_on_win_togle_toggled"]

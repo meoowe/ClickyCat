@@ -99,7 +99,9 @@ dialog_text = "Are you sure you want to DELETE your beautiful save into which yo
 A little message from your save: \"NOOO PWEASE DOWNT DEWETE ME UwU\""
 cancel_button_text = "Nah"
 
-[node name="DebugMenu" parent="UI" unique_id=233039935 instance=ExtResource("7_ia1n6")]
+[node name="DebugMenu" parent="UI" unique_id=233039935 node_paths=PackedStringArray("accept_dialog", "confirm_dialog") instance=ExtResource("7_ia1n6")]
+accept_dialog = NodePath("../../AcceptDialog")
+confirm_dialog = NodePath("../ConfirmationDialog")
 
 [node name="Credits" type="TextureButton" parent="UI" unique_id=2060503712]
 anchors_preset = 1
