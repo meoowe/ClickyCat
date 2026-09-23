@@ -1,6 +1,7 @@
 builds/*
 .godot/*
 main.py
+historical_export_presets.cfg
 
 # Multiuser Editor access list (local credentials, do not commit).
 .multiuser_access_list.json
