@@ -5,12 +5,34 @@
 [ext_resource type="Script" uid="uid://cfsosia7tm4td" path="res://scripts/standalone/Skin.gd" id="3_lgqbd"]
 [ext_resource type="Texture2D" uid="uid://e833fhxufmkm" path="res://assets/img/cat/original/catwalk.png" id="4_hybxn"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0rg4"]
+atlas = ExtResource("4_hybxn")
+region = Rect2(0, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm0t7"]
+atlas = ExtResource("4_hybxn")
+region = Rect2(1024, 0, 1024, 1024)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wvktn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0rg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fm0t7")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
 [resource]
 script = ExtResource("3_lgqbd")
-id = 68
+id = 67
 name = "g"
 unlocked = true
 normal_image = ExtResource("2_fm0t7")
-walk_anim = ExtResource("4_hybxn")
+walk_anim = SubResource("SpriteFrames_wvktn")
 dead_image = ExtResource("1_y0rg4")
 metadata/_custom_type_script = "uid://cfsosia7tm4td"

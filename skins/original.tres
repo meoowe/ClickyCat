@@ -1,0 +1,56 @@
+[gd_resource type="Resource" script_class="CatSkin" format=3 uid="uid://b8vwj5vqfeemc"]
+
+[ext_resource type="Script" uid="uid://cfsosia7tm4td" path="res://scripts/standalone/Skin.gd" id="1_8ks23"]
+[ext_resource type="Texture2D" uid="uid://ngig4dr12jgt" path="res://assets/img/dead_cat.png" id="1_pk75p"]
+[ext_resource type="Texture2D" uid="uid://c14sn4owrr1et" path="res://assets/img/cat/original/cat.png" id="2_205dw"]
+[ext_resource type="Texture2D" uid="uid://e833fhxufmkm" path="res://assets/img/cat/original/catwalk.png" id="4_hva2v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pk75p"]
+atlas = ExtResource("4_hva2v")
+region = Rect2(0, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_205dw"]
+atlas = ExtResource("4_hva2v")
+region = Rect2(1024, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fda3"]
+atlas = ExtResource("4_hva2v")
+region = Rect2(0, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cutvp"]
+atlas = ExtResource("4_hva2v")
+region = Rect2(1024, 0, 1024, 1024)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yq4i5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pk75p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_205dw")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0fda3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cutvp")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("1_8ks23")
+name = "OG Clicky"
+unlocked = true
+normal_image = ExtResource("2_205dw")
+walk_anim = SubResource("SpriteFrames_yq4i5")
+dead_image = ExtResource("1_pk75p")
+metadata/_custom_type_script = "uid://cfsosia7tm4td"

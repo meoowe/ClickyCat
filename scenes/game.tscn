@@ -276,9 +276,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="game" type="Node2D" unique_id=384593348 node_paths=PackedStringArray("camera", "cat", "clouds")]
+[node name="game" type="Node2D" unique_id=384593348 node_paths=PackedStringArray("cat", "clouds")]
 script = ExtResource("1_ca42v")
-camera = NodePath("")
 cat = NodePath("GameLayer/cat")
 clouds = NodePath("ParallaxBackground/CanvasLayer/Clouds")
 
@@ -412,7 +411,7 @@ script = ExtResource("5_0tnpc")
 position = Vector2(4614, 628)
 shape = SubResource("RectangleShape2D_36uyj")
 
-[node name="dog" type="CharacterBody2D" parent="GameLayer" unique_id=251283634 node_paths=PackedStringArray("navigation_agent", "cat", "sprite")]
+[node name="dog" type="CharacterBody2D" parent="GameLayer" unique_id=251283634 node_paths=PackedStringArray("navigation_agent", "cat", "sprite", "game")]
 position = Vector2(157, 724)
 rotation = -0.004166643
 scale = Vector2(0.99999994, 0.99999994)
@@ -420,6 +419,7 @@ script = ExtResource("17_ssvqc")
 navigation_agent = NodePath("NavigationAgent2D")
 cat = NodePath("../cat")
 sprite = NodePath("dog2")
+game = NodePath("../..")
 
 [node name="dog2" type="AnimatedSprite2D" parent="GameLayer/dog" unique_id=256854698]
 position = Vector2(-83.749275, -60.34945)

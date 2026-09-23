@@ -52,6 +52,7 @@ func _ready() -> void:
 	Global.score = 0
 	Global.dog_speed = 200
 	clouds.autoscroll.x = Global.camera_scroll_speed
+	cat.load_skin(load("res://skins/original.tres"))
 
 func _on_losezone_body_entered(body: Node2D) -> void:
 	if body == cat:

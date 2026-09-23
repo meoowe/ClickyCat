@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Clicky Cat"
-config/tags=PackedStringArray("g")
+config/tags=PackedStringArray("g", "leo_is_a_gooner")
 run/main_scene="res://scenes/title.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="clickycat"
@@ -45,7 +45,7 @@ window/stretch/mode="viewport"
 [editor]
 
 movie_writer/speaker_mode=3
-movie_writer/movie_file="/projects/ClickyCat/uwu.ogv"
+movie_writer/movie_file="/projects/ClickyCat/uwu.avi"
 
 [editor_plugins]
 

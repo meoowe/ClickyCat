@@ -17,17 +17,18 @@ var moveAllowed: bool = true
 @export var high_stamina_speed_buff: float = 1.7
 @export var high_stamina_threshold: int = 70
 @export var stamina_warning: PanelContainer
-
+@export var current_skin: CatSkin
 # Reference to your specific AnimatedSprite2D or Sprite2D node
 @export var sprite: AnimatedSprite2D
+@export var static_mode: bool
 
 signal update_score
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("move"):
+	if Input.is_action_just_pressed("move") and !static_mode:
 		trigger_move_action()
 
-	if not Input.is_action_pressed("move"):
+	if not Input.is_action_pressed("move") and !static_mode:
 		%stamina.value += staminaIncrement
 
 func trigger_move_action() -> void:
@@ -55,30 +56,39 @@ func handleCollision(collision: KinematicCollision2D) -> void:
 	print(collision.get_collider())
 
 func _physics_process(delta: float) -> void:
-	velocity.y += gravity * delta
-	floor_max_angle = deg_to_rad(65.0) # Lowered to 65 to prevent wall climbs treating as a floor
-	floor_snap_length = 12.0
-	floor_constant_speed = true
-	move_and_slide()
-	if is_on_floor() and Global.debug.doSpriteRotation:
-		var floor_normal = get_floor_normal()
-		# Calculate the target angle from the slope normal
-		var target_angle = floor_normal.angle() + PI / 2.0
-		# Smoothly rotate the sprite over time
-		sprite.rotation = lerp_angle(sprite.rotation, target_angle, slope_rotation_speed * delta)
-	elif Global.debug.doSpriteRotation:
-		# Reset to zero rotation smoothly if in the air
-		sprite.rotation = lerp_angle(sprite.rotation, 0.0, slope_rotation_speed * delta)
-	for i in get_slide_collision_count():
-		var collision := get_slide_collision(i)
-		var collider := collision.get_collider()
-		#print("COLLISION: ", collider)
-		#print("TYPE: ", collider.get_class())
-		if collider.get_class() == "RigidBody2D":
-			print("HIT RIGIDBODY")
-	velocity.x = move_toward(velocity.x, 0, 800 * delta)
+	if !static_mode:
+		velocity.y += gravity * delta
+		floor_max_angle = deg_to_rad(65.0) # Lowered to 65 to prevent wall climbs treating as a floor
+		floor_snap_length = 12.0
+		floor_constant_speed = true
+		move_and_slide()
+		if is_on_floor() and Global.debug.doSpriteRotation:
+			var floor_normal = get_floor_normal()
+			# Calculate the target angle from the slope normal
+			var target_angle = floor_normal.angle() + PI / 2.0
+			# Smoothly rotate the sprite over time
+			sprite.rotation = lerp_angle(sprite.rotation, target_angle, slope_rotation_speed * delta)
+		elif Global.debug.doSpriteRotation:
+			# Reset to zero rotation smoothly if in the air
+			sprite.rotation = lerp_angle(sprite.rotation, 0.0, slope_rotation_speed * delta)
+		for i in get_slide_collision_count():
+			var collision := get_slide_collision(i)
+			var collider := collision.get_collider()
+			#print("COLLISION: ", collider)
+			#print("TYPE: ", collider.get_class())
+			if collider.get_class() == "RigidBody2D":
+				print("HIT RIGIDBODY")
+		velocity.x = move_toward(velocity.x, 0, 800 * delta)
 
 func punish_spam():
 	moveAllowed = false
 	await get_tree().create_timer(1).timeout
 	moveAllowed = true
+
+func load_skin(skin: CatSkin):
+	if skin.unlocked:
+		sprite.sprite_frames = skin.walk_anim
+		current_skin = skin
+
+func _ready() -> void:
+	sprite.stop()

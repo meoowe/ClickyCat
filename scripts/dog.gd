@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var navigation_agent: NavigationAgent2D
 @export var cat: CharacterBody2D
 @export var sprite: AnimatedSprite2D
+@export var game: Node2D
 
 var direction 
 func _ready():
@@ -46,6 +47,7 @@ func _physics_process(delta):
 	else:
 		# Reset to zero rotation smoothly if in the air
 		sprite.rotation = lerp_angle(sprite.rotation, 0.0, 10 * delta)
+		
 
 
 func _on_timer_timeout() -> void:
