@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://cuour8s4k4fnn"]
+
+[ext_resource type="Script" uid="uid://bx0jyumtyjyga" path="res://scripts/screen_fader.gd" id="1_42fnx"]
+
+[sub_resource type="Animation" id="Animation_42fnx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fader:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fdrxk"]
+resource_name = "fade_to_black"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fader:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.53333336),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t3rbx"]
+resource_name = "fade_to_clear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fader:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t3rbx"]
+_data = {
+&"RESET": SubResource("Animation_42fnx"),
+&"fade_to_black": SubResource("Animation_fdrxk"),
+&"fade_to_clear": SubResource("Animation_t3rbx")
+}
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1951408646 node_paths=PackedStringArray("fade_rect", "animation_player")]
+layer = 67
+script = ExtResource("1_42fnx")
+fade_rect = NodePath("fader")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="fader" type="ColorRect" parent="." unique_id=601406309]
+z_index = 4096
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 19
+size_flags_vertical = 19
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2031175091]
+libraries/ = SubResource("AnimationLibrary_t3rbx")
+autoplay = &"fade_to_clear"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -123,14 +123,7 @@ layout_mode = 2
 
 [node name="TextureButton" type="TextureButton" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=2027374403]
 layout_mode = 2
-texture_normal = ExtResource("5_8gwij")
-
-[node name="TextureButton2" type="TextureButton" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=2085150225]
-layout_mode = 2
-texture_normal = ExtResource("5_8gwij")
-
-[node name="TextureButton3" type="TextureButton" parent="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer" unique_id=524032464]
-layout_mode = 2
+size_flags_horizontal = 6
 texture_normal = ExtResource("5_8gwij")
 
 [connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/HBoxContainer/TextureButton" to="." method="_on_button_pressed"]

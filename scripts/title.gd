@@ -10,6 +10,10 @@ func _process(delta: float) -> void:
 
 func _ready() -> void:
 	vrsn.text = Global.VERSION
+	var root = get_tree().root
+	var my_autoload = root.get_node("/root/ScreenFader")
+	# Move the autoload to the very bottom of the root viewport children list
+	root.move_child.call_deferred(my_autoload, root.get_child_count() - 1)
 
 func _on_play_pressed() -> void:
 	Global.PlayClick()

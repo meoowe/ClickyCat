@@ -8,7 +8,7 @@ var base_log: LoggieMsg = Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_B
 @onready var click: AudioStreamPlayer = $click
 @export var playerName: String = "Nickname"
 @export var LEADERBOARD_ID: String = "clicky-cat-clickycat-njjy" #TODO: Refactor this to be lowercase
-@export var VERSION: String = "READ-THE-NOTE-SILLY" # NOTE: Do NOT Edit this variabe. Edit through global.tscn instead.!
+@export var VERSION: String = "DO NOT TOUCH" # NOTE: Do NOT Edit this variabe. Edit through project settings!
 @export var save_file_path: String = "user://clickycat.tres"
 
 @export_category("Game Settings")
@@ -51,8 +51,7 @@ func _ready() -> void:
 	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Load_from_save()").debug()
 	load_from_save()
 	print(OS.get_user_data_dir())
-	print(ProjectSettings.get_setting("application/config/version"))
-	ProjectSettings.set_setting("application/config/version", VERSION)
+	VERSION = ProjectSettings.get_setting("application/config/version")
 
 
 func determine_platform() -> String:

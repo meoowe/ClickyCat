@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Clicky Cat"
+config/version="2.4.0-22.09.26"
 config/tags=PackedStringArray("g", "leo_is_a_gooner")
 run/main_scene="res://scenes/title.tscn"
 config/use_custom_user_dir=true
@@ -27,6 +28,7 @@ config/icon="res://icon.PNG"
 Loggie="*res://addons/loggie/loggie.gd"
 Global="*res://scenes/global.tscn"
 Scenes="*res://scripts/autoloads/scenes.gd"
+ScreenFader="*uid://cuour8s4k4fnn"
 
 [blazium]
 
@@ -41,6 +43,10 @@ file_logging/enable_file_logging=true
 window/size/viewport_width=1440
 window/size/viewport_height=800
 window/stretch/mode="viewport"
+
+[dotnet]
+
+project/assembly_name="Clicky Cat"
 
 [editor]
 

@@ -385,8 +385,9 @@ texture = SubResource("CompressedTexture2D_264po")
 region_enabled = true
 region_rect = Rect2(0, 638.0294, 43952.418, 385.97058)
 
-[node name="cat" parent="GameLayer" unique_id=1241384462 instance=ExtResource("8_264po")]
+[node name="cat" parent="GameLayer" unique_id=1241384462 node_paths=PackedStringArray("stamina_warning") instance=ExtResource("8_264po")]
 position = Vector2(338, 672)
+stamina_warning = NodePath("../../UI/PanelContainer")
 
 [node name="mountain" type="StaticBody2D" parent="GameLayer" unique_id=1820348813]
 position = Vector2(550, 0)

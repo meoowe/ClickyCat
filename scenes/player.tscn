@@ -28,4 +28,4 @@ limit_enabled = false
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=81688452]
 position = Vector2(4, -4)
 scale = Vector2(0.125, 0.125)
-animation = &"walk"
+animation = &""
