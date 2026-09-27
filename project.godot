@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Clicky Cat"
-config/version="2.4.0-22.09.26"
+config/version="v2.4.0-26.09.26-Really-super-dev-buggy-af"
 config/tags=PackedStringArray("g", "leo_is_a_gooner")
 run/main_scene="res://scenes/title.tscn"
 config/use_custom_user_dir=true

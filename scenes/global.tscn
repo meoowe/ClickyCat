@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://cas3diym2lyfa" path="res://assets/music2.mp3" id="2_rgcte"]
 [ext_resource type="AudioStream" uid="uid://dt0cv8y63srrx" path="res://assets/Track.mp3" id="4_nelfd"]
 [ext_resource type="AudioStream" uid="uid://durf8lom5yr6v" path="res://assets/click.mp3" id="5_dg76f"]
+[ext_resource type="Script" uid="uid://cxk04ukh4wmum" path="res://scripts/tool_write_version.gd" id="5_nelfd"]
 
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_meubt"]
 shuffle = true
@@ -34,3 +35,7 @@ stream = ExtResource("5_dg76f")
 stream = ExtResource("4_nelfd")
 bus = &"music"
 parameters/looping = true
+
+[node name="Node" type="Node" parent="." unique_id=1206318054]
+script = ExtResource("5_nelfd")
+version_string = "v2.4.0-26.09.26-Really-super-dev-buggy-af"
