@@ -38,4 +38,4 @@ parameters/looping = true
 
 [node name="Node" type="Node" parent="." unique_id=1206318054]
 script = ExtResource("5_nelfd")
-version_string = "v2.4.0-26.09.26-Really-super-dev-buggy-af"
+version_string = "v2.4.0-30.09.26"

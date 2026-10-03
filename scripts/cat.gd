@@ -68,10 +68,10 @@ func _physics_process(delta: float) -> void:
 			var target_angle = floor_normal.angle() + PI / 2.0
 			# Smoothly rotate the sprite over time
 			sprite.global_rotation = lerp_angle(sprite.global_rotation, target_angle, slope_rotation_speed * delta)
-		elif Global.debug.doSpriteRotation:
+		else:
 			# Reset to zero rotation smoothly if in the air
 			sprite.global_rotation = lerp_angle(sprite.global_rotation, 0.0, slope_rotation_speed * delta)
-		#velocity.x = move_toward(velocity.x, 0, 800 * delta)
+		velocity.x = move_toward(velocity.x, 0, 800 * delta)
 
 func punish_spam():
 	moveAllowed = false
