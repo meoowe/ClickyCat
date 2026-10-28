@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhn3vkdxvetbn"
-path="res://.godot/imported/steam.svg-1c1b1c87b286630e8735047e7af015ac.ctex"
+uid="uid://2x8w7ilkjhno"
+path="res://.godot/imported/warning.png-727ceba4fcd177329e82de2b598ad2d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/godotsteam/editor/ui/steam.svg"
-dest_files=["res://.godot/imported/steam.svg-1c1b1c87b286630e8735047e7af015ac.ctex"]
+source_file="res://assets/img/warning.png"
+dest_files=["res://.godot/imported/warning.png-727ceba4fcd177329e82de2b598ad2d6.ctex"]
 
 [params]
 
@@ -41,6 +41,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

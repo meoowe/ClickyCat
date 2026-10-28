@@ -6,8 +6,8 @@ var base_log = Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	base_log.add(" Ready!").color(Color.CHARTREUSE).info()
-	title_screen_switch.connect(Global.start_title_music)
-	game_scene_start.connect(Global.start_game_music)
+	title_screen_switch.connect(MusicManager.start_title_music)
+	game_scene_start.connect(MusicManager.start_game_music)
 
 
 func title():
@@ -20,7 +20,7 @@ func title():
 func won():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("🏆 Game Won! Changing to Win.").info()
 	if !Global.debug.disableWin:
-		ScreenFader.fade_dark()
+		await ScreenFader.fade_dark()
 		get_tree().call_deferred("change_scene_to_file", "res://scenes/win.tscn")
 		ScreenFader.fade_clear()
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("Debug option disallows win scene").info()
@@ -29,14 +29,19 @@ func lost():
 	if Global.debug.disableLoose:
 		Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("Debug option disallows lose scene").info()
 		return
+	await ScreenFader.fade_dark()
 	get_tree().call_deferred("change_scene_to_file", "res://scenes/lost.tscn")
+	ScreenFader.fade_clear()
 func quit():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("🎮 Game Quit! Goodbye :)").info()
 	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 
 func leaderboard():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("🥇 Changing scene to Leaderboard").info()
+	await ScreenFader.fade_dark()
 	get_tree().call_deferred("change_scene_to_file", "res://scenes/leaderboard.tscn")
+	ScreenFader.fade_clear()
+
 func credits():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("📜 Changing scene to Credits").info()
 	await ScreenFader.fade_dark()

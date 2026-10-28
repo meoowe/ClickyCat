@@ -1,18 +1,37 @@
 [gd_scene format=3 uid="uid://di4fl7jlsijwh"]
 
 [ext_resource type="Script" uid="uid://djc6nsmupoq3p" path="res://scripts/cat.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://2x8w7ilkjhno" path="res://assets/img/warning.png" id="2_g2els"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trtic"]
 size = Vector2(119, 120)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_1kice"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_g2els")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="cat" type="CharacterBody2D" unique_id=1241384462 node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_g2els")
+gravity = null
 staminaIncrement = 0.625
 staminaDecrement = 20
 staminaMin = 12
+belowMinStaminaPenalty = null
+dogSpeed = null
+catSpeed = null
+scroll_speed = null
+slope_rotation_speed = null
 high_stamina_speed_buff = 2.0
 high_stamina_threshold = 55
 sprite = NodePath("AnimatedSprite2D")
+static_mode = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=271294555]
 shape = SubResource("RectangleShape2D_trtic")
@@ -27,5 +46,4 @@ limit_enabled = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=81688452]
 position = Vector2(4, -4)
-scale = Vector2(0.125, 0.125)
-animation = &""
+sprite_frames = SubResource("SpriteFrames_1kice")

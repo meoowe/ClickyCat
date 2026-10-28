@@ -6,3 +6,5 @@ func _on_body_entered(body: Node2D) -> void:
 	if body == cat and !Global.debug.disableWin:
 		Scenes.won()
 		Global.games_won += 1
+	elif body == cat:
+		pass

@@ -3,7 +3,8 @@ extends CanvasLayer
 
 var active_tween: Tween
 var current_display_value: int = 0
-
+func _ready() -> void:
+	Gamestate.connect("score_changed", self._on_game_score_changed)
 func _on_game_score_changed(new_score: int) -> void:
 	if active_tween:
 		active_tween.kill()

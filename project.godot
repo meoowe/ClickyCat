@@ -29,6 +29,9 @@ Loggie="*res://addons/loggie/loggie.gd"
 Global="*res://scenes/global.tscn"
 Scenes="*res://scripts/autoloads/scenes.gd"
 ScreenFader="*uid://cuour8s4k4fnn"
+SaveManager="*uid://b2h8ruuwk2xea"
+Gamestate="*uid://fce08f1nj756"
+MusicManager="*uid://48qcimrvfsml"
 
 [blazium]
 

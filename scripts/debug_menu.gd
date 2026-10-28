@@ -1,5 +1,5 @@
 extends PanelContainer
-
+@export var option_button: OptionButton
 @export var accept_dialog: AcceptDialog
 @export var confirm_dialog: ConfirmationDialog
 @onready var nameMap = {
@@ -11,8 +11,9 @@ extends PanelContainer
 	"score_increment": Global.scoreIncrement,
 	"dog_speed": Global.dog_speed,
 	"cam_speed": Global.camera_scroll_speed,
-	"high_score": Global.highScore
+	"high_score": Gamestate.highScore
 }
+var flag_inf_proc = false
 # alled when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var all_descendants = find_children("*", "", true)
@@ -28,6 +29,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("debug"):
 		self.visible = !visible
+	if flag_inf_proc:
+		while true:
+			print("Oops infinite loop in _process")
 
 func _on_stamina_toggle_toggled(_toggled_on: bool) -> void:
 	Global.debug.disableStamina = !Global.debug.disableStamina
@@ -62,15 +66,15 @@ func _on_cam_speed_value_changed(value: float) -> void:
 
 
 func _on_high_score_value_changed(value: float) -> void:
-	Global.highScore = int(value)
+	Gamestate.highScore = int(value)
 	Global.cheats_used = true
 
 
 func _on_load_pressed() -> void:
-	Global.load_from_save()
+	SaveManager.load_from_save()
 
 func _on_save_pressed() -> void:
-	Global.save()
+	SaveManager.save()
 
 
 func _on_clear_save_pressed() -> void:
@@ -78,10 +82,32 @@ func _on_clear_save_pressed() -> void:
 
 
 func _on_confirmation_dialog_confirmed() -> void:
-	Global.save(Global.VERSION, "", 0, false)
+	Gamestate.playerName = "Nickname"
+	Gamestate.highScore = 0
+	Gamestate.cheats_used = false
+	Gamestate.games_won = 0
+	Gamestate.unlocked_skins.clear()
+	Gamestate.achivements_unlocked.clear()
+	SaveManager.save()
 	accept_dialog.show()
 	
-
-
 func _on_rotate_toggle_toggled(_toggled_on: bool) -> void:
 	Global.debug.doSpriteRotation = !Global.debug.doSpriteRotation
+
+
+func _on_crash_pressed() -> void:
+	match option_button.selected:
+		0: # Free root node
+			get_tree().root.queue_free()
+		1: 
+			flag_inf_proc = true
+		2:
+			while true:
+				add_child(Node.new())
+		3:
+			OS.kill(OS.get_process_id())
+		4: 
+			var dummy = Node.new()
+			add_child(dummy)
+			dummy.free()
+			dummy.set_meta("crash", true) 

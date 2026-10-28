@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ngig4dr12jgt" path="res://assets/img/dead_cat.png" id="1_y0rg4"]
 [ext_resource type="Texture2D" uid="uid://b828cgavsrqdk" path="res://assets/img/cat/test/testcat.png" id="2_fm0t7"]
-[ext_resource type="Script" uid="uid://cfsosia7tm4td" path="res://scripts/standalone/Skin.gd" id="3_lgqbd"]
+[ext_resource type="Script" uid="uid://cfsosia7tm4td" path="res://scripts/resources/Skin.gd" id="3_lgqbd"]
 [ext_resource type="Texture2D" uid="uid://e833fhxufmkm" path="res://assets/img/cat/original/catwalk.png" id="4_hybxn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y0rg4"]

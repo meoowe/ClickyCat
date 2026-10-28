@@ -12,11 +12,12 @@ font = ExtResource("2_wb117")
 font_size = 25
 font_color = Color(0, 0, 0, 1)
 
-[node name="DebugMenu" type="PanelContainer" unique_id=1166719206]
+[node name="DebugMenu" type="PanelContainer" unique_id=1166719206 node_paths=PackedStringArray("option_button")]
 offset_right = 276.0
 offset_bottom = 283.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_eobgq")
 script = ExtResource("1_03so6")
+option_button = NodePath("VBoxContainer/HBoxContainer13/OptionButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1313134205]
 layout_mode = 2
@@ -202,6 +203,37 @@ offset_transform_enabled = true
 offset_transform_position = Vector2(-3.945, 0)
 text = "DELETE!"
 
+[node name="HBoxContainer13" type="HBoxContainer" parent="VBoxContainer" unique_id=1945387065]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer13" unique_id=871196838]
+layout_mode = 2
+text = "Crash Gameh"
+label_settings = ExtResource("2_7bace")
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer13" unique_id=1333064429]
+layout_mode = 2
+size_flags_horizontal = 10
+item_count = 5
+popup/item_0/text = "Free rnode"
+popup/item_0/id = 0
+popup/item_1/text = "Inf _proc"
+popup/item_1/id = 1
+popup/item_2/text = "Flood RAM"
+popup/item_2/id = 2
+popup/item_3/text = "Kill proc"
+popup/item_3/id = 3
+popup/item_4/text = "Null Ref"
+popup/item_4/id = 4
+
+[node name="crash" type="Button" parent="VBoxContainer/HBoxContainer13" unique_id=1907261261]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_position = Vector2(-3.945, 0)
+text = "CRASH!"
+
 [connection signal="toggled" from="VBoxContainer/HBoxContainer/looseToggle" to="." method="_on_loose_toggle_toggled"]
 [connection signal="toggled" from="VBoxContainer/HBoxContainer2/winTogle" to="." method="_on_win_togle_toggled"]
 [connection signal="toggled" from="VBoxContainer/HBoxContainer3/balloonToggle" to="." method="_on_balloon_toggle_toggled"]
@@ -214,3 +246,4 @@ text = "DELETE!"
 [connection signal="pressed" from="VBoxContainer/HBoxContainer9/save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer10/load" to="." method="_on_load_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer11/clear_save" to="." method="_on_clear_save_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer13/crash" to="." method="_on_crash_pressed"]

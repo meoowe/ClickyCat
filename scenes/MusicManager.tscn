@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://48qcimrvfsml"]
+
+[ext_resource type="Script" uid="uid://c8niaumlfg14a" path="res://scripts/autoloads/music_manager.gd" id="1_wh65u"]
+[ext_resource type="AudioStream" uid="uid://dt0cv8y63srrx" path="res://assets/Track.mp3" id="2_d6wjf"]
+[ext_resource type="AudioStream" uid="uid://durf8lom5yr6v" path="res://assets/click.mp3" id="3_1gjyk"]
+[ext_resource type="AudioStream" uid="uid://cas3diym2lyfa" path="res://assets/music2.mp3" id="4_0w2qm"]
+[ext_resource type="AudioStream" uid="uid://doyscnoadhdpr" path="res://assets/otherTrack.mp3" id="5_p6ku3"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_icnqf"]
+stream_count = 1
+stream_0 = ExtResource("2_d6wjf")
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_mvbrv"]
+stream_count = 2
+stream_0 = ExtResource("4_0w2qm")
+stream_1 = ExtResource("5_p6ku3")
+
+[node name="MusicManager" type="Node" unique_id=1756702569 node_paths=PackedStringArray("title_music", "click", "music")]
+script = ExtResource("1_wh65u")
+title_music = NodePath("title_music")
+click = NodePath("click")
+music = NodePath("music")
+
+[node name="title_music" type="AudioStreamPlayer" parent="." unique_id=1426238434]
+stream = SubResource("AudioStreamPlaylist_icnqf")
+
+[node name="click" type="AudioStreamPlayer" parent="." unique_id=1017336105]
+stream = ExtResource("3_1gjyk")
+
+[node name="music" type="AudioStreamPlayer" parent="." unique_id=761947557]
+stream = SubResource("AudioStreamPlaylist_mvbrv")

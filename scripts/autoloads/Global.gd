@@ -1,15 +1,9 @@
 extends Node
-
+# Todo: finish porting musicmanager
 var base_log: LoggieMsg = Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE)
 
-@onready var music: AudioStreamPlayer = $music
-@onready var title_music: AudioStreamPlayer = $title_music
-
-@onready var click: AudioStreamPlayer = $click
-@export var playerName: String = "Nickname"
 @export var LEADERBOARD_ID: String = "clicky-cat-clickycat-njjy" #TODO: Refactor this to be lowercase
 @export var VERSION: String = "DO NOT TOUCH" # NOTE: Do NOT Edit this variabe. Edit through project settings!
-@export var save_file_path: String = "user://clickycat.tres"
 
 @export_category("Game Settings")
 @export var scoreIncrement: int = 40
@@ -18,15 +12,7 @@ var base_log: LoggieMsg = Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_B
 @export var stamina_decrement: int = 25
 @export var stamina_increment: float = 0.25
 
-var score: int = 0
-var highScore: int = 0
-var balloonClicked: bool = false
 var platform: String = ""
-var new_high_score: bool = false
-var game_has_started: bool = false
-var cheats_used: bool = false
-var games_won: int = 0
-signal save_discarded
 
 var platforms: Dictionary[String, String] = {
 	"web": "web",
@@ -41,15 +27,46 @@ var platforms: Dictionary[String, String] = {
 	"disableStamina": true,
 	"doSpriteRotation": true
 }
-var unlocked_skins: Array[CatSkin]
+var unlocked_skins: Array[CatSkin]:
+	get: return Gamestate.unlocked_skins
+	set(value): Gamestate.unlocked_skins = value
+
+# Compatibility properties for existing gameplay scripts. Gamestate is the
+# single owner of session and player progress; Global retains settings/audio.
+var score: int:
+	get: return Gamestate.score
+	set(value): Gamestate.score = value
+var highScore: int:
+	get: return Gamestate.highScore
+	set(value): Gamestate.highScore = value
+var balloonClicked: bool:
+	get: return Gamestate.balloonClicked
+	set(value): Gamestate.balloonClicked = value
+var new_high_score: bool:
+	get: return Gamestate.new_high_score
+	set(value): Gamestate.new_high_score = value
+var game_has_started: bool:
+	get: return Gamestate.game_has_started
+	set(value): Gamestate.game_has_started = value
+var cheats_used: bool:
+	get: return Gamestate.cheats_used
+	set(value): Gamestate.cheats_used = value
+var games_won: int:
+	get: return Gamestate.games_won
+	set(value): Gamestate.games_won = value
+var playerName: String:
+	get: return Gamestate.playerName
+	set(value): Gamestate.playerName = value
+var achivements_unlocked: Array[Achivement]:
+	get: return Gamestate.achivements_unlocked
+	set(value): Gamestate.achivements_unlocked = value
 
 func _ready() -> void:
 	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Ready!").color(Color.CHARTREUSE).info()
 	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Version: ", VERSION).info()
 	determine_platform()
-	title_music.play()
 	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Load_from_save()").debug()
-	load_from_save()
+	SaveManager.load_from_save()
 	print(OS.get_user_data_dir())
 	VERSION = ProjectSettings.get_setting("application/config/version")
 
@@ -65,80 +82,18 @@ func determine_platform() -> String:
 	return "" # Fallback if no platform matches
 
 func PlayClick(): #TODO: Refactor to be snake case
-	click.play()
+	pass
 
 func wait(time: float):
 	await get_tree().create_timer(time).timeout
-	
-func save(
-	config_version: String = VERSION,
-	player_name: String = playerName, 
-	high_score: int = highScore, 
-	custom_cheats_used: bool = self.cheats_used, 
-	games_wonl: int = self.games_won, 
-	skins_unlocked: Array[CatSkin] = self.unlocked_skins):
-	print("Save() was called!")
-	var data = SaveData.new()
-	data.config_version = config_version
-	data.name = player_name
-	data.high_score = high_score
-	data.cheats_used = custom_cheats_used
-	data.games_won = games_wonl
-	data.unlocked_skins = skins_unlocked
-	print("got to save call")
-	var error = ResourceSaver.save(data, save_file_path)
-	if error != OK:
-		Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Failed  to save! ", error).error()
-		return
-	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Saved game!").info()
-	print("saved game")
-
-func load_from_save():
-	print("load_from_save() was called")
-	if !ResourceLoader.exists(save_file_path):
-		base_log.add(" No save file exists! Skipping load!").warn()
-		return
-	var data: SaveData = load(save_file_path)
-	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(
-		" Found save file. Loading data:"
-		).hseparator().add(
-			"High Score: ", data.high_score
-			).nl().add(
-				"Name: ", data.name
-				).nl().add(
-					"Cheats:", data.cheats_used
-				).box().info()
-	if data.config_version != VERSION:
-		base_log.add(" Tried to load diffrent config ver save! Aborting!").error()
-		save_discarded.emit()
-		return
-	if data.cheats_used:
-		base_log.add(" Previous log used cheats, tut tut tut").info()
-	highScore = data.high_score
-	playerName = data.name
-	games_won = data.games_won
-	unlocked_skins = data.unlocked_skins
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add("🚪 Recieved WM Close Request, saving and gracefully quitting.").info()
 		print("_notification: calling save!")
 		get_viewport().set_input_as_handled()
-		save()
+		SaveManager.save()
 		if OS.has_feature("web"):
 			JavaScriptBridge.eval("window.close()")
 		else:
 			get_tree().quit()
-
-func toggle_music():
-	if music.playing:
-		music.stop()
-	else: music.play()
-
-func start_title_music():
-	music.stop()
-	title_music.play()
-
-func start_game_music():
-	title_music.stop()
-	music.play()

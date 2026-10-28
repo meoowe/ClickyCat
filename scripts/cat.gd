@@ -22,7 +22,6 @@ var moveAllowed: bool = true
 @export var sprite: AnimatedSprite2D
 @export var static_mode: bool
 
-signal update_score
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("move") and !static_mode:
@@ -36,7 +35,7 @@ func trigger_move_action() -> void:
 		return
 	Global.game_has_started = true
 	if (%stamina.value >= staminaMin and moveAllowed) or (Global.debug.disableStamina):
-		update_score.emit()
+		Gamestate.add_score()
 		sprite.play_backwards()
 		if %stamina.value >= high_stamina_threshold:
 			velocity.x = catSpeed * high_stamina_speed_buff
@@ -82,6 +81,7 @@ func load_skin(skin: CatSkin):
 	if skin.unlocked:
 		sprite.sprite_frames = skin.walk_anim
 		current_skin = skin
+		sprite.scale = Vector2(0.125, 0.125)
 
 func _ready() -> void:
 	sprite.stop()
