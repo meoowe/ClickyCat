@@ -36,7 +36,9 @@ func _on_pressed() -> void:
 	self.modulate = Color.WHITE
 	if self.visible and Global.game_has_started: 
 		Global.scoreIncrement = 20
+		Gamestate.add_score(20)
 		Global.balloonClicked = true 
+		AchivementManager.on_balloon_clicked()
 		Global.PlayClick()
 
 func fade_out_and_hide(end_show: bool,duration: float = 0.5):

@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cghcsecgjlbrf"]
+
+[ext_resource type="Texture2D" uid="uid://c3pd7osh6hxqd" path="res://assets/img/trophy.png" id="1_icon"]
+[ext_resource type="Script" uid="uid://b6exjf4e1yyyv" path="res://scripts/achievement_plaque.gd" id="2_script"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 28
+
+[sub_resource type="LabelSettings" id="LabelSettings_description"]
+font_size = 18
+
+[node name="AchievementPlaque" type="PanelContainer" unique_id=860943149]
+custom_minimum_size = Vector2(500, 150)
+script = ExtResource("2_script")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1237897721]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=756419041]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("1_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1662490001]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=1685788009]
+layout_mode = 2
+text = "Achievement"
+label_settings = SubResource("LabelSettings_title")
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=1764568098]
+layout_mode = 2
+text = "Description"
+label_settings = SubResource("LabelSettings_description")
+autowrap_mode = 2
+
+[node name="State" type="RichTextLabel" parent="HBoxContainer/VBoxContainer" unique_id=1660277925]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true

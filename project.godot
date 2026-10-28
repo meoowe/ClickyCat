@@ -32,6 +32,7 @@ ScreenFader="*uid://cuour8s4k4fnn"
 SaveManager="*uid://b2h8ruuwk2xea"
 Gamestate="*uid://fce08f1nj756"
 MusicManager="*uid://48qcimrvfsml"
+AchivementManager="*res://scripts/autoloads/AchivementManager.gd"
 
 [blazium]
 

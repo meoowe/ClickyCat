@@ -72,9 +72,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 texture_normal = ExtResource("3_pt2cc")
 
-[node name="Options" type="TextureButton" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=1549670739]
-custom_minimum_size = Vector2(50, 50)
+[node name="Achievements" type="Button" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=1549670739]
+custom_minimum_size = Vector2(180, 50)
 layout_mode = 2
+size_flags_horizontal = 4
+text = "Achievements"
 
 [node name="Quit" type="TextureButton" parent="UI/CenterContainer/PanelContainer/VBoxContainer2" unique_id=235604088]
 layout_mode = 2
@@ -134,5 +136,6 @@ dialog_text = "YOU BUFFOON! You deleted your save and made it sad."
 show_title_features = true
 
 [connection signal="pressed" from="UI/CenterContainer/PanelContainer/VBoxContainer2/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="UI/CenterContainer/PanelContainer/VBoxContainer2/Achievements" to="." method="_on_achievements_pressed"]
 [connection signal="pressed" from="UI/CenterContainer/PanelContainer/VBoxContainer2/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="UI/Credits" to="." method="_on_credits_pressed"]

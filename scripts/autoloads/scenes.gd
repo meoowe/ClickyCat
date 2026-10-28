@@ -26,6 +26,7 @@ func won():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("Debug option disallows win scene").info()
 func lost():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("☹️ Game Lost! Changing to Lost.").info()
+	AchivementManager.on_game_lost()
 	if Global.debug.disableLoose:
 		Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("Debug option disallows lose scene").info()
 		return
@@ -40,6 +41,11 @@ func leaderboard():
 	Loggie.msg("[Scenes]").bold().color(Color.CADET_BLUE).add("🥇 Changing scene to Leaderboard").info()
 	await ScreenFader.fade_dark()
 	get_tree().call_deferred("change_scene_to_file", "res://scenes/leaderboard.tscn")
+	ScreenFader.fade_clear()
+
+func achievements():
+	await ScreenFader.fade_dark()
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/achivememt_viewer.tscn")
 	ScreenFader.fade_clear()
 
 func credits():

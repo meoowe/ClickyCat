@@ -235,9 +235,12 @@ size = Vector2(126.03636, 125.03239)
 size = Vector2(229.26852, 176.6416)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_264po"]
-vertices = PackedVector2Array(2863.1094, -243.78906, 2875.8828, 861.90625, -3.2109375, 838, 2223.1328, -231, 22.289063, -218, 1.4765625, -217.00781, -1821.2188, -101.59375, 1.46875, -217.00781, -572.1328, 866.9922, -1843.75, 819.3672)
+vertices = PackedVector2Array(2867.7266, -243.89063, 3572.1094, 806.96875, -3.296875, 838, 2223.1328, -231, 22.289063, -218, 1.4765625, -217.00781, -1821.2188, -101.59375, 1.46875, -217.00781, -572.1328, 866.9922, -1843.75, 819.3672)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 7, 5, 2, 8, 9)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(22, -228, 2223, -241, 2873, -254, 2886, 872, -3, 848, -572, 877, -1854, 829, -1831, -111, 1, -227)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(22, -228, 2223, -241, 2873, -254, 3590.748, 816.8116, -3, 848, -572, 877, -1854, 829, -1831, -111, 1, -227)])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_peb8x"]
+size = Vector2(93.907715, 91.34216)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ski2u"]
 atlas = ExtResource("3_kxon8")
@@ -317,10 +320,11 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="game" type="Node2D" unique_id=384593348 node_paths=PackedStringArray("cat", "clouds")]
+[node name="game" type="Node2D" unique_id=384593348 node_paths=PackedStringArray("cat", "clouds", "timer")]
 script = ExtResource("1_ca42v")
 cat = NodePath("GameLayer/cat")
 clouds = NodePath("ParallaxBackground/CanvasLayer/Clouds")
+timer = NodePath("GameLayer/bounce/Timer")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1559817989]
 layer = 2
@@ -537,6 +541,21 @@ texture = ExtResource("3_ca42v")
 position = Vector2(1820, -65)
 navigation_polygon = SubResource("NavigationPolygon_264po")
 
+[node name="bounce" type="Area2D" parent="GameLayer" unique_id=2140402531]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameLayer/bounce" unique_id=1401352014]
+position = Vector2(4423.0894, 665.855)
+shape = SubResource("RectangleShape2D_peb8x")
+
+[node name="Timer" type="Timer" parent="GameLayer/bounce" unique_id=1761534822]
+
+[node name="ColorRect" type="ColorRect" parent="GameLayer/bounce" unique_id=1938188633]
+offset_left = 4370.982
+offset_top = 699.7638
+offset_right = 4475.826
+offset_bottom = 739.7638
+color = Color(1, 0, 1, 1)
+
 [node name="ParallaxBackground" type="Node2D" parent="." unique_id=1254942291]
 script = ExtResource("1_trtic")
 
@@ -618,9 +637,9 @@ height = 0.18
 max_distance = 16384.0
 
 [connection signal="paused" from="." to="GameLayer/dog" method="_on_game_paused"]
-[connection signal="score_changed" from="." to="UI" method="_on_game_score_changed"]
 [connection signal="pressed" from="UI/moveArea" to="." method="_on_move_area_pressed"]
 [connection signal="pressed" from="UI/balloon" to="UI/balloon" method="_on_pressed"]
 [connection signal="body_entered" from="GameLayer/winZone" to="GameLayer/winZone" method="_on_body_entered"]
 [connection signal="timeout" from="GameLayer/dog/Timer" to="GameLayer/dog" method="_on_timer_timeout"]
 [connection signal="body_entered" from="GameLayer/dog/losezone" to="." method="_on_losezone_body_entered"]
+[connection signal="body_entered" from="GameLayer/bounce" to="." method="_on_bounce_body_entered"]

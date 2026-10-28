@@ -23,6 +23,10 @@ func _on_credits_pressed() -> void:
 	Global.PlayClick()
 	Scenes.credits()
 
+func _on_achievements_pressed() -> void:
+	Global.PlayClick()
+	Scenes.achievements()
+
 func _on_quit_pressed() -> void:
 	Global.PlayClick()
 	Scenes.quit()

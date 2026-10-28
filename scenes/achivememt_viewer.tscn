@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://da7y74p7nuyis"]
+
+[ext_resource type="Script" uid="uid://btayfh8bwkql0" path="res://scripts/achievement_viewer.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dmtxetv3vy6f7" path="res://assets/img/buttons/titleButton.png" id="2_fwa8u"]
+
+[node name="AchivememtViewer" type="Control" unique_id=1326818127]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Title" type="Label" parent="." unique_id=47037532]
+layout_mode = 0
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 12.0
+offset_right = 150.0
+offset_bottom = 60.0
+grow_horizontal = 2
+text = "Achievements"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="TextureButton" parent="." unique_id=192284564]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 128.0
+texture_normal = ExtResource("2_fwa8u")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=361935919]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = 131.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer" unique_id=345106558]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 2

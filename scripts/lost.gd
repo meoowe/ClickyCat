@@ -1,6 +1,7 @@
 extends Control
 @export var label_2: Label
 @export var camera: Camera2D
+@export var cat: CharacterBody2D
 
 # Called when the node enters the scene tree for the first time.
 
@@ -16,6 +17,7 @@ func _ready() -> void:
 		+ "\nYour High Score is "
 		+ str(Global.highScore)
 	)
+	cat.load_skin(load("res://skins/original.tres"))
 func _on_quit_pressed() -> void:
 	Global.PlayClick()
 	get_tree().quit()

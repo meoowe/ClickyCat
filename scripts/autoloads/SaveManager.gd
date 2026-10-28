@@ -11,7 +11,7 @@ func save() -> Error:
 	data.cheats_used = Gamestate.cheats_used
 	data.games_won = Gamestate.games_won
 	data.unlocked_skins = Gamestate.unlocked_skins.duplicate()
-	data.unlocked_achievements = Gamestate.achivements_unlocked.duplicate()
+	data.unlocked_achievements = Gamestate.achivements_unlocked.duplicate(true)
 	var error = ResourceSaver.save(data, save_file_path)
 	if error != OK:
 		Loggie.msg("[SaveManager]").bold().color(Color.CORNFLOWER_BLUE).add(" Failed  to save! ", error).error()
@@ -47,5 +47,5 @@ func load_from_save() -> bool:
 	Gamestate.cheats_used = data.cheats_used
 	Gamestate.games_won = maxi(data.games_won, 0)
 	Gamestate.unlocked_skins = data.unlocked_skins.duplicate()
-	Gamestate.achivements_unlocked = data.unlocked_achievements.duplicate()
+	Gamestate.achivements_unlocked = data.unlocked_achievements.duplicate(true)
 	return true

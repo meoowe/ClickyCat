@@ -3,7 +3,9 @@ extends Node2D
 @export var camera: Camera2D
 @export var cat: CharacterBody2D
 @export var clouds: Parallax2D
+@export var timer: Timer
 
+var is_bounce_active: bool = false
 var is_paused: bool = false
 
 enum GameState {
@@ -12,14 +14,6 @@ enum GameState {
 	GAME_READY
 }
 signal paused(paused: bool)
-signal score_changed(new_score: int)
-
-func _on_update_score() -> void:
-	Global.score += Global.scoreIncrement
-	score_changed.emit(Global.score)
-	if Global.score > Global.highScore:
-		Global.highScore = Global.score
-		Global.new_high_score = true
 
 func pause_game():
 	is_paused = !is_paused
@@ -40,7 +34,6 @@ func _input(event: InputEvent) -> void:
 		pause_game()
 
 func _ready() -> void:
-	Global.new_high_score = false
 	Gamestate.game_has_started = false
 	Gamestate.score = 0
 	Global.dog_speed = 200
@@ -55,3 +48,11 @@ func _on_losezone_body_entered(body: Node2D) -> void:
 
 func _on_move_area_pressed() -> void:
 	cat.trigger_move_action()
+
+
+func _on_bounce_body_entered(body: Node2D) -> void:
+	if body == cat:
+		timer.start(Global.bounce_timer)
+		await timer.timeout
+		print("spamming velocity")
+		cat.velocity.y -= 10000

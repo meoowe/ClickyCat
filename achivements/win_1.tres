@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Achivement" format=3 uid="uid://ct8awcend7pjf"]
+
+[ext_resource type="Script" uid="uid://js88chxtq46n" path="res://scripts/resources/achivement.gd" id="1_ass2d"]
+[ext_resource type="Texture2D" uid="uid://c3pd7osh6hxqd" path="res://assets/img/trophy.png" id="2_trophy"]
+
+[resource]
+script = ExtResource("1_ass2d")
+id = "win_1"
+name = &"Win the Game!"
+description = "What am i meant to put here, you read the title"
+icon = ExtResource("2_trophy")
+metadata/_custom_type_script = "uid://js88chxtq46n"

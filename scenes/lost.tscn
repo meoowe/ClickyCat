@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://lx34gnsnox6x" path="res://assets/img/dog.PNG" id="8_peb8x"]
 [ext_resource type="PackedScene" uid="uid://di4fl7jlsijwh" path="res://scenes/player.tscn" id="9_peb8x"]
 [ext_resource type="LabelSettings" uid="uid://by7nj0wx87x4a" path="res://debuglabel.tres" id="9_qr6ht"]
+[ext_resource type="Resource" uid="uid://b8vwj5vqfeemc" path="res://skins/original.tres" id="10_peb8x"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hiwto"]
 
@@ -22,7 +23,7 @@ font = ExtResource("3_mwexj")
 font_size = 42
 font_color = Color(0, 0, 0, 1)
 
-[node name="lost" type="Control" unique_id=164078955 node_paths=PackedStringArray("label_2", "camera")]
+[node name="lost" type="Control" unique_id=164078955 node_paths=PackedStringArray("label_2", "camera", "cat")]
 layout_mode = 3
 anchors_preset = 0
 offset_top = 1.0
@@ -30,6 +31,7 @@ offset_bottom = 1.0
 script = ExtResource("1_wpjs0")
 label_2 = NodePath("UI/Panel/VBoxContainer/Label2")
 camera = NodePath("Camera2D")
+cat = NodePath("UI/cat")
 
 [node name="ParallaxBackground" parent="." unique_id=1254942291 instance=ExtResource("6_lujtq")]
 visible = false
@@ -124,12 +126,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "NOOO! Clicky! He's dead!
-"
+(placeholder pls leo pls)"
 label_settings = ExtResource("9_qr6ht")
 
 [node name="cat" parent="UI" unique_id=1241384462 instance=ExtResource("9_peb8x")]
 position = Vector2(362, 651)
 rotation = -0.2416471
+gravity = 2500
+belowMinStaminaPenalty = 1.5
+dogSpeed = 70
+catSpeed = 325
+scroll_speed = 100
+slope_rotation_speed = 10.0
+current_skin = ExtResource("10_peb8x")
 static_mode = true
 
 [connection signal="pressed" from="UI/Panel/VBoxContainer/Button" to="." method="_on_quit_pressed"]

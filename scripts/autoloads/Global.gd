@@ -6,12 +6,12 @@ var base_log: LoggieMsg = Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_B
 @export var VERSION: String = "DO NOT TOUCH" # NOTE: Do NOT Edit this variabe. Edit through project settings!
 
 @export_category("Game Settings")
-@export var scoreIncrement: int = 40
+@export var scoreIncrement: int = 10
 @export var dog_speed: float = 70.0
 @export var camera_scroll_speed = 100
 @export var stamina_decrement: int = 25
 @export var stamina_increment: float = 0.25
-
+@export var bounce_timer: float = 2
 var platform: String = ""
 
 var platforms: Dictionary[String, String] = {
@@ -42,9 +42,6 @@ var highScore: int:
 var balloonClicked: bool:
 	get: return Gamestate.balloonClicked
 	set(value): Gamestate.balloonClicked = value
-var new_high_score: bool:
-	get: return Gamestate.new_high_score
-	set(value): Gamestate.new_high_score = value
 var game_has_started: bool:
 	get: return Gamestate.game_has_started
 	set(value): Gamestate.game_has_started = value

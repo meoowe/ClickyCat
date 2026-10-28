@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Achivement" format=3]
+
+[ext_resource type="Script" uid="uid://js88chxtq46n" path="res://scripts/resources/achivement.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://c3pd7osh6hxqd" path="res://assets/img/trophy.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_script")
+id = "score_1000"
+name = &"Climbing the Ranks"
+description = "Reach 1,000 points in a single run."
+icon = ExtResource("2_icon")
+metadata/_custom_type_script = "uid://js88chxtq46n"

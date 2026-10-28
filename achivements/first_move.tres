@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Achivement" format=3 uid="uid://bdigjt41fco1x"]
+
+[ext_resource type="Texture2D" uid="uid://c14sn4owrr1et" path="res://assets/img/cat/original/cat.png" id="1_b6ca3"]
+[ext_resource type="Script" uid="uid://js88chxtq46n" path="res://scripts/resources/achivement.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+id = "first_move"
+name = &"Kitty Steps"
+description = "Earn your first points."
+icon = ExtResource("1_b6ca3")
+metadata/_custom_type_script = "uid://js88chxtq46n"

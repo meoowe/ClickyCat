@@ -48,9 +48,11 @@ animations = [{
 
 [resource]
 script = ExtResource("1_8ks23")
-name = "OG Clicky"
-unlocked = true
 normal_image = ExtResource("2_205dw")
 walk_anim = SubResource("SpriteFrames_yq4i5")
 dead_image = ExtResource("1_pk75p")
+id = "normal"
+name = &"OG Clicky"
+unlocked = true
+description = "The original Cat from 2023"
 metadata/_custom_type_script = "uid://cfsosia7tm4td"

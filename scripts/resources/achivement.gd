@@ -6,3 +6,4 @@ class_name Achivement
 @export var name: StringName
 @export var unlocked: bool
 @export var description: String
+@export var icon: Texture2D

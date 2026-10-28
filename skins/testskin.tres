@@ -29,10 +29,9 @@ animations = [{
 
 [resource]
 script = ExtResource("3_lgqbd")
-id = 67
-name = "g"
-unlocked = true
 normal_image = ExtResource("2_fm0t7")
 walk_anim = SubResource("SpriteFrames_wvktn")
 dead_image = ExtResource("1_y0rg4")
+name = &"g"
+unlocked = true
 metadata/_custom_type_script = "uid://cfsosia7tm4td"
