@@ -1,49 +1,36 @@
 @tool
 extends Node
+class_name WriteVersion
 
-const VERSION_FILE_PATH = "res://version.txt"
+## The plain-text version file is the single source of truth. Edit version.txt;
+## this tool keeps Godot's project setting in sync.
+const VERSION_FILE_PATH := "res://version.txt"
 
-@export var version_string: String = "1.0.0":
-	set(value):
-		version_string = value.strip_edges()
-		if Engine.is_editor_hint():
-			save_version_plain_text()
+var version_string: String = ""
 
 func _ready() -> void:
-	# Load the accurate text file version
-	print("Hey bro im running")
-	load_version_plain_text()
-	print("VERSION INFO: txt: ", version_string, "\nProject Settings: ", ProjectSettings.get_setting("application/config/version"))
-	# Push to Global singleton only when the actual game runs
-	if not Engine.is_editor_hint():
-		var global_as_node = get_node_or_null("/root/Global")
-		if global_as_node:
-			global_as_node.VERSION = version_string
-	ProjectSettings.set_setting("application/config/version", version_string)
+	var file_version := _read_version_file()
+	if file_version.is_empty():
+		push_warning("version.txt is missing or empty; using the project version setting.")
+		file_version = str(ProjectSettings.get_setting("application/config/version", version_string)).strip_edges()
+	if file_version.is_empty():
+		file_version = version_string
 
-func save_version_plain_text() -> void:
-	# Keep ProjectSettings updated
-	ProjectSettings.set_setting("application/config/version", version_string)
-	# ProjectSettings changes are only temporary in memory until you save them to project.godot:
-	ProjectSettings.save() 
-	var file = FileAccess.open(VERSION_FILE_PATH, FileAccess.WRITE)
-	if file:
-		file.store_string(version_string)
-		file.close()
-		print("Successfully wrote version file: ", version_string)
-	else:
-		var err = FileAccess.get_open_error()
-		push_error("Failed to write version file. Error code: %d" % err)
+	# Sync runtime/editor settings from the canonical file without writing to the
+	# project at game startup (exported res:// files are read-only).
+	version_string = file_version
+	var project_version := str(ProjectSettings.get_setting("application/config/version", "")).strip_edges()
+	ProjectSettings.set_setting("application/config/version", file_version)
+	if Engine.is_editor_hint() and project_version != file_version:
+		ProjectSettings.save()
 
-func load_version_plain_text() -> void:
+func _read_version_file() -> String:
 	if not FileAccess.file_exists(VERSION_FILE_PATH):
-		return
-		
-	var file = FileAccess.open(VERSION_FILE_PATH, FileAccess.READ)
-	if file:
-		var content = file.get_as_text().strip_edges()
-		file.close()
-		
-		if content != version_string:
-			version_string = content
-			notify_property_list_changed()
+		return ""
+	var file := FileAccess.open(VERSION_FILE_PATH, FileAccess.READ)
+	if file == null:
+		push_warning("Could not read version.txt (error %d)." % FileAccess.get_open_error())
+		return ""
+	var content := file.get_as_text().strip_edges()
+	file.close()
+	return content

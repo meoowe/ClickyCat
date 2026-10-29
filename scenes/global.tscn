@@ -15,6 +15,5 @@ debug = Dictionary[String, bool]({
 "hideBalloon": false
 })
 
-[node name="Node" type="Node" parent="." unique_id=1206318054]
+[node name="VersionSync" type="Node" parent="." unique_id=1206318054]
 script = ExtResource("5_nelfd")
-version_string = "v2.4.0-30.09.26"

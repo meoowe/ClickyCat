@@ -1,5 +1,8 @@
 extends Node
 signal skin_unlocked(unlocked: CatSkin)
+
+var current_active_skin_id: String = "normal"
+
 const SKIN_CATALOG: Array[CatSkin] = [
 	preload("res://skins/original.tres"),
 	preload("res://skins/testskin.tres")
@@ -28,3 +31,7 @@ func unlock(skin_id: String) -> bool:
 		return true
 	push_warning("Unknown achievement id: %s" % skin_id)
 	return false
+
+func switch_active_skin(new_skin_id: String):
+	## TODO: Actually implement
+	pass

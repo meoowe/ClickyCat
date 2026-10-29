@@ -52,7 +52,7 @@ jobs:
             exit 1
           fi
 
-      - name: Extract VERSION from scenes/global.tscn
+      - name: Extract VERSION from version.txt
         id: version
         shell: python
         run: |
@@ -60,34 +60,27 @@ jobs:
           import os
           from pathlib import Path
 
-          scene = Path("scenes/global.tscn")
+          version_file = Path("version.txt")
 
-          # Only accept a standalone Godot property assignment such as:
-          #
-          # VERSION = "1.2.3"
-          #
-          # This deliberately does NOT evaluate the file as code.
-          text = scene.read_text(encoding="utf-8")
+          if not version_file.is_file():
+              raise SystemExit("::error file=version.txt::Version file is missing")
 
-          matches = re.findall(
-              r'^[ \t]*VERSION[ \t]*=[ \t]*"([^"\r\n]+)"[ \t]*$',
-              text,
+          version = version_file.read_text(encoding="utf-8").strip()
+          if not version:
+              raise SystemExit("::error file=version.txt::Version file is empty")
+
+          # Keep the checked-in Godot setting aligned with the canonical file.
+          project = Path("project.godot").read_text(encoding="utf-8")
+          project_versions = re.findall(
+              r'^[ \t]*config/version[ \t]*=[ \t]*"([^"\r\n]+)"[ \t]*$',
+              project,
               flags=re.MULTILINE,
           )
-
-          if not matches:
+          if project_versions != [version]:
               raise SystemExit(
-                  "::error file=scenes/global.tscn::"
-                  "Could not find a standalone VERSION = \"...\" assignment"
+                  "::error file=project.godot::"
+                  "application/config/version must match version.txt"
               )
-
-          if len(matches) > 1:
-              raise SystemExit(
-                  "::error file=scenes/global.tscn::"
-                  "Found multiple VERSION assignments; expected exactly one"
-              )
-
-          version = matches[0].strip()
 
           # Keep the value suitable for a Git tag.
           #
@@ -108,7 +101,7 @@ jobs:
                   f"::error::Invalid VERSION value: {version!r}"
               )
 
-          release_tag = f"v{version}"
+          release_tag = version if version.startswith("v") else f"v{version}"
 
           # GitHub Actions outputs are written through the environment file,
           # not by interpolating arbitrary text into shell source.
@@ -132,7 +125,7 @@ jobs:
           echo "Actual tag:   ${ACTUAL_TAG}"
 
           if [[ "${EXPECTED_TAG}" != "${ACTUAL_TAG}" ]]; then
-            echo "::error::Pushed tag does not match scenes/global.tscn VERSION"
+            echo "::error::Pushed tag does not match version.txt"
             echo "::error::Expected: ${EXPECTED_TAG}"
             echo "::error::Received: ${ACTUAL_TAG}"
             exit 1

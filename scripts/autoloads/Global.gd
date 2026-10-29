@@ -59,13 +59,13 @@ var achivements_unlocked: Array[Achivement]:
 	set(value): Gamestate.achivements_unlocked = value
 
 func _ready() -> void:
+	VERSION = str(ProjectSettings.get_setting("application/config/version", VERSION)).strip_edges()
 	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Ready!").color(Color.CHARTREUSE).info()
 	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Version: ", VERSION).info()
 	determine_platform()
 	Loggie.msg("[Global]").bold().color(Color.CORNFLOWER_BLUE).add(" Load_from_save()").debug()
 	SaveManager.load_from_save()
 	print(OS.get_user_data_dir())
-	VERSION = ProjectSettings.get_setting("application/config/version")
 
 
 func determine_platform() -> String:

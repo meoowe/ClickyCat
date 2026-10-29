@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://b5cp0k5gtm5xj"]
+
+[ext_resource type="Script" uid="uid://drs7gg0cgpw2" path="res://scripts/skin_plaque.gd" id="1_1aye8"]
+[ext_resource type="Texture2D" uid="uid://c14sn4owrr1et" path="res://assets/img/cat/original/cat.png" id="1_lspax"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yg6ox"]
+font_size = 32
+
+[node name="SkinPlaque" type="PanelContainer" unique_id=1780542574 node_paths=PackedStringArray("state")]
+offset_right = 350.0
+offset_bottom = 400.0
+script = ExtResource("1_1aye8")
+state = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/State")
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=1172302789]
+layout_mode = 2
+size_flags_horizontal = 17
+size_flags_vertical = 17
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1835573219]
+layout_mode = 2
+
+[node name="Iconrect" type="TextureRect" parent="VBoxContainer" unique_id=77995520]
+custom_minimum_size = Vector2(96, 150)
+layout_mode = 2
+texture = ExtResource("1_lspax")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=517038928]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=993344832]
+layout_mode = 2
+alignment = 1
+
+[node name="title" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1811930005]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Title"
+label_settings = SubResource("LabelSettings_yg6ox")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="description" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1842786564]
+custom_maximum_size = Vector2(330, -1)
+layout_mode = 2
+text = "Description"
+autowrap_mode = 3
+
+[node name="State" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1942438150]
+layout_mode = 2
+bbcode_enabled = true
+text = "State"
+fit_content = true
